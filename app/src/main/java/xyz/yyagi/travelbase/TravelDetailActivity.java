@@ -1,12 +1,12 @@
 package xyz.yyagi.travelbase;
 
-import android.support.v7.app.ActionBarActivity;
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
 
-public class TravelDetailActivity extends ActionBarActivity {
+public class TravelDetailActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

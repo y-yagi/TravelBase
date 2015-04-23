@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Generated with http://android-holo-colors.com -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <style name="TravelBase" parent="@style/_TravelBase"/>
+
+  <style name="_TravelBase" parent="android:Theme.Holo.Light">
+    <item name="android:actionBarStyle">@style/ActionBarTraelBase</item>
+
+    <item name="android:editTextBackground">@drawable/travelbase_edit_text_holo_light</item>
+
+    <item name="android:autoCompleteTextViewStyle">@style/AutoCompleteTextViewTravelBase</item>
+
+    <item name="android:listChoiceIndicatorMultiple">@drawable/travelbase_btn_check_holo_light</item>
+
+    <item name="android:buttonStyle">@style/ButtonTravelBase</item>
+
+    <item name="android:imageButtonStyle">@style/ImageButtonTravelBase</item>
+
+    <item name="android:dropDownSpinnerStyle">@style/SpinnerTravelBase</item>
+
+    <item name="android:progressBarStyleHorizontal">@style/ProgressBarTravelBase</item>
+
+    <item name="android:seekBarStyle">@style/SeekBarTravelBase</item>
+
+    <item name="android:listChoiceBackgroundIndicator">@drawable/travelbase_list_selector_holo_light</item>
+
+    <item name="android:activatedBackgroundIndicator">@drawable/travelbase_activated_background_holo_light</item>
+
+    <item name="android:fastScrollThumbDrawable">@drawable/travelbase_fastscroll_thumb_holo</item>
+
+  </style>
+
+</resources>
