@@ -1,9 +1,11 @@
-package xyz.yyagi.travelbase;
+package xyz.yyagi.travelbase.ui;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import xyz.yyagi.travelbase.R;
 
 
 public class TravelDetailActivity extends Activity {
