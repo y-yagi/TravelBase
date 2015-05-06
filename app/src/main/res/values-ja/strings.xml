@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">TravelBase</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="title_activity_login">LoginActivity</string>
+
+    <string name="app_theme">さあ、出かけよう</string>
+    <string name="login_faiure">ログインに失敗しました。アカウントが登録済みかご確認下さい。アカウントが未登録の場合、サイトより登録をお願い致します。</string>
+    <string name="logged_in">ログイン中…</string>
+</resources>

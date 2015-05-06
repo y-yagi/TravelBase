@@ -1,0 +1,34 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:background="@color/travelbase_color"
+    tools:context="xyz.yyagi.travelbase.ui.LoginActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
+        android:baselineAligned="false"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView android:id="@+id/login_title" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:keepScreenOn="true" android:textColor="#ffffff"
+            android:textStyle="bold" android:textSize="40sp" android:gravity="center"
+            android:layout_marginBottom="30dip"  android:fontFamily="sans-serif-light"
+            android:text="TravelBase" />
+
+        <TextView android:id="@+id/fullscreen_content" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:keepScreenOn="true" android:textColor="#ffffff"
+            android:textSize="20sp" android:gravity="center"
+            android:layout_marginBottom="30dip"
+            android:text="@string/app_theme" />
+
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/google_sign_in_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dip" />
+
+    </LinearLayout>
+
+</FrameLayout>
