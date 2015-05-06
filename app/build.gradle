@@ -12,6 +12,10 @@ android {
         versionName "1.0"
     }
     buildTypes {
+        debug {
+            buildConfigField "String", "TRAVEL_BASE_API_ID", "\"${project.property("travelBaseApiId")}\""
+            buildConfigField "String", "TRAVEL_BASE_API_SECRET", "\"${project.property("travelBaseApiSecret")}\""
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -24,4 +28,6 @@ dependencies {
     compile 'com.android.support:appcompat-v7:22.1.1'
     compile 'com.android.support:support-v4:22.1.1'
     compile 'com.google.android.gms:play-services:7.0.0'
+    compile 'com.orhanobut:wasp:1.9'
+    compile 'com.android.support:cardview-v7:21.0.+'
 }

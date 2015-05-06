@@ -6,5 +6,8 @@
 
     <string name="title_activity_login">LoginActivity</string>
 
-    <string name="app_theme">さあ、出かけよう</string>
+    <string name="app_theme">Lets take a trip</string>
+    <string name="login_faiure">Failed in login. Please confirm whether an account is registered. In the case of non-registration, an account, please register from a site
+</string>
+    <string name="logged_in">logged in…</string>
 </resources>
