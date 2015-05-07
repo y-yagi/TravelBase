@@ -25,7 +25,6 @@ import xyz.yyagi.travelbase.util.LogUtil;
 public class LoginActivity extends Activity implements View.OnClickListener {
 
     private static final int REQUEST_CODE_SIGN_IN_GOOGLE = 1;
-    private static final String PROVIDER_GOOGLE = "google_oauth2";
     private SignInButton mSignInButton;
     private Activity mActivity;
     private ProgressDialog mLoginDialog;
@@ -64,7 +63,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         mLoginDialog.show();
         if (requestCode == REQUEST_CODE_SIGN_IN_GOOGLE) {
             if (resultCode == RESULT_OK) {
-                authenticate(data.getStringExtra(AccountManager.KEY_ACCOUNT_NAME), PROVIDER_GOOGLE);
+                authenticate(data.getStringExtra(AccountManager.KEY_ACCOUNT_NAME), TravelBaseService.PROVIDER_GOOGLE);
             } else {
                 // TODO: Do nothing?
             }

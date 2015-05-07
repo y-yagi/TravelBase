@@ -20,6 +20,7 @@ import xyz.yyagi.travelbase.model.Travel;
  */
 public interface TravelBaseService {
     static final String endPoint = "https://travel-base.herokuapp.com";
+    static final String PROVIDER_GOOGLE = "google_oauth2";
 
     @RetryPolicy(timeout = 5000)
     @POST("/oauth/token")
