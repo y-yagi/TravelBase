@@ -18,7 +18,7 @@ import xyz.yyagi.travelbase.BuildConfig;
 public class TravelBaseServiceBuilder {
     public static TravelBaseService build(Context context) {
         return new Wasp.Builder(context)
-                .setEndpoint("https://travel-base.herokuapp.com")
+                .setEndpoint(TravelBaseService.endPoint)
                 .setParser(new GsonParser())
                 .trustCertificates()
                 .enableCookies(CookiePolicy.ACCEPT_ALL)
