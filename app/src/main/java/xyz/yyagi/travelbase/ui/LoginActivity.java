@@ -30,7 +30,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private ProgressDialog mLoginDialog;
     private static final String TAG = LogUtil.makeLogTag(LoginActivity.class);
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,8 +82,8 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             @Override
             public void onSuccess(Authorization authorization) {
                 mLoginDialog.dismiss();
-                String authHeader = "Bearer " + authorization.access_token;
-                Intent intent = new Intent(mActivity, TravelDetailActivity.class);
+                TravelBaseServiceBuilder.authorization = authorization;
+                Intent intent = new Intent(mActivity, TravelListActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 finish();
                 startActivity(intent);

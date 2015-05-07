@@ -9,4 +9,5 @@
     <string name="app_theme">さあ、出かけよう</string>
     <string name="login_faiure">ログインに失敗しました。アカウントが登録済みかご確認下さい。アカウントが未登録の場合、サイトより登録をお願い致します。</string>
     <string name="logged_in">ログイン中…</string>
+    <string name="system_error">予期せぬエラーが発生しました。後ほど再度処理を実行して下さい。</string>
 </resources>
