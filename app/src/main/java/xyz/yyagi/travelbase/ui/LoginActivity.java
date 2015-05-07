@@ -73,7 +73,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
     private void authenticate(String userId, String provider) {
         TravelBaseService service = TravelBaseServiceBuilder.build(this);
-        String authHeader = TravelBaseServiceBuilder.buildAuthheader(userId, provider);
+        String authHeader = TravelBaseServiceBuilder.makeBasicAuthHeader(userId, provider);
 
         Map mapBody = new HashMap<>();
         mapBody.put("grant_type", "password");

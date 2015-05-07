@@ -27,9 +27,8 @@ public class TravelBaseServiceBuilder {
                 .create(TravelBaseService.class);
     }
 
-    public static String buildAuthheader(String userId, String provider) {
+    public static String makeBasicAuthHeader(String userId, String provider) {
         return "Basic " + Base64.encode((
                 BuildConfig.TRAVEL_BASE_API_ID + ":" + BuildConfig.TRAVEL_BASE_API_SECRET).getBytes(), Base64.DEFAULT);
-
     }
 }
