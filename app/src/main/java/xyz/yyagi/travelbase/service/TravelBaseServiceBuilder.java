@@ -5,6 +5,7 @@ import android.util.Base64;
 
 import com.orhanobut.wasp.Wasp;
 import com.orhanobut.wasp.parsers.GsonParser;
+import com.orhanobut.wasp.utils.LogLevel;
 import com.orhanobut.wasp.utils.NetworkMode;
 
 import java.net.CookiePolicy;
@@ -22,6 +23,7 @@ public class TravelBaseServiceBuilder {
     public static TravelBaseService build(Context context) {
         return new Wasp.Builder(context)
                 .setEndpoint(TravelBaseService.endPoint)
+//                .setLogLevel(LogLevel.FULL)              // TODO: remove
                 .setParser(new GsonParser())
                 .trustCertificates()
                 .enableCookies(CookiePolicy.ACCEPT_ALL)

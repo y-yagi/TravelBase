@@ -12,4 +12,8 @@
     <string name="logged_in">logged in…</string>
     <string name="title_activity_travel_list">TravelListActivity</string>
     <string name="system_error">An unexpected error occurred. Please retry later.</string>
+    <string-array name="travel_list_tab_titles">
+        <item>future travel</item>
+        <item>past travel</item>
+    </string-array>
 </resources>
