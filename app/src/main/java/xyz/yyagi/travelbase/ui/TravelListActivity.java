@@ -51,17 +51,9 @@ public class TravelListActivity extends Activity implements MaterialTabListener 
         mTabHost = (MaterialTabHost) this.findViewById(R.id.materialTabHost);
         mPager = (ViewPager) this.findViewById(R.id.viewpager);
         mPageTitles = getResources().getStringArray(R.array.travel_list_tab_titles);
-        ArrayList<Travel> travelList = new ArrayList<Travel>();
-        Travel travel = new Travel();
-        travel.name = "sample";
-        travel.formatted_start_date = "2015/04/02";
-        travel.formatted_end_date = "2015/04/02";
-        travel.memo = "めも";
-
-        travelList.add(travel);
 
         // init view pager
-        mPagerAdaper = new ViewPagerAdapter(getFragmentManager(), travelList);
+        mPagerAdaper = new ViewPagerAdapter(getFragmentManager());
         mPager.setAdapter(mPagerAdaper);
         mPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
@@ -94,10 +86,8 @@ public class TravelListActivity extends Activity implements MaterialTabListener 
         private TravelListFragment mPastTravelListFragment = new TravelListFragment();
         private TravelListFragment mFutureTravelListFragment = new TravelListFragment();
 
-        public ViewPagerAdapter(FragmentManager fm, ArrayList<Travel> travelList) {
+        public ViewPagerAdapter(FragmentManager fm) {
             super(fm);
-            mPastTravelListFragment.travelList = travelList;
-            mFutureTravelListFragment.travelList = travelList;
         }
 
         @Override
