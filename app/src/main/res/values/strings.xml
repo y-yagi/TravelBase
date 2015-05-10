@@ -10,4 +10,10 @@
     <string name="login_faiure">Failed in login. Please confirm whether an account is registered. In the case of non-registration, an account, please register from a site
 </string>
     <string name="logged_in">logged in…</string>
+    <string name="title_activity_travel_list">TravelListActivity</string>
+    <string name="system_error">An unexpected error occurred. Please retry later.</string>
+    <string-array name="travel_list_tab_titles">
+        <item>future travel</item>
+        <item>past travel</item>
+    </string-array>
 </resources>

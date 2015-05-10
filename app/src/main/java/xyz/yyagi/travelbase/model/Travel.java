@@ -8,6 +8,8 @@ public class Travel {
     public String name;
     public String start_date;
     public String end_date;
+    public String formatted_start_date;
+    public String formatted_end_date;
     public String memo;
 }
 
