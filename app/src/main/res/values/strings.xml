@@ -15,5 +15,7 @@
     <string-array name="travel_list_tab_titles">
         <item>future travel</item>
         <item>past travel</item>
-    </string-array>
+    </string-array> 
+    <string name="no_plan_of_travel">no plan of the travel</string>
+    <string name="no_past_travel">no past travel</string>
 </resources>
