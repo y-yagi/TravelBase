@@ -6,6 +6,5 @@ package xyz.yyagi.travelbase.model;
 public class Authorization {
     public String access_token;
     public String token_type;
-    public int expires_int;
     public int created_at;
 }

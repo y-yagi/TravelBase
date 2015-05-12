@@ -16,7 +16,7 @@ import it.neokree.materialtabs.MaterialTabListener;
 import xyz.yyagi.travelbase.R;
 import xyz.yyagi.travelbase.util.LogUtil;
 
-public class TravelListActivity extends Activity implements MaterialTabListener {
+public class TravelListActivity extends BaseActivity implements MaterialTabListener {
     private Activity mActivity;
     private static final String TAG = LogUtil.makeLogTag(TravelListActivity.class);
     private MaterialTabHost mTabHost;
@@ -47,28 +47,6 @@ public class TravelListActivity extends Activity implements MaterialTabListener 
         for (int i = 0; i < mPagerAdaper.getCount(); i++) {
             mTabHost.addTab(mTabHost.newTab().setText(mPageTitles[i]).setTabListener(this));
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_common, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
