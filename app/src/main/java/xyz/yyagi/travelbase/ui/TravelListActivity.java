@@ -83,8 +83,8 @@ public class TravelListActivity extends Activity implements MaterialTabListener 
     private class ViewPagerAdapter extends FragmentStatePagerAdapter {
         private final int TAB_COUNT = 2;
         private String[] mPageTitles = null;
-        private TravelListFragment mPastTravelListFragment = new TravelListFragment();
-        private TravelListFragment mFutureTravelListFragment = new TravelListFragment();
+        private TravelListFragment mPastTravelListFragment = new PastTravelListFragment();
+        private TravelListFragment mFutureTravelListFragment = new FutureTravelListFragment();
 
         public ViewPagerAdapter(FragmentManager fm) {
             super(fm);

@@ -13,11 +13,16 @@ import com.google.android.gms.common.SignInButton;
 import com.orhanobut.wasp.CallBack;
 import com.orhanobut.wasp.WaspError;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import io.realm.Realm;
+import io.realm.RealmResults;
 import xyz.yyagi.travelbase.R;
 import xyz.yyagi.travelbase.model.Authorization;
+import xyz.yyagi.travelbase.model.Travel;
 import xyz.yyagi.travelbase.service.TravelBaseService;
 import xyz.yyagi.travelbase.service.TravelBaseServiceBuilder;
 import xyz.yyagi.travelbase.util.LogUtil;
@@ -29,6 +34,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private Activity mActivity;
     private ProgressDialog mLoginDialog;
     private static final String TAG = LogUtil.makeLogTag(LoginActivity.class);
+    private Realm mRealm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +45,8 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         mSignInButton = (SignInButton) findViewById(R.id.google_sign_in_button);
         mSignInButton.setOnClickListener(this);
         mActivity = this;
+
+        mRealm = Realm.getInstance(this);
         mLoginDialog = new ProgressDialog(this);
         mLoginDialog.setMessage(getString(R.string.logged_in));
         mLoginDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
@@ -81,8 +89,28 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         service.authenticate(authHeader, mapBody, new CallBack<Authorization>() {
             @Override
             public void onSuccess(Authorization authorization) {
-                mLoginDialog.dismiss();
                 TravelBaseServiceBuilder.authorization = authorization;
+                fetchTravelList();
+            }
+
+            @Override
+            public void onError(WaspError waspError) {
+                mLoginDialog.dismiss();
+                Toast.makeText(mActivity, getString(R.string.login_faiure), Toast.LENGTH_LONG).show();
+                Log.d(TAG, waspError.getErrorMessage());
+            }
+        });
+    }
+    private void fetchTravelList() {
+        TravelBaseService service = TravelBaseServiceBuilder.build(this);
+        String authHeader = TravelBaseServiceBuilder.makeBearerAuthHeader();
+
+        service.fetchTravels(authHeader, "v1", new CallBack<ArrayList<Travel>>() {
+            @Override
+            public void onSuccess(ArrayList<Travel> travelList) {
+                saveTravelList(travelList);
+
+                mLoginDialog.dismiss();
                 Intent intent = new Intent(mActivity, TravelListActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 finish();
@@ -96,6 +124,16 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 Log.d(TAG, waspError.getErrorMessage());
             }
         });
+    }
+
+    private void saveTravelList(ArrayList<Travel> travelList) {
+        mRealm.beginTransaction();
+        // TODO: don't remove all data
+        mRealm.clear(Travel.class);
+        for (Travel travel : travelList) {
+            mRealm.copyToRealm(travel);
+        }
+        mRealm.commitTransaction();
     }
 }
 

@@ -17,6 +17,8 @@ import com.orhanobut.wasp.WaspError;
 
 import java.util.ArrayList;
 
+import io.realm.Realm;
+import io.realm.RealmResults;
 import xyz.yyagi.travelbase.R;
 import xyz.yyagi.travelbase.model.Travel;
 import xyz.yyagi.travelbase.service.TravelBaseService;
@@ -28,9 +30,10 @@ import xyz.yyagi.travelbase.util.LogUtil;
  */
 public class TravelListFragment extends Fragment {
     private static final String TAG = LogUtil.makeLogTag(TravelListFragment.class);
-    public ArrayList<Travel> travelList;
-    private LinearLayout mTravelListLayout;
-    private LayoutInflater mInflater;
+    protected LinearLayout mTravelListLayout;
+    protected TextView mNoticeTextView;
+    protected LayoutInflater mInflater;
+    protected Realm mRealm;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -40,54 +43,8 @@ public class TravelListFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        mTravelListLayout = (LinearLayout)view.findViewById(R.id.travelList);
-        fetchTravelList();
-    }
-
-    private void displayTravels() {
-        for (Travel travel : travelList) {
-            CardView cardView;
-            TextView textView;
-            cardView = (CardView)mInflater.inflate(R.layout.travel_card, null, false);
-            textView = (TextView) cardView.findViewById(R.id.name);
-            textView.setText(travel.name);
-            textView = (TextView) cardView.findViewById(R.id.date);
-            textView.setText(travel.formatted_start_date + "〜" + travel.formatted_end_date + "\n");
-            textView = (TextView) cardView.findViewById(R.id.memo);
-            textView.setText(travel.memo);
-
-            cardView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(getActivity(), String.valueOf(v.getTag()) + "番目のCardViewがクリックされました", Toast.LENGTH_SHORT).show();
-                }
-            });
-            mTravelListLayout.addView(cardView);
-        }
-    }
-
-    private void fetchTravelList() {
-        TravelBaseService service = TravelBaseServiceBuilder.build(getActivity());
-        String authHeader = TravelBaseServiceBuilder.makeBearerAuthHeader();
-
-        service.fetchTravels(authHeader, "v1", new CallBack<ArrayList<Travel>>() {
-            @Override
-            public void onSuccess(ArrayList<Travel> result) {
-                Toast.makeText(getActivity(), "最新情報を取得しました", Toast.LENGTH_LONG).show();
-                travelList = result;
-                displayTravels();
-            }
-
-            @Override
-            public void onError(WaspError waspError) {
-                Log.d(TAG, waspError.getErrorMessage());
-            }
-        });
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+        mTravelListLayout = (LinearLayout) view.findViewById(R.id.travelList);
+        mNoticeTextView = (TextView)view.findViewById(R.id.noticeText);
+        mRealm = Realm.getInstance(getActivity());
     }
 }
-

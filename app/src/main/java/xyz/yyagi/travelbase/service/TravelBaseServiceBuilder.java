@@ -3,14 +3,16 @@ package xyz.yyagi.travelbase.service;
 import android.content.Context;
 import android.util.Base64;
 
+import com.google.gson.ExclusionStrategy;
+import com.google.gson.FieldAttributes;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.orhanobut.wasp.Wasp;
 import com.orhanobut.wasp.parsers.GsonParser;
-import com.orhanobut.wasp.utils.LogLevel;
-import com.orhanobut.wasp.utils.NetworkMode;
 
 import java.net.CookiePolicy;
-import java.util.Map;
 
+import io.realm.RealmObject;
 import xyz.yyagi.travelbase.BuildConfig;
 import xyz.yyagi.travelbase.model.Authorization;
 
@@ -21,10 +23,25 @@ public class TravelBaseServiceBuilder {
     public static Authorization authorization = null;
 
     public static TravelBaseService build(Context context) {
+        // @see http://realm.io/jp/docs/java/0.80.0/#gson
+        Gson gson = new GsonBuilder()
+                .setExclusionStrategies(new ExclusionStrategy() {
+                    @Override
+                    public boolean shouldSkipField(FieldAttributes f) {
+                        return f.getDeclaringClass().equals(RealmObject.class);
+                    }
+
+                    @Override
+                    public boolean shouldSkipClass(Class<?> clazz) {
+                        return false;
+                    }
+                })
+                .setDateFormat("yyyy-MM-dd")
+                .create();
+
         return new Wasp.Builder(context)
                 .setEndpoint(TravelBaseService.endPoint)
-//                .setLogLevel(LogLevel.FULL)              // TODO: remove
-                .setParser(new GsonParser())
+                .setParser(new GsonParser(gson))
                 .trustCertificates()
                 .enableCookies(CookiePolicy.ACCEPT_ALL)
 //                .setNetworkMode(NetworkMode.MOCK)      // TODO: remove

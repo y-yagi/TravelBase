@@ -14,4 +14,6 @@
         <item>今後の旅行</item>
         <item>過去の旅行</item>
     </string-array>
+    <string name="no_plan_of_travel">旅行の予定はありません</string>
+    <string name="no_past_travel">過去の旅行の情報はありません</string>
 </resources>
