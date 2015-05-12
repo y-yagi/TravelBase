@@ -4,34 +4,16 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v13.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.widget.CardView;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.orhanobut.wasp.CallBack;
-import com.orhanobut.wasp.WaspError;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import it.neokree.materialtabs.MaterialTab;
 import it.neokree.materialtabs.MaterialTabHost;
 import it.neokree.materialtabs.MaterialTabListener;
 import xyz.yyagi.travelbase.R;
-import xyz.yyagi.travelbase.model.Travel;
-import xyz.yyagi.travelbase.service.TravelBaseService;
-import xyz.yyagi.travelbase.service.TravelBaseServiceBuilder;
 import xyz.yyagi.travelbase.util.LogUtil;
 
 public class TravelListActivity extends Activity implements MaterialTabListener {
@@ -65,6 +47,28 @@ public class TravelListActivity extends Activity implements MaterialTabListener 
         for (int i = 0; i < mPagerAdaper.getCount(); i++) {
             mTabHost.addTab(mTabHost.newTab().setText(mPageTitles[i]).setTabListener(this));
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_common, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
