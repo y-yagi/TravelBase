@@ -46,6 +46,8 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         mSignInButton.setOnClickListener(this);
         mActivity = this;
 
+        // TODO: remove after. use only test.
+        Realm.deleteRealmFile(this);
         mRealm = Realm.getInstance(this);
         mLoginDialog = new ProgressDialog(this);
         mLoginDialog.setMessage(getString(R.string.logged_in));
@@ -79,17 +81,12 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
     private void authenticate(String userId, String provider) {
         TravelBaseService service = TravelBaseServiceBuilder.build(this);
-        String authHeader = TravelBaseServiceBuilder.makeBasicAuthHeader(userId, provider);
+        Map credentials = TravelBaseServiceBuilder.makeClientCredentials();
 
-        Map mapBody = new HashMap<>();
-        mapBody.put("grant_type", "password");
-        mapBody.put("id", userId);
-        mapBody.put("provider", provider);
-
-        service.authenticate(authHeader, mapBody, new CallBack<Authorization>() {
+        service.authenticate(credentials, new CallBack<Authorization>() {
             @Override
             public void onSuccess(Authorization authorization) {
-                TravelBaseServiceBuilder.authorization = authorization;
+                TravelBaseServiceBuilder.accessToken = authorization.access_token;
                 fetchTravelList();
             }
 
@@ -104,8 +101,9 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private void fetchTravelList() {
         TravelBaseService service = TravelBaseServiceBuilder.build(this);
         String authHeader = TravelBaseServiceBuilder.makeBearerAuthHeader();
+        Map resourceOwnerInfo = TravelBaseServiceBuilder.makeResourceOwnerInfo();
 
-        service.fetchTravels(authHeader, "v1", new CallBack<ArrayList<Travel>>() {
+        service.fetchTravels(authHeader, "v1", resourceOwnerInfo, new CallBack<ArrayList<Travel>>() {
             @Override
             public void onSuccess(ArrayList<Travel> travelList) {
                 saveTravelList(travelList);
