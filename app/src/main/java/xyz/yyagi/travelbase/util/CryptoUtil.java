@@ -7,25 +7,36 @@ import com.facebook.crypto.Entity;
 import com.facebook.crypto.keychain.SharedPrefsBackedKeyChain;
 import com.facebook.crypto.util.SystemNativeCryptoLibrary;
 
+import xyz.yyagi.travelbase.BuildConfig;
+
 /**
  * Created by yaginuma on 15/05/13.
  */
 public class CryptoUtil {
-    public static String encrypt(String value, Context context) {
+    public static byte[] encrypt(Context context, String value) {
         Crypto crypto = new Crypto(new SharedPrefsBackedKeyChain(context), new SystemNativeCryptoLibrary());
-        String key = "";
-        String encryptedValue = "";
+        String key = BuildConfig.ENCRYPT_KEY;
+        byte[] encryptedValue = null;
 
         try {
-            byte[] cipherText = crypto.encrypt(value.getBytes("utf-8"), new Entity(key));
-            encryptedValue = new String(cipherText, "UTF-8");
-
-            // 暗号化されたbyte[]を復号化して、UTF8で文字列に戻す
-            byte[] decrypted = crypto.decrypt(cipherText, new Entity(key));
-            String data = new String(decrypted, "utf-8");
+            encryptedValue = crypto.encrypt(value.getBytes("utf-8"), new Entity(key));
         } catch (Exception e) {
             e.printStackTrace();
         }
         return encryptedValue;
+    }
+
+    public static String decrypt(Context context, byte[] value) {
+        Crypto crypto = new Crypto(new SharedPrefsBackedKeyChain(context), new SystemNativeCryptoLibrary());
+        String key = BuildConfig.ENCRYPT_KEY;
+        String result = "";
+
+        try {
+            byte [] decryptedValue = crypto.decrypt(value, new Entity(key));
+            result = new String(decryptedValue, "UTF-8");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 }
