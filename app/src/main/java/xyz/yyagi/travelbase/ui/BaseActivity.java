@@ -5,13 +5,19 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import io.realm.Realm;
+import io.realm.RealmResults;
 import xyz.yyagi.travelbase.R;
+import xyz.yyagi.travelbase.model.User;
 
 public class BaseActivity extends Activity {
+    private Realm mRealm;
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_common, menu);
+        mRealm = Realm.getInstance(this);
         return true;
     }
 
@@ -35,6 +41,9 @@ public class BaseActivity extends Activity {
     }
 
     private void logout() {
+        RealmResults<User> results = mRealm.where(User.class).findAll();
+        results.first().removeFromRealm();
+
         Intent intent = new Intent(this, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         finish();
