@@ -13,9 +13,7 @@ import com.google.android.gms.common.SignInButton;
 import com.orhanobut.wasp.CallBack;
 import com.orhanobut.wasp.WaspError;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 import io.realm.Realm;
@@ -23,8 +21,11 @@ import io.realm.RealmResults;
 import xyz.yyagi.travelbase.R;
 import xyz.yyagi.travelbase.model.Authorization;
 import xyz.yyagi.travelbase.model.Travel;
+import xyz.yyagi.travelbase.model.User;
+import xyz.yyagi.travelbase.service.ProgressDialogBuilder;
 import xyz.yyagi.travelbase.service.TravelBaseService;
 import xyz.yyagi.travelbase.service.TravelBaseServiceBuilder;
+import xyz.yyagi.travelbase.util.CryptoUtil;
 import xyz.yyagi.travelbase.util.LogUtil;
 
 public class LoginActivity extends Activity implements View.OnClickListener {
@@ -32,25 +33,32 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private static final int REQUEST_CODE_SIGN_IN_GOOGLE = 1;
     private SignInButton mSignInButton;
     private Activity mActivity;
-    private ProgressDialog mLoginDialog;
+    private ProgressDialog mProgressDialog;
     private static final String TAG = LogUtil.makeLogTag(LoginActivity.class);
     private Realm mRealm;
+    private User mUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // TODO: remove after. use only test.
+//        Realm.deleteRealmFile(this);
+        mRealm = Realm.getInstance(this);
+        mActivity = this;
+
         setContentView(R.layout.activity_login);
         getActionBar().hide();
 
+        mProgressDialog = ProgressDialogBuilder.build(this, getString(R.string.loading));
+        if (isLogined()) {
+            mProgressDialog.show();
+            fetchTravelList();
+            return;
+        }
+
         mSignInButton = (SignInButton) findViewById(R.id.google_sign_in_button);
         mSignInButton.setOnClickListener(this);
-        mActivity = this;
-
-        mRealm = Realm.getInstance(this);
-        mLoginDialog = new ProgressDialog(this);
-        mLoginDialog.setMessage(getString(R.string.logged_in));
-        mLoginDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        mLoginDialog.setCancelable(false);
     }
 
     @Override
@@ -67,7 +75,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        mLoginDialog.show();
+        mProgressDialog.show();
         if (requestCode == REQUEST_CODE_SIGN_IN_GOOGLE) {
             if (resultCode == RESULT_OK) {
                 authenticate(data.getStringExtra(AccountManager.KEY_ACCOUNT_NAME), TravelBaseService.PROVIDER_GOOGLE);
@@ -79,23 +87,28 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
     private void authenticate(String userId, String provider) {
         TravelBaseService service = TravelBaseServiceBuilder.build(this);
-        String authHeader = TravelBaseServiceBuilder.makeBasicAuthHeader(userId, provider);
+        Map credentials = TravelBaseServiceBuilder.makeClientCredentials();
+        mUser = new User();
+        mUser.setUid(userId);
+        mUser.setProvider(provider);
 
-        Map mapBody = new HashMap<>();
-        mapBody.put("grant_type", "password");
-        mapBody.put("id", userId);
-        mapBody.put("provider", provider);
-
-        service.authenticate(authHeader, mapBody, new CallBack<Authorization>() {
+        service.authenticate(credentials, new CallBack<Authorization>() {
             @Override
             public void onSuccess(Authorization authorization) {
-                TravelBaseServiceBuilder.authorization = authorization;
+                mUser.setAccessToken(authorization.access_token);
+                mUser.setEncryptedAccessToken(CryptoUtil.encrypt(mActivity, authorization.access_token));
+
+                mRealm.beginTransaction();
+                mRealm.copyToRealm(mUser);
+                mRealm.commitTransaction();
+
+                TravelBaseServiceBuilder.user = mUser;
                 fetchTravelList();
             }
 
             @Override
             public void onError(WaspError waspError) {
-                mLoginDialog.dismiss();
+                mProgressDialog.dismiss();
                 Toast.makeText(mActivity, getString(R.string.login_faiure), Toast.LENGTH_LONG).show();
                 Log.d(TAG, waspError.getErrorMessage());
             }
@@ -104,13 +117,14 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private void fetchTravelList() {
         TravelBaseService service = TravelBaseServiceBuilder.build(this);
         String authHeader = TravelBaseServiceBuilder.makeBearerAuthHeader();
+        Map resourceOwnerInfo = TravelBaseServiceBuilder.makeResourceOwnerInfo();
 
-        service.fetchTravels(authHeader, "v1", new CallBack<ArrayList<Travel>>() {
+        service.fetchTravels(authHeader, "v1", resourceOwnerInfo, new CallBack<ArrayList<Travel>>() {
             @Override
             public void onSuccess(ArrayList<Travel> travelList) {
                 saveTravelList(travelList);
 
-                mLoginDialog.dismiss();
+                mProgressDialog.dismiss();
                 Intent intent = new Intent(mActivity, TravelListActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 finish();
@@ -119,7 +133,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
             @Override
             public void onError(WaspError waspError) {
-                mLoginDialog.dismiss();
+                mProgressDialog.dismiss();
                 Toast.makeText(mActivity, getString(R.string.login_faiure), Toast.LENGTH_LONG).show();
                 Log.d(TAG, waspError.getErrorMessage());
             }
@@ -134,6 +148,17 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             mRealm.copyToRealm(travel);
         }
         mRealm.commitTransaction();
+    }
+
+    private boolean isLogined() {
+        RealmResults<User> results = mRealm.where(User.class).findAll();
+        if (results.size() == 0) {
+            return  false;
+        }
+        User user = results.first();
+        user.setAccessToken(CryptoUtil.decrypt(this, user.getEncryptedAccessToken()));
+        TravelBaseServiceBuilder.user = user;
+        return true;
     }
 }
 

@@ -4,37 +4,19 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v13.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.widget.CardView;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.orhanobut.wasp.CallBack;
-import com.orhanobut.wasp.WaspError;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import it.neokree.materialtabs.MaterialTab;
 import it.neokree.materialtabs.MaterialTabHost;
 import it.neokree.materialtabs.MaterialTabListener;
 import xyz.yyagi.travelbase.R;
-import xyz.yyagi.travelbase.model.Travel;
-import xyz.yyagi.travelbase.service.TravelBaseService;
-import xyz.yyagi.travelbase.service.TravelBaseServiceBuilder;
 import xyz.yyagi.travelbase.util.LogUtil;
 
-public class TravelListActivity extends Activity implements MaterialTabListener {
+public class TravelListActivity extends BaseActivity implements MaterialTabListener {
     private Activity mActivity;
     private static final String TAG = LogUtil.makeLogTag(TravelListActivity.class);
     private MaterialTabHost mTabHost;

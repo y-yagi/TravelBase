@@ -7,6 +7,7 @@ import com.orhanobut.wasp.http.Header;
 import com.orhanobut.wasp.http.Mock;
 import com.orhanobut.wasp.http.POST;
 import com.orhanobut.wasp.http.Path;
+import com.orhanobut.wasp.http.QueryMap;
 import com.orhanobut.wasp.http.RetryPolicy;
 
 import java.util.ArrayList;
@@ -26,7 +27,6 @@ public interface TravelBaseService {
     @RetryPolicy(timeout = 10000)
     @POST("/oauth/token")
     void authenticate(
-            @Header("Authorization") String authToken,
             @BodyMap Map body,
             CallBack<Authorization> callBack
     );
@@ -36,6 +36,7 @@ public interface TravelBaseService {
     void fetchTravels(
             @Header("Authorization") String authToken,
             @Path("version") String version,
+            @QueryMap Map query,
             CallBack<ArrayList<Travel>> callBack
     );
 
