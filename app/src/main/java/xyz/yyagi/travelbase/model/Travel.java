@@ -3,6 +3,7 @@ package xyz.yyagi.travelbase.model;
 
 import java.util.Date;
 
+import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 import io.realm.internal.RealmJson;
@@ -19,6 +20,7 @@ public class Travel extends RealmObject {
     private String formatted_start_date;
     private String formatted_end_date;
     private String memo;
+    private RealmList<TravelDate> travel_dates;
 
     public int getId() {
         return id;
@@ -74,6 +76,14 @@ public class Travel extends RealmObject {
 
     public void setMemo(String memo) {
         this.memo = memo;
+    }
+
+    public RealmList<TravelDate> getTravel_dates() {
+        return travel_dates;
+    }
+
+    public void setTravel_dates(RealmList<TravelDate> travel_dates) {
+        this.travel_dates = travel_dates;
     }
 }
 
