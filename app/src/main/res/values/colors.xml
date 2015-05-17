@@ -3,5 +3,6 @@
     <color name="travelbase_color">#448956</color>
     <!-- <color name="accent_color">#FFC400</color> -->
     <color name="accent_color">#00ccff</color>
-    <color name="tab_text">#FFFFFF</color>
+    <color name="tab_text">#FFFFFF</color> 
+    <color name="time_table_background">#dcdcdc</color>
 </resources>

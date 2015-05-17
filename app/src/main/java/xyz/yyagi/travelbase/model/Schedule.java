@@ -12,7 +12,9 @@ public class Schedule extends RealmObject{
     private int id;
     private String detail;
     private String start_time;
+    private String formatted_start_time;
     private String end_time;
+    private String formatted_end_time;
     private Place place;
     private Route route;
 
@@ -62,5 +64,21 @@ public class Schedule extends RealmObject{
 
     public void setRoute(Route route) {
         this.route = route;
+    }
+
+    public String getFormatted_start_time() {
+        return formatted_start_time;
+    }
+
+    public void setFormatted_start_time(String formatted_start_time) {
+        this.formatted_start_time = formatted_start_time;
+    }
+
+    public String getFormatted_end_time() {
+        return formatted_end_time;
+    }
+
+    public void setFormatted_end_time(String formatted_end_time) {
+        this.formatted_end_time = formatted_end_time;
     }
 }
