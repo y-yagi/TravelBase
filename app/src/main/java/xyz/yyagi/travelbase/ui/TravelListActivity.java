@@ -93,9 +93,5 @@ public class TravelListActivity extends BaseActivity implements MaterialTabListe
             }
             return mPageTitles[position];
         }
-
-        public void getTest() {
-            return;
-        }
     }
 }

@@ -1,6 +1,7 @@
 package xyz.yyagi.travelbase.ui;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
@@ -50,6 +51,7 @@ public class PastTravelListFragment extends TravelListFragment {
             cardView = (CardView) mInflater.inflate(R.layout.travel_card, null, false);
             textView = (TextView) cardView.findViewById(R.id.name);
             textView.setText(travel.getName());
+            textView.setTag(travel.getId());
             textView = (TextView) cardView.findViewById(R.id.date);
             textView.setText(travel.getFormatted_start_date() + "〜" + travel.getFormatted_end_date() + "\n");
             textView = (TextView) cardView.findViewById(R.id.memo);
@@ -58,7 +60,8 @@ public class PastTravelListFragment extends TravelListFragment {
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getActivity(), String.valueOf(v.getTag()) + "番目のCardViewがクリックされました", Toast.LENGTH_SHORT).show();
+                    int id = Integer.parseInt(((TextView) v.findViewById(R.id.name)).getTag().toString());
+                    TravelDetailActivity.startActivity(getActivity(), id);
                 }
             });
             mTravelListLayout.addView(cardView);
