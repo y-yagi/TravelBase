@@ -1,31 +1,21 @@
 package xyz.yyagi.travelbase.ui;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.app.ListActivity;
-import android.app.ListFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v13.app.FragmentStatePagerAdapter;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 
 import io.realm.Realm;
 import it.neokree.materialtabs.MaterialTab;
 import it.neokree.materialtabs.MaterialTabHost;
 import it.neokree.materialtabs.MaterialTabListener;
 import xyz.yyagi.travelbase.R;
-import xyz.yyagi.travelbase.adapter.ScheduleTableAdapter;
-import xyz.yyagi.travelbase.model.Schedule;
 import xyz.yyagi.travelbase.model.Travel;
 import xyz.yyagi.travelbase.model.TravelDate;
 import xyz.yyagi.travelbase.util.DateUtil;

@@ -1,8 +1,5 @@
 package xyz.yyagi.travelbase.ui;
 
-import android.app.Activity;
-import android.app.ListFragment;
-import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.annotation.Nullable;
@@ -11,17 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-
 import io.realm.Realm;
-import io.realm.RealmResults;
 import xyz.yyagi.travelbase.R;
-import xyz.yyagi.travelbase.adapter.ScheduleTableAdapter;
 import xyz.yyagi.travelbase.model.Schedule;
-import xyz.yyagi.travelbase.model.Travel;
 import xyz.yyagi.travelbase.model.TravelDate;
 
 public class TravelDetailFragment extends Fragment {
