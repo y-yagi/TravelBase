@@ -57,7 +57,7 @@ public class TravelDetailFragment extends Fragment {
         TextView textView;
         for (Schedule schedule : travelDate.getSchedules()) {
             if (schedule.getRoute() != null) {
-                routeView = (CardView) mInflater.inflate(R.layout.route_card, mTravelDetailLayout, false);
+                routeView = (CardView) mInflater.inflate(R.layout.card_route, mTravelDetailLayout, false);
 
                 textView = (TextView) routeView.findViewById(R.id.title);
                 String routeTitle = getString(R.string.route_title, schedule.getPlace().getName());
@@ -67,7 +67,7 @@ public class TravelDetailFragment extends Fragment {
                 mTravelDetailLayout.addView(routeView);
             }
 
-            scheduleView = (CardView) mInflater.inflate(R.layout.schedule_card, mTravelDetailLayout, false);
+            scheduleView = (CardView) mInflater.inflate(R.layout.card_schedule, mTravelDetailLayout, false);
             textView = (TextView) scheduleView.findViewById(R.id.name);
             textView.setText(schedule.getPlace().getName());
             textView.setTag(schedule.getPlace().getId());

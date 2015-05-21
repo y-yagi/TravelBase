@@ -1,11 +1,9 @@
 package xyz.yyagi.travelbase.ui;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.Calendar;
 
@@ -41,7 +39,7 @@ public class FutureTravelListFragment extends TravelListFragment {
         for (Travel travel : travelList) {
             CardView cardView;
             TextView textView;
-            cardView = (CardView) mInflater.inflate(R.layout.travel_card, null, false);
+            cardView = (CardView) mInflater.inflate(R.layout.card_travel, null, false);
             textView = (TextView) cardView.findViewById(R.id.name);
             textView.setText(travel.getName());
             textView.setTag(travel.getId());
