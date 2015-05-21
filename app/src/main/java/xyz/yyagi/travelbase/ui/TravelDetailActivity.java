@@ -39,6 +39,7 @@ public class TravelDetailActivity extends BaseActivity implements MaterialTabLis
         Bundle extras = getIntent().getExtras();
         int id = extras.getInt(EXTRA_TRAVEL_ID);
         Travel travel = mRealm.where(Travel.class).equalTo("id", id).findFirst();
+        setTitle(travel.getName());
 
         mTabHost = (MaterialTabHost) this.findViewById(R.id.materialTabHost);
         mPager = (ViewPager) this.findViewById(R.id.viewpager);
