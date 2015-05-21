@@ -33,12 +33,21 @@ public interface TravelBaseService {
 
     @RetryPolicy(timeout = 10000)
     @GET("/api/{version}/travels")
-    void fetchTravels(
+    void travels(
             @Header("Authorization") String authToken,
             @Path("version") String version,
             @QueryMap Map query,
             CallBack<ArrayList<Travel>> callBack
     );
 
+    @RetryPolicy(timeout = 10000)
+    @GET("/api/{version}/travels/{id}")
+    void travel(
+            @Header("Authorization") String authToken,
+            @Path("version") String version,
+            @Path("id") int id,
+            @QueryMap Map query,
+            CallBack<Travel> callBack
+    );
 }
 

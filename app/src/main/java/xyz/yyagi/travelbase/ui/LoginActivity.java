@@ -43,7 +43,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
 
         // TODO: remove after. use only test.
-//        Realm.deleteRealmFile(this);
+        Realm.deleteRealmFile(this);
         mRealm = Realm.getInstance(this);
         mActivity = this;
 
@@ -117,9 +117,10 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private void fetchTravelList() {
         TravelBaseService service = TravelBaseServiceBuilder.build(this);
         String authHeader = TravelBaseServiceBuilder.makeBearerAuthHeader();
-        Map resourceOwnerInfo = TravelBaseServiceBuilder.makeResourceOwnerInfo();
+        Map query = TravelBaseServiceBuilder.makeResourceOwnerInfo();
+        query.put("fields", "*");
 
-        service.fetchTravels(authHeader, "v1", resourceOwnerInfo, new CallBack<ArrayList<Travel>>() {
+        service.travels(authHeader, "v1", query, new CallBack<ArrayList<Travel>>() {
             @Override
             public void onSuccess(ArrayList<Travel> travelList) {
                 saveTravelList(travelList);

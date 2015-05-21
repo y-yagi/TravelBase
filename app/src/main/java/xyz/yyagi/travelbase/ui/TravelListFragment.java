@@ -47,4 +47,5 @@ public class TravelListFragment extends Fragment {
         mNoticeTextView = (TextView)view.findViewById(R.id.noticeText);
         mRealm = Realm.getInstance(getActivity());
     }
+
 }

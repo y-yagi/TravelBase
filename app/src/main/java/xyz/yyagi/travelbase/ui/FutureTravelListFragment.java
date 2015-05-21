@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.Calendar;
 
@@ -40,9 +39,10 @@ public class FutureTravelListFragment extends TravelListFragment {
         for (Travel travel : travelList) {
             CardView cardView;
             TextView textView;
-            cardView = (CardView) mInflater.inflate(R.layout.travel_card, null, false);
+            cardView = (CardView) mInflater.inflate(R.layout.card_travel, null, false);
             textView = (TextView) cardView.findViewById(R.id.name);
             textView.setText(travel.getName());
+            textView.setTag(travel.getId());
             textView = (TextView) cardView.findViewById(R.id.date);
             textView.setText(travel.getFormatted_start_date() + "〜" + travel.getFormatted_end_date() + "\n");
             textView = (TextView) cardView.findViewById(R.id.memo);
@@ -51,7 +51,8 @@ public class FutureTravelListFragment extends TravelListFragment {
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getActivity(), String.valueOf(v.getTag()) + "番目のCardViewがクリックされました", Toast.LENGTH_SHORT).show();
+                    int id = Integer.parseInt(((TextView) v.findViewById(R.id.name)).getTag().toString());
+                    TravelDetailActivity.startActivity(getActivity(), id);
                 }
             });
             mTravelListLayout.addView(cardView);
