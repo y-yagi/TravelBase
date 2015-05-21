@@ -19,6 +19,7 @@
     </string-array> 
     <string name="no_plan_of_travel">no plan of the travel</string>
     <string name="no_past_travel">no past travel</string>
+    <string name="route_title">way to %1$s</string>
     <string name="loading">Now Loading...</string>
 
 <!-- TODO: Remove or change this placeholder text -->

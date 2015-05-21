@@ -52,25 +52,37 @@ public class TravelDetailFragment extends Fragment {
         int travelDateId = getArguments().getInt(KEY_TRAVEL_DATE_ID);
         TravelDate travelDate = mRealm.where(TravelDate.class).equalTo("id", travelDateId).findFirst();
 
+        CardView scheduleView;
+        CardView routeView;
+        TextView textView;
         for (Schedule schedule : travelDate.getSchedules()) {
-            CardView cardView;
-            TextView textView;
-            cardView = (CardView) mInflater.inflate(R.layout.schedule_card, mTravelDetailLayout, false);
-            textView = (TextView) cardView.findViewById(R.id.name);
+            if (schedule.getRoute() != null) {
+                routeView = (CardView) mInflater.inflate(R.layout.route_card, mTravelDetailLayout, false);
+
+                textView = (TextView) routeView.findViewById(R.id.title);
+                String routeTitle = getString(R.string.route_title, schedule.getPlace().getName());
+                textView.setText(routeTitle);
+                textView = (TextView) routeView.findViewById(R.id.detail);
+                textView.setText(schedule.getRoute().getDetail());
+                mTravelDetailLayout.addView(routeView);
+            }
+
+            scheduleView = (CardView) mInflater.inflate(R.layout.schedule_card, mTravelDetailLayout, false);
+            textView = (TextView) scheduleView.findViewById(R.id.name);
             textView.setText(schedule.getPlace().getName());
             textView.setTag(schedule.getPlace().getId());
-            textView = (TextView) cardView.findViewById(R.id.date);
+            textView = (TextView) scheduleView.findViewById(R.id.date);
             textView.setText(schedule.getFormatted_start_time() + "〜" + schedule.getFormatted_end_time() + "\n");
-            textView = (TextView) cardView.findViewById(R.id.memo);
+            textView = (TextView) scheduleView.findViewById(R.id.memo);
             textView.setText(schedule.getMemo());
 
-            cardView.setOnClickListener(new View.OnClickListener() {
+            scheduleView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     // TODO:place link
                 }
             });
-            mTravelDetailLayout.addView(cardView);
+            mTravelDetailLayout.addView(scheduleView);
         }
     }
 }

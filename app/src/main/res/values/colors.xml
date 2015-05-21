@@ -5,4 +5,5 @@
     <color name="accent_color">#00ccff</color>
     <color name="tab_text">#FFFFFF</color> 
     <color name="time_table_background">#dcdcdc</color>
+    <color name="route_color">#f0ad4e</color>
 </resources>
