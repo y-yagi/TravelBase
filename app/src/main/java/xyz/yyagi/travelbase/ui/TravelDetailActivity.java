@@ -32,16 +32,14 @@ import xyz.yyagi.travelbase.util.DateUtil;
 import xyz.yyagi.travelbase.util.LogUtil;
 
 
-public class TravelDetailActivity extends BaseActivity implements MaterialTabListener, TravelDetailFragment.Listener {
+public class TravelDetailActivity extends BaseActivity implements MaterialTabListener {
     private static final String TAG = LogUtil.makeLogTag(TravelDetailActivity.class);
     private Realm mRealm;
     private static final String EXTRA_TRAVEL_ID = "id";
     private MaterialTabHost mTabHost;
     private ViewPager mPager;
     private PagerAdapter mPagerAdaper;
-    private ArrayList<ScheduleTableAdapter> mScheduleTableAdapters;
     private String[] mPageTitles = null;
-    private Set<TravelDetailFragment> mTravelDetailFragments = new HashSet<TravelDetailFragment>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,15 +52,15 @@ public class TravelDetailActivity extends BaseActivity implements MaterialTabLis
 
         mTabHost = (MaterialTabHost) this.findViewById(R.id.materialTabHost);
         mPager = (ViewPager) this.findViewById(R.id.viewpager);
-        mScheduleTableAdapters = new ArrayList<ScheduleTableAdapter>();
 
-        ArrayList<String> pageTitleList = new ArrayList<String>();
+        ArrayList<String> pageTitles = new ArrayList<String>();
+        ArrayList<TravelDate> travelDates = new ArrayList<TravelDate>();
         for(TravelDate travelDate : travel.getTravel_dates()) {
-            pageTitleList.add(DateUtil.format(travelDate.getDate()));
-            setScheduleTableAdapters(travelDate.getId());
+            pageTitles.add(DateUtil.format(travelDate.getDate()));
+            travelDates.add(travelDate);
         }
 
-        mPagerAdaper = new ViewPagerAdapter(getFragmentManager(), travel, pageTitleList);
+        mPagerAdaper = new ViewPagerAdapter(getFragmentManager(), travel, pageTitles, travelDates);
         mPager.setAdapter(mPagerAdaper);
         mPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
@@ -95,56 +93,32 @@ public class TravelDetailActivity extends BaseActivity implements MaterialTabLis
     public void onTabUnselected(MaterialTab tab) {
     }
 
-    @Override
-    public void onFragmentViewCreated(ListFragment fragment) {
-        int number = fragment.getArguments().getInt(TravelDetailFragment.KEY_NUMBER, 0);
-        fragment.setListAdapter(mScheduleTableAdapters.get(number));
-    }
-
-    @Override
-    public void onFragmentAttached(TravelDetailFragment fragment) {
-        mTravelDetailFragments.add(fragment);
-    }
-
-    @Override
-    public void onFragmentDetached(TravelDetailFragment fragment) {
-        mTravelDetailFragments.remove(fragment);
-    }
-
-    private void setScheduleTableAdapters(int travelDateId) {
-        TravelDate travelDate = mRealm.where(TravelDate.class).equalTo("id", travelDateId).findFirst();
-        ArrayList<Schedule> mItems = new ArrayList<Schedule>();
-        for(Schedule schedule : travelDate.getSchedules()) {
-            mItems.add(schedule);
-        }
-        ScheduleTableAdapter scheduleTableAdapter = new ScheduleTableAdapter(this, mItems);
-        mScheduleTableAdapters.add(scheduleTableAdapter);
-    }
-
-    private class ViewPagerAdapter extends FragmentPagerAdapter {
+    private class ViewPagerAdapter extends FragmentStatePagerAdapter {
         private Travel mTravel;
-        private ArrayList<String> mPageTitleList;
+        private ArrayList<String> mPageTitles;
+        private ArrayList<TravelDate> mTravelDates;
 
-        public ViewPagerAdapter(FragmentManager fm, Travel travel, ArrayList<String> pageTitleList) {
+        public ViewPagerAdapter(FragmentManager fm, Travel travel, ArrayList<String> pageTitles, ArrayList<TravelDate> travelDates) {
             super(fm);
             mTravel = travel;
-            mPageTitleList = pageTitleList;
+            mPageTitles = pageTitles;
+            mTravelDates = travelDates;
         }
 
         @Override
         public Fragment getItem(int num) {
-            TravelDetailFragment fragment = TravelDetailFragment.newInstance(num);
+            TravelDetailFragment fragment = TravelDetailFragment.newInstance(mTravelDates.get(num).getId());
             return fragment;
         }
 
         @Override
         public int getCount() {
-            return mTravel.getTravel_dates().size();
+            return mTravelDates.size();
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return mPageTitleList.get(position);
+            return mPageTitles.get(position);
         }
     }
 }

@@ -73,7 +73,7 @@ public class ScheduleTableAdapter implements ListAdapter {
         TextView textView = (TextView) view.findViewById(R.id.title);
         textView.setText(schedule.getPlace().getName());
         textView = (TextView)view.findViewById(R.id.detail);
-        textView.setText(schedule.getDetail());
+        textView.setText(schedule.getMemo());
         textView = (TextView)view.findViewById(R.id.start_time);
         textView.setText(schedule.getFormatted_start_time());
         textView = (TextView)view.findViewById(R.id.end_time);

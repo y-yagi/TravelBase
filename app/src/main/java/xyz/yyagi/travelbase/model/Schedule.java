@@ -10,7 +10,7 @@ import io.realm.annotations.PrimaryKey;
 public class Schedule extends RealmObject{
     @PrimaryKey
     private int id;
-    private String detail;
+    private String memo;
     private String start_time;
     private String formatted_start_time;
     private String end_time;
@@ -26,12 +26,12 @@ public class Schedule extends RealmObject{
         this.id = id;
     }
 
-    public String getDetail() {
-        return detail;
+    public String getMemo() {
+        return memo;
     }
 
-    public void setDetail(String detail) {
-        this.detail = detail;
+    public void setMemo(String detail) {
+        this.memo = memo;
     }
 
     public String getStart_time() {
