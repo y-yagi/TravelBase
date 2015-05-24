@@ -24,4 +24,8 @@
         <item>詳細</item>
         <item>地図</item>
     </string-array>
+
+    <string name="label_address">住所: </string>
+    <string name="label_station">最寄り駅: </string>
+    <string name="label_memo">メモ: </string>
 </resources>

@@ -13,7 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/travelbase_color"
-            android:text="住所:"
+            android:text="@string/label_address"
             android:layout_marginLeft="5dp"
             />
         <TextView
@@ -30,7 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/travelbase_color"
-            android:text="最寄り駅:"
+            android:text="@string/label_station"
             android:layout_marginLeft="5dp"
             />
         <TextView
@@ -47,7 +47,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/travelbase_color"
-            android:text="メモ:"
+            android:text="@string/label_memo"
             android:layout_marginLeft="5dp"
             />
         <TextView

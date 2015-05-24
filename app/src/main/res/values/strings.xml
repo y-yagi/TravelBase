@@ -28,7 +28,7 @@
         <item>map</item>
     </string-array>
 
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_place_map_fragment">Map</string>
+    <string name="label_address">Address: </string>
+    <string name="label_station">Station: </string>
+    <string name="label_memo">Memo: </string>
 </resources>
