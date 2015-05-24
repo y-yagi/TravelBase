@@ -79,7 +79,8 @@ public class TravelDetailFragment extends Fragment {
             scheduleView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // TODO:place link
+                int id = Integer.parseInt(((TextView) v.findViewById(R.id.name)).getTag().toString());
+                PlaceDetailActivity.startActivity(getActivity(), id);
                 }
             });
             mTravelDetailLayout.addView(scheduleView);

@@ -47,9 +47,7 @@ public class TravelBaseServiceBuilder {
                 .setEndpoint(TravelBaseService.endPoint)
                 .setParser(new GsonParser(gson))
                 .trustCertificates()
-                .setLogLevel(LogLevel.FULL)
                 .enableCookies(CookiePolicy.ACCEPT_ALL)
-//                .setNetworkMode(NetworkMode.MOCK)      // TODO: remove
                 .build()
                 .create(TravelBaseService.class);
     }

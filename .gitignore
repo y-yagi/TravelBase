@@ -30,3 +30,5 @@ proguard/
 /.idea/libraries
 
 gradle.properties
+google_maps_api.xml
+
