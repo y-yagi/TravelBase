@@ -43,7 +43,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
 
         // TODO: remove after. use only test.
-        Realm.deleteRealmFile(this);
+//        Realm.deleteRealmFile(this);
         mRealm = Realm.getInstance(this);
         mActivity = this;
 
@@ -143,10 +143,8 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
     private void saveTravelList(ArrayList<Travel> travelList) {
         mRealm.beginTransaction();
-        // TODO: don't remove all data
-        mRealm.clear(Travel.class);
         for (Travel travel : travelList) {
-            mRealm.copyToRealm(travel);
+            mRealm.copyToRealmOrUpdate(travel);
         }
         mRealm.commitTransaction();
     }
