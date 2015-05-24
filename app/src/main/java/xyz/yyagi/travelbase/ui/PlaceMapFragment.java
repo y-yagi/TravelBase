@@ -30,6 +30,7 @@ public class PlaceMapFragment extends MapFragment {
     private Realm mRealm;
     private Activity mContext;
     public static final String KEY_PLACE_ID = "place_id";
+    private static final int ZOOM = 15;
 
     public static PlaceMapFragment newInstance(int placeId) {
         PlaceMapFragment fragment = new PlaceMapFragment();
@@ -53,8 +54,9 @@ public class PlaceMapFragment extends MapFragment {
 
     private void initMap() {
         UiSettings settings = getMap().getUiSettings();
+        settings.setCompassEnabled(true);
 
-        getMap().moveCamera(CameraUpdateFactory.newLatLngZoom(mLatLon, 16));
+        getMap().moveCamera(CameraUpdateFactory.newLatLngZoom(mLatLon, ZOOM));
         getMap().addMarker(new MarkerOptions().position(mLatLon).icon(BitmapDescriptorFactory.defaultMarker()));
     }
 }

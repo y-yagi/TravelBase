@@ -99,16 +99,14 @@ public class PlaceDetailActivity extends BaseActivity implements MaterialTabList
         public ViewPagerAdapter(FragmentManager fm, int placeId) {
             super(fm);
             mPlaceId = placeId;
-            mPlaceDetailFragment = PlaceDetailFragment.newInstance(mPlaceId);
-            mPlaceMapFragment = PlaceMapFragment.newInstance(mPlaceId);
         }
 
         @Override
         public Fragment getItem(int num) {
             if (num == 0) {
-                return mPlaceDetailFragment;
+                return PlaceDetailFragment.newInstance(mPlaceId);
             } else {
-                return mPlaceMapFragment;
+                return PlaceMapFragment.newInstance(mPlaceId);
             }
         }
 
