@@ -41,8 +41,7 @@ public class BaseActivity extends Activity {
     }
 
     private void logout() {
-        RealmResults<User> results = mRealm.where(User.class).findAll();
-        results.first().removeFromRealm();
+        mRealm.where(User.class).findFirst().removeFromRealm();
 
         Intent intent = new Intent(this, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
