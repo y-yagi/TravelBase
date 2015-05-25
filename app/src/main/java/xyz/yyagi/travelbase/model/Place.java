@@ -11,8 +11,10 @@ public class Place extends RealmObject {
     private int id;
     private String name;
     private String memo;
+    private String address;
     private float latitude;
     private float longitude;
+    private String station_info;
 
     public int getId() {
         return id;
@@ -52,5 +54,21 @@ public class Place extends RealmObject {
 
     public void setLongitude(float longitude) {
         this.longitude = longitude;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getStation_info() {
+        return station_info;
+    }
+
+    public void setStation_info(String station_info) {
+        this.station_info = station_info;
     }
 }

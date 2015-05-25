@@ -22,6 +22,13 @@
     <string name="route_title">way to %1$s</string>
     <string name="loading">Now Loading...</string>
 
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_place_detail">PlaceDetailActivity</string>
+    <string-array name="place_detail_tab_titles">
+        <item>detail</item>
+        <item>map</item>
+    </string-array>
+
+    <string name="label_address">Address: </string>
+    <string name="label_station">Station: </string>
+    <string name="label_memo">Memo: </string>
 </resources>
