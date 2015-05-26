@@ -48,7 +48,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         mActivity = this;
 
         setContentView(R.layout.activity_login);
-        getActionBar().hide();
 
         mProgressDialog = ProgressDialogBuilder.build(this, getString(R.string.loading));
         if (isLogined()) {

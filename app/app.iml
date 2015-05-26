@@ -91,6 +91,7 @@
     <orderEntry type="library" exported="" name="okio-1.2.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-appstate-7.3.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-games-7.3.0" level="project" />
+    <orderEntry type="library" exported="" name="iconics-1.0.1" level="project" />
     <orderEntry type="library" exported="" name="play-services-fitness-7.3.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-maps-7.3.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-gcm-7.3.0" level="project" />
@@ -109,6 +110,7 @@
     <orderEntry type="library" exported="" name="conceal-1.0.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-location-7.3.0" level="project" />
     <orderEntry type="library" exported="" name="realm-android-0.80.1" level="project" />
+    <orderEntry type="library" exported="" name="materialdrawer-3.0.2" level="project" />
     <orderEntry type="library" exported="" name="okhttp-2.2.0" level="project" />
     <orderEntry type="library" exported="" name="support-v13-22.1.1" level="project" />
     <orderEntry type="library" exported="" name="play-services-analytics-7.3.0" level="project" />
