@@ -33,6 +33,6 @@
   </style>
 
   <style name="ActionBarTraelBase"  parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
-      <item name="android:background">@color/travelbase_color</item>
+      <item name="android:background">@color/primary</item>
    </style>
 </resources>

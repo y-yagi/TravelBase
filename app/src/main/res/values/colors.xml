@@ -1,9 +1,12 @@
 <resources>
     <color name="black_overlay">#66000000</color>
-    <color name="travelbase_color">#448956</color>
+    <color name="primary">#448956</color>
     <!-- <color name="accent_color">#FFC400</color> -->
     <color name="accent_color">#00ccff</color>
     <color name="tab_text">#FFFFFF</color> 
     <color name="time_table_background">#dcdcdc</color>
     <color name="route_color">#f0ad4e</color>
+    <color name="primary_dark">#000000</color>
+    <color name="text_main">#FFFFFF</color>
+    <color name="card_text">#6a6a6a</color>
 </resources>
