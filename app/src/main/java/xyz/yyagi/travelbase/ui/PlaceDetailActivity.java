@@ -73,6 +73,7 @@ public class PlaceDetailActivity extends BaseActivity implements MaterialTabList
         for (int i = 0; i < mPagerAdaper.getCount(); i++) {
             mTabHost.addTab(mTabHost.newTab().setText(mPageTitles[i]).setTabListener(this));
         }
+        setupDrawer();
     }
 
     @Override

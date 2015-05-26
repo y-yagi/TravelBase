@@ -4,14 +4,11 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/root_view"
     tools:context="xyz.yyagi.travelbase.ui.TravelListActivity">
-
 
     <include layout="@layout/my_tool_bar" android:id="@+id/toolbar"/>
 
     <it.neokree.materialtabs.MaterialTabHost
-        android:layout_below="@id/toolbar"
         android:id="@+id/materialTabHost"
         android:layout_width="match_parent"
         android:layout_height="48dp"

@@ -63,6 +63,7 @@ public class TravelDetailActivity extends BaseActivity implements MaterialTabLis
         for (int i = 0; i < mPagerAdaper.getCount(); i++) {
             mTabHost.addTab(mTabHost.newTab().setText(mPagerAdaper.getPageTitle(i)).setTabListener(this));
         }
+        setupDrawer();
     }
 
     public static void startActivity(Context context, int id) {
