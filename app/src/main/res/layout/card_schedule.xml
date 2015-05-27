@@ -18,7 +18,7 @@
                 android:textSize="18sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/travelbase_color"
+                android:textColor="@color/primary"
                 android:layout_marginLeft="5dp"
                 />
             <TextView
@@ -27,6 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
+                android:textColor="@color/body_text"
                 />
             <TextView
                 android:id="@+id/memo"
@@ -35,6 +36,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:maxLines="3"
+                android:textColor="@color/body_text"
                 />
         </LinearLayout>
     </android.support.v7.widget.CardView>

@@ -12,7 +12,7 @@
             android:textSize="12sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/travelbase_color"
+            android:textColor="@color/primary"
             android:text="@string/label_address"
             android:layout_marginLeft="5dp"
             />
@@ -23,13 +23,14 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginBottom="10dp"
+            android:textColor="@color/body_text"
             />
 
         <TextView
             android:textSize="12sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/travelbase_color"
+            android:textColor="@color/primary"
             android:text="@string/label_station"
             android:layout_marginLeft="5dp"
             />
@@ -40,13 +41,14 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginBottom="10dp"
+            android:textColor="@color/body_text"
             />
 
         <TextView
             android:textSize="12sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/travelbase_color"
+            android:textColor="@color/primary"
             android:text="@string/label_memo"
             android:layout_marginLeft="5dp"
             />
@@ -57,6 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginBottom="10dp"
+            android:textColor="@color/body_text"
             />
     </LinearLayout>
 </FrameLayout>
