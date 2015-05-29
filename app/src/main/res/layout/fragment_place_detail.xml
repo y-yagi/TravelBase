@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginBottom="10dp"
-            android:textColor="@color/body_text"
+            android:textColor="@color/primary_text"
             />
 
         <TextView
@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginBottom="10dp"
-            android:textColor="@color/body_text"
+            android:textColor="@color/primary_text"
             />
 
         <TextView
@@ -59,7 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginBottom="10dp"
-            android:textColor="@color/body_text"
+            android:textColor="@color/primary_text"
             />
     </LinearLayout>
 </FrameLayout>

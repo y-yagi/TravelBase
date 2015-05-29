@@ -1,12 +1,12 @@
 <resources>
-    <color name="black_overlay">#66000000</color>
-    <color name="primary">#448956</color>
-    <!-- <color name="accent_color">#FFC400</color> -->
-    <color name="accent_color">#00ccff</color>
-    <color name="tab_text">#FFFFFF</color> 
+    <color name="primary">#4CAF50</color>
+    <color name="primary_dark">#388E3C</color>
+    <color name="primary_light">#C8E6C9</color>
+    <color name="accent">#FF9800</color>
+    <color name="primary_text">#212121</color>
+    <color name="secondary_text">#727272</color>
+    <color name="icons">#FFFFFF</color>
+    <color name="divider">#B6B6B6</color>
+
     <color name="time_table_background">#dcdcdc</color>
-    <color name="route_color">#f0ad4e</color>
-    <color name="primary_dark">#000000</color>
-    <color name="text_main">#FFFFFF</color>
-    <color name="body_text">#000000</color>
 </resources>

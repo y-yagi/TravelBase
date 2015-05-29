@@ -10,8 +10,8 @@
       <item name="drawerArrowStyle">@style/MaterialDrawer.DrawerArrowStyle</item>
       <item name="colorPrimary">@color/primary</item>
       <item name="colorPrimaryDark">@color/primary_dark</item>
-      <item name="colorAccent">@color/accent_color</item>
-      <item name="android:textColorPrimary">@color/text_main</item>
+      <item name="colorAccent">@color/accent</item>
+      <item name="android:textColorPrimary">@color/primary_text</item>
       <item name="android:editTextBackground">@drawable/travelbase_edit_text_holo_light</item>
       <item name="android:autoCompleteTextViewStyle">@style/AutoCompleteTextViewTravelBase</item>
       <item name="android:listChoiceIndicatorMultiple">@drawable/travelbase_btn_check_holo_light</item>
