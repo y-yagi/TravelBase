@@ -39,7 +39,7 @@ public class PastTravelListFragment extends TravelListFragment {
         for (Travel travel : travelList) {
             CardView cardView;
             TextView textView;
-            cardView = (CardView) mInflater.inflate(R.layout.card_travel, null, false);
+            cardView = (CardView) mInflater.inflate(R.layout.card_travel, mTravelListLayout, false);
             textView = (TextView) cardView.findViewById(R.id.name);
             textView.setText(travel.getName());
             textView.setTag(travel.getId());

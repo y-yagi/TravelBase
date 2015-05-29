@@ -3,8 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/card_view"
     android:layout_gravity="center"
-    android:layout_width="320dp"
     android:layout_height="wrap_content"
+    android:layout_width="320dp"
     android:layout_margin="2dp"
     card_view:cardCornerRadius="4dp">
 
@@ -18,7 +18,7 @@
                 android:textSize="18sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/primary"
+                android:textColor="@color/primary_dark"
                 android:layout_marginLeft="5dp"
                 />
             <TextView
@@ -27,7 +27,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:textColor="@color/body_text"
                 />
             <TextView
                 android:id="@+id/memo"
@@ -36,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:maxLines="3"
-                android:textColor="@color/body_text"
+                />
                 />
         </LinearLayout>
     </android.support.v7.widget.CardView>
