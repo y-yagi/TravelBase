@@ -72,7 +72,9 @@ public class TravelDetailFragment extends Fragment {
             textView.setText(schedule.getPlace().getName());
             textView.setTag(schedule.getPlace().getId());
             textView = (TextView) scheduleView.findViewById(R.id.date);
-            textView.setText(schedule.getFormatted_start_time() + "〜" + schedule.getFormatted_end_time() + "\n");
+            if (!schedule.getFormatted_start_time().isEmpty() || !schedule.getFormatted_end_time().isEmpty()) {
+                textView.setText(schedule.getFormatted_start_time() + "〜" + schedule.getFormatted_end_time() + "\n");
+            }
             textView = (TextView) scheduleView.findViewById(R.id.memo);
             textView.setText(schedule.getMemo());
 
