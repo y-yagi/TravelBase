@@ -79,7 +79,9 @@ public class BaseActivity extends AppCompatActivity {
 
     protected  void logout() {
         Realm realm = Realm.getInstance(this);
+        realm.beginTransaction();
         realm.where(User.class).findFirst().removeFromRealm();
+        realm.commitTransaction();
 
         Intent intent = new Intent(this, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
