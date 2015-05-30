@@ -58,6 +58,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
         mSignInButton = (SignInButton) findViewById(R.id.google_sign_in_button);
         mSignInButton.setOnClickListener(this);
+        mSignInButton.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -136,6 +137,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 mProgressDialog.dismiss();
                 Toast.makeText(mActivity, getString(R.string.login_faiure), Toast.LENGTH_LONG).show();
                 mSignInButton.setOnClickListener(mActivity);
+                mSignInButton.setVisibility(View.VISIBLE);
                 Log.d(TAG, waspError.getErrorMessage());
             }
         });
