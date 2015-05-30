@@ -32,7 +32,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
     private static final int REQUEST_CODE_SIGN_IN_GOOGLE = 1;
     private SignInButton mSignInButton;
-    private Activity mActivity;
+    private LoginActivity mActivity;
     private ProgressDialog mProgressDialog;
     private static final String TAG = LogUtil.makeLogTag(LoginActivity.class);
     private Realm mRealm;
@@ -58,6 +58,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
         mSignInButton = (SignInButton) findViewById(R.id.google_sign_in_button);
         mSignInButton.setOnClickListener(this);
+        mSignInButton.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -135,6 +136,8 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             public void onError(WaspError waspError) {
                 mProgressDialog.dismiss();
                 Toast.makeText(mActivity, getString(R.string.login_faiure), Toast.LENGTH_LONG).show();
+                mSignInButton.setOnClickListener(mActivity);
+                mSignInButton.setVisibility(View.VISIBLE);
                 Log.d(TAG, waspError.getErrorMessage());
             }
         });

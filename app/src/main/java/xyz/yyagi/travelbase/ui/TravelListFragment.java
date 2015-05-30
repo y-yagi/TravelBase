@@ -15,8 +15,6 @@ import android.widget.Toast;
 import com.orhanobut.wasp.CallBack;
 import com.orhanobut.wasp.WaspError;
 
-import java.util.ArrayList;
-
 import io.realm.Realm;
 import io.realm.RealmResults;
 import xyz.yyagi.travelbase.R;
@@ -46,6 +44,30 @@ public class TravelListFragment extends Fragment {
         mTravelListLayout = (LinearLayout) view.findViewById(R.id.travelList);
         mNoticeTextView = (TextView)view.findViewById(R.id.noticeText);
         mRealm = Realm.getInstance(getActivity());
+    }
+
+    protected void displayTravels(RealmResults<Travel> travels) {
+        for (Travel travel : travels) {
+            CardView cardView;
+            TextView textView;
+            cardView = (CardView) mInflater.inflate(R.layout.card_travel, mTravelListLayout, false);
+            textView = (TextView) cardView.findViewById(R.id.name);
+            textView.setText(travel.getName());
+            textView.setTag(travel.getId());
+            textView = (TextView) cardView.findViewById(R.id.date);
+            textView.setText(travel.getFormatted_start_date() + "〜" + travel.getFormatted_end_date() + "\n");
+            textView = (TextView) cardView.findViewById(R.id.memo);
+            textView.setText(travel.getMemo());
+
+            cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int id = Integer.parseInt(((TextView) v.findViewById(R.id.name)).getTag().toString());
+                    TravelDetailActivity.startActivity(getActivity(), id);
+                }
+            });
+            mTravelListLayout.addView(cardView);
+        }
     }
 
 }

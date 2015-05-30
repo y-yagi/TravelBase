@@ -26,36 +26,15 @@ public class FutureTravelListFragment extends TravelListFragment {
 
     private void displayTravels() {
         Calendar calendar = Calendar.getInstance();
-        RealmResults<Travel> travelList = mRealm.where(Travel.class)
+        RealmResults<Travel> travels = mRealm.where(Travel.class)
                 .greaterThanOrEqualTo("end_date", calendar.getTime())
                 .findAll();
 
-        if (travelList.size() == 0) {
+        if (travels.size() == 0) {
             mNoticeTextView.setText(getString(R.string.no_plan_of_travel));
             mNoticeTextView.setVisibility(View.VISIBLE);
             return;
         }
-
-        for (Travel travel : travelList) {
-            CardView cardView;
-            TextView textView;
-            cardView = (CardView) mInflater.inflate(R.layout.card_travel, mTravelListLayout, false);
-            textView = (TextView) cardView.findViewById(R.id.name);
-            textView.setText(travel.getName());
-            textView.setTag(travel.getId());
-            textView = (TextView) cardView.findViewById(R.id.date);
-            textView.setText(travel.getFormatted_start_date() + "〜" + travel.getFormatted_end_date() + "\n");
-            textView = (TextView) cardView.findViewById(R.id.memo);
-            textView.setText(travel.getMemo());
-
-            cardView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int id = Integer.parseInt(((TextView) v.findViewById(R.id.name)).getTag().toString());
-                    TravelDetailActivity.startActivity(getActivity(), id);
-                }
-            });
-            mTravelListLayout.addView(cardView);
-        }
+        displayTravels(travels);
     }
 }
