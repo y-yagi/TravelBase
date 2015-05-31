@@ -38,10 +38,13 @@ public class BaseActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        final IProfile profile = new ProfileDrawerItem().withName("Mike Penz").withEmail("mikepenz@gmail.com");
+        Realm realm = Realm.getInstance(this);
+        User user = realm.where(User.class).findFirst();
+        final IProfile profile = new ProfileDrawerItem().withName(user.getUid());
         AccountHeader headerResult = new AccountHeaderBuilder()
                 .withActivity(this)
-                .withHeaderBackground(R.drawable.header)
+                .withHeaderBackground(R.color.primary_dark)
+                .addProfiles(profile)
                 .build();
 
 
