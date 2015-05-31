@@ -2,36 +2,6 @@
 
 <!-- Generated with http://android-holo-colors.com -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-
-  <style name="AutoCompleteTextViewTravelBase" parent="android:Widget.Holo.Light.AutoCompleteTextView">
-      <item name="android:dropDownSelector">@drawable/travelbase_list_selector_holo_light</item>
-	    <item name="android:background">@drawable/travelbase_edit_text_holo_light</item>
-  </style>
-
-  <style name="ButtonTravelBase" parent="android:Widget.Holo.Light.Button">
-	  <item name="android:background">@drawable/travelbase_btn_default_holo_light</item>
-  </style>
-
-  <style name="ImageButtonTravelBase" parent="android:Widget.Holo.Light.ImageButton">
-	  <item name="android:background">@drawable/travelbase_btn_default_holo_light</item>
-  </style>
-
-  <style name="SpinnerTravelBase" parent="android:Widget.Holo.Light.Spinner">
-      <item name="android:background">@drawable/travelbase_spinner_background_holo_light</item>
-      <item name="android:dropDownSelector">@drawable/travelbase_list_selector_holo_light</item>
-  </style>
-
-  <style name="ProgressBarTravelBase" parent="android:Widget.Holo.Light.ProgressBar.Horizontal">
-      <item name="android:progressDrawable">@drawable/travelbase_progress_horizontal_holo_light</item>
-      <item name="android:indeterminateDrawable">@drawable/travelbase_progress_indeterminate_horizontal_holo_light</item>
-  </style>
-
-  <style name="SeekBarTravelBase" parent="android:Widget.Holo.Light.SeekBar">
-      <item name="android:progressDrawable">@drawable/travelbase_scrubber_progress_horizontal_holo_light</item>
-      <item name="android:indeterminateDrawable">@drawable/travelbase_scrubber_progress_horizontal_holo_light</item>
-      <item name="android:thumb">@drawable/travelbase_scrubber_control_selector_holo_light</item>
-  </style>
-
   <style name="ActionBarTraelBase"  parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
       <item name="android:background">@color/primary</item>
    </style>
