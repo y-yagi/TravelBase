@@ -49,6 +49,9 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
         setContentView(R.layout.activity_login);
 
+        // To use when an error occurs, it is necessary to set previously
+        mSignInButton = (SignInButton) findViewById(R.id.google_sign_in_button);
+
         mProgressDialog = ProgressDialogBuilder.build(this, getString(R.string.loading));
         if (isLogined()) {
             mProgressDialog.show();
@@ -56,7 +59,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             return;
         }
 
-        mSignInButton = (SignInButton) findViewById(R.id.google_sign_in_button);
         mSignInButton.setOnClickListener(this);
         mSignInButton.setVisibility(View.VISIBLE);
     }
