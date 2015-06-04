@@ -2,6 +2,7 @@ package xyz.yyagi.travelbase.ui;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
@@ -36,6 +37,7 @@ public class BaseActivity extends AppCompatActivity {
     protected  void setupDrawer() {
         mActivity = this;
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
 
         Realm realm = Realm.getInstance(this);
