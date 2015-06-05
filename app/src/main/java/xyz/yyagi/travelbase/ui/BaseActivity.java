@@ -28,11 +28,13 @@ import io.realm.Realm;
 import io.realm.RealmResults;
 import xyz.yyagi.travelbase.R;
 import xyz.yyagi.travelbase.model.User;
+import xyz.yyagi.travelbase.util.HelpUtils;
 
 public class BaseActivity extends AppCompatActivity {
     private Activity mActivity;
     private static final int DRAWER_TRAVEL_LIST = 1;
     private static final int DRAWER_LOGOUT = 2;
+    private static final int DRAWER_DETAIL = 3;
 
     protected  void setupDrawer() {
         mActivity = this;
@@ -60,20 +62,27 @@ public class BaseActivity extends AppCompatActivity {
                         new PrimaryDrawerItem().withName(getString(R.string.title_activity_travel_list))
                                 .withIcon(FontAwesome.Icon.faw_calendar).withIdentifier(DRAWER_TRAVEL_LIST),
                         new DividerDrawerItem(),
-                        new PrimaryDrawerItem().withName(getString(R.string.action_logout)).
-                                withIcon(FontAwesome.Icon.faw_sign_out).withIdentifier(DRAWER_LOGOUT)
+                        new PrimaryDrawerItem().withName(getString(R.string.action_detail)).
+                                withIcon(FontAwesome.Icon.faw_info_circle).withIdentifier(DRAWER_DETAIL),
+                        new DividerDrawerItem(),
+                new PrimaryDrawerItem().withName(getString(R.string.action_logout)).
+                        withIcon(FontAwesome.Icon.faw_sign_out).withIdentifier(DRAWER_LOGOUT)
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem) {
                         int identifier = drawerItem.getIdentifier();
+                        Intent intent;
                         switch (identifier) {
                             case DRAWER_TRAVEL_LIST:
-                                Intent intent = new Intent(mActivity, TravelListActivity.class);
+                                intent = new Intent(mActivity, TravelListActivity.class);
                                 startActivity(intent);
                                 return true;
                             case DRAWER_LOGOUT:
                                 logout();
+                                return true;
+                            case DRAWER_DETAIL:
+                                HelpUtils.showAbout(mActivity);
                                 return true;
                         }
                         return false;
