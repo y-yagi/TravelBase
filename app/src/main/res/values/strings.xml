@@ -4,6 +4,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="action_logout">Logout</string>
+    <string name="action_detail">Detail</string>
 
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_travel_list">TravelList</string>
@@ -31,4 +32,15 @@
     <string name="label_address">Address: </string>
     <string name="label_station">Station: </string>
     <string name="label_memo">Memo: </string>
+
+    <string name="about_body"><![CDATA[
+        <b>TravelBase</b><br>
+        Version %s<br><br>
+    ]]></string>
+
+    <string name="about_licenses">Open Source Licenses</string>
+    <string name="about_eula">End User License Agreement</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
+    <string name="title_about">About</string>
 </resources>

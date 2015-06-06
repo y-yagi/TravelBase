@@ -4,6 +4,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">設定</string>
     <string name="action_logout">ログアウト</string>
+    <string name="action_detail">詳細</string>
 
     <string name="title_activity_login">ログイン</string>
     <string name="title_activity_travel_list">旅行一覧</string>
