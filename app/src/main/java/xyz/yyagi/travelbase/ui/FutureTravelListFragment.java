@@ -29,6 +29,7 @@ public class FutureTravelListFragment extends TravelListFragment {
         RealmResults<Travel> travels = mRealm.where(Travel.class)
                 .greaterThanOrEqualTo("end_date", calendar.getTime())
                 .findAll();
+        travels.sort("start_date", RealmResults.SORT_ORDER_DESCENDING);
 
         if (travels.size() == 0) {
             mNoticeTextView.setText(getString(R.string.no_plan_of_travel));

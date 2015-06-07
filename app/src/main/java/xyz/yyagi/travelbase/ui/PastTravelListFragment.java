@@ -29,6 +29,7 @@ public class PastTravelListFragment extends TravelListFragment {
         RealmResults<Travel> travels = mRealm.where(Travel.class)
                         .lessThan("end_date", calendar.getTime())
                         .findAll();
+        travels.sort("start_date", RealmResults.SORT_ORDER_DESCENDING);
 
         if (travels.size() == 0) {
             mNoticeTextView.setText(getString(R.string.no_past_travel));
