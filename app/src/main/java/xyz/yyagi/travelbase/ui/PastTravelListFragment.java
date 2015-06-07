@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import io.realm.RealmResults;
 import xyz.yyagi.travelbase.R;
@@ -26,6 +27,7 @@ public class PastTravelListFragment extends TravelListFragment {
 
     private void displayTravels() {
         Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DATE, -1);
         RealmResults<Travel> travels = mRealm.where(Travel.class)
                         .lessThan("end_date", calendar.getTime())
                         .findAll();
