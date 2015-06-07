@@ -55,15 +55,23 @@ public class TravelDetailFragment extends Fragment {
         CardView scheduleView;
         CardView routeView;
         TextView textView;
-        for (Schedule schedule : travelDate.getSchedules()) {
+        for (final Schedule schedule : travelDate.getSchedules()) {
             if (schedule.getRoute() != null) {
                 routeView = (CardView) mInflater.inflate(R.layout.card_route, mTravelDetailLayout, false);
 
                 textView = (TextView) routeView.findViewById(R.id.title);
                 String routeTitle = getString(R.string.route_title, schedule.getPlace().getName());
                 textView.setText(routeTitle);
+                textView.setTag(schedule.getRoute().getId());
                 textView = (TextView) routeView.findViewById(R.id.detail);
                 textView.setText(schedule.getRoute().getDetail());
+                routeView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        int id = Integer.parseInt(((TextView) v.findViewById(R.id.title)).getTag().toString());
+                        RouteDetailActivity.startActivity(getActivity(), id, schedule.getPlace().getName());
+                    }
+                });
                 mTravelDetailLayout.addView(routeView);
             }
 
