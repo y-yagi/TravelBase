@@ -55,7 +55,11 @@ public class TravelListFragment extends Fragment {
             textView.setText(travel.getName());
             textView.setTag(travel.getId());
             textView = (TextView) cardView.findViewById(R.id.date);
-            textView.setText(travel.getFormatted_start_date() + "〜" + travel.getFormatted_end_date() + "\n");
+            if (travel.getFormatted_start_date().equals(travel.getFormatted_end_date())) {
+                textView.setText(travel.getFormatted_start_date() + "\n");
+            } else {
+                textView.setText(travel.getFormatted_start_date() + "〜" + travel.getFormatted_end_date() + "\n");
+            }
             textView = (TextView) cardView.findViewById(R.id.memo);
             textView.setText(travel.getMemo());
 
