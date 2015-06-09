@@ -76,7 +76,12 @@ public class PlaceMapFragment extends MapFragment {
 
         for(Place place : places) {
             latLng = new LatLng(place.getLatitude(), place.getLongitude());
-            getMap().addMarker(new MarkerOptions().position(latLng).icon(BitmapDescriptorFactory.defaultMarker()));
+            getMap().addMarker(
+                    new MarkerOptions()
+                            .position(latLng)
+                            .icon(BitmapDescriptorFactory.defaultMarker())
+                            .title(place.getName())
+            );
         }
     }
 
