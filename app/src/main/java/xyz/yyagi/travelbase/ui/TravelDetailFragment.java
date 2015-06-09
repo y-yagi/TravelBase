@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import io.realm.Realm;
 import xyz.yyagi.travelbase.R;
+import xyz.yyagi.travelbase.model.Place;
 import xyz.yyagi.travelbase.model.Schedule;
 import xyz.yyagi.travelbase.model.TravelDate;
 import xyz.yyagi.travelbase.util.LogUtil;
@@ -107,7 +108,8 @@ public class TravelDetailFragment extends Fragment {
         mMapTextLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PlaceMapFragment fragment = PlaceMapFragment.newInstance(travelDateId, PlaceMapFragment.ID_TYPE_TRAVEL_DATE);
+                PlaceMapFragment fragment = PlaceMapFragment.newInstance(travelDateId,
+                        PlaceMapFragment.ID_TYPE_TRAVEL_DATE, PlaceMapFragment.LIST_ZOOM);
                 fragmentManager.beginTransaction().replace(R.id.content_layout, fragment).commit();
             }
         });

@@ -31,19 +31,33 @@ import xyz.yyagi.travelbase.model.TravelDate;
 
 public class PlaceMapFragment extends MapFragment {
 
-    private Realm mRealm;
-    private Activity mContext;
     public static final String KEY_ID = "id";
     public static final String KEY_ID_TYPE = "id_type";
+    public static final String KEY_ZOOM = "zoom";
     public static final String ID_TYPE_PLACE = "id_type_place";
     public static final String ID_TYPE_TRAVEL_DATE = "id_type_travel_date";
-    private static final int ZOOM = 15;
+    public static final int DEFAULT_ZOOM = 15;
+    public static final int LIST_ZOOM = 13;
+
+    private Realm mRealm;
+    private Activity mContext;
 
     public static PlaceMapFragment newInstance(int placeId, String idType) {
         PlaceMapFragment fragment = new PlaceMapFragment();
         Bundle args = new Bundle();
         args.putInt(KEY_ID, placeId);
         args.putString(KEY_ID_TYPE, idType);
+        args.putInt(KEY_ZOOM, DEFAULT_ZOOM);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    public static PlaceMapFragment newInstance(int placeId, String idType, int zoom) {
+        PlaceMapFragment fragment = new PlaceMapFragment();
+        Bundle args = new Bundle();
+        args.putInt(KEY_ID, placeId);
+        args.putString(KEY_ID_TYPE, idType);
+        args.putInt(KEY_ZOOM, zoom);
         fragment.setArguments(args);
         return fragment;
     }
@@ -57,8 +71,9 @@ public class PlaceMapFragment extends MapFragment {
     }
 
     private void initMap() {
-        UiSettings settings = getMap().getUiSettings();
         LatLng latLng;
+        int zoom = getArguments().getInt(KEY_ZOOM);
+        UiSettings settings = getMap().getUiSettings();
         settings.setCompassEnabled(true);
 
         ArrayList<Place> places = getPlaces();
@@ -66,7 +81,7 @@ public class PlaceMapFragment extends MapFragment {
         if(!places.isEmpty()) {
             Place firstPlace = places.get(0);
             latLng = new LatLng(firstPlace.getLatitude(), firstPlace.getLongitude());
-            getMap().moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, ZOOM));
+            getMap().moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
         }
 
         for(Place place : places) {
