@@ -26,7 +26,7 @@ public class FutureTravelListFragment extends TravelListFragment {
 
     private void displayTravels() {
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.DATE, -1);
+        calendar.set(Calendar.HOUR_OF_DAY, -1);
         RealmResults<Travel> travels = mRealm.where(Travel.class)
                 .greaterThanOrEqualTo("end_date", calendar.getTime())
                 .findAll();
