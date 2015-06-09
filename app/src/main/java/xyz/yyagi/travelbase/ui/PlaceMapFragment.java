@@ -42,16 +42,6 @@ public class PlaceMapFragment extends MapFragment {
     private Realm mRealm;
     private Activity mContext;
 
-    public static PlaceMapFragment newInstance(int placeId, String idType) {
-        PlaceMapFragment fragment = new PlaceMapFragment();
-        Bundle args = new Bundle();
-        args.putInt(KEY_ID, placeId);
-        args.putString(KEY_ID_TYPE, idType);
-        args.putInt(KEY_ZOOM, DEFAULT_ZOOM);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     public static PlaceMapFragment newInstance(int placeId, String idType, int zoom) {
         PlaceMapFragment fragment = new PlaceMapFragment();
         Bundle args = new Bundle();

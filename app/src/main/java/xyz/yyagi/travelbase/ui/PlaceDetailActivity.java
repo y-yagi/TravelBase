@@ -107,7 +107,7 @@ public class PlaceDetailActivity extends BaseActivity implements MaterialTabList
             if (num == 0) {
                 return PlaceDetailFragment.newInstance(mPlaceId);
             } else {
-                return PlaceMapFragment.newInstance(mPlaceId, PlaceMapFragment.ID_TYPE_PLACE);
+                return PlaceMapFragment.newInstance(mPlaceId, PlaceMapFragment.ID_TYPE_PLACE, PlaceMapFragment.DEFAULT_ZOOM);
             }
         }
 
