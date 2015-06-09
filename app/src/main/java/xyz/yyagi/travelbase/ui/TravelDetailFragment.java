@@ -1,5 +1,6 @@
 package xyz.yyagi.travelbase.ui;
 
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.annotation.Nullable;
@@ -14,13 +15,15 @@ import io.realm.Realm;
 import xyz.yyagi.travelbase.R;
 import xyz.yyagi.travelbase.model.Schedule;
 import xyz.yyagi.travelbase.model.TravelDate;
+import xyz.yyagi.travelbase.util.LogUtil;
 
 public class TravelDetailFragment extends Fragment {
     private Realm mRealm;
-    private int mTravelDateId;
     private LinearLayout mTravelDetailLayout;
     private LayoutInflater mInflater;
+    private TextView mMapTextLink;
     public static final String KEY_TRAVEL_DATE_ID = "travel_date_id";
+    private static final String TAG = LogUtil.makeLogTag(PlaceDetailActivity.class);
 
     public static TravelDetailFragment newInstance(int travelDateId) {
         TravelDetailFragment fragment = new TravelDetailFragment();
@@ -40,6 +43,7 @@ public class TravelDetailFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         mTravelDetailLayout = (LinearLayout) view.findViewById(R.id.travelDetail);
         mRealm = Realm.getInstance(getActivity());
+        mMapTextLink = (TextView) view.findViewById(R.id.mapLinkText);
         displayScheudle();
     }
 
@@ -89,12 +93,24 @@ public class TravelDetailFragment extends Fragment {
             scheduleView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                int id = Integer.parseInt(((TextView) v.findViewById(R.id.name)).getTag().toString());
-                PlaceDetailActivity.startActivity(getActivity(), id);
+                    int id = Integer.parseInt(((TextView) v.findViewById(R.id.name)).getTag().toString());
+                    PlaceDetailActivity.startActivity(getActivity(), id);
                 }
             });
             mTravelDetailLayout.addView(scheduleView);
         }
+        setPlacesMap(travelDate.getId());
+    }
+
+    private void setPlacesMap(final int travelDateId) {
+        final FragmentManager fragmentManager = getFragmentManager();
+        mMapTextLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PlaceMapFragment fragment = PlaceMapFragment.newInstance(travelDateId, PlaceMapFragment.ID_TYPE_TRAVEL_DATE);
+                fragmentManager.beginTransaction().replace(R.id.content_layout, fragment).commit();
+            }
+        });
     }
 }
 
