@@ -20,22 +20,34 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+
 import io.realm.Realm;
+import io.realm.RealmResults;
 import xyz.yyagi.travelbase.R;
 import xyz.yyagi.travelbase.model.Place;
+import xyz.yyagi.travelbase.model.Schedule;
+import xyz.yyagi.travelbase.model.TravelDate;
 
 public class PlaceMapFragment extends MapFragment {
 
-    private LatLng mLatLon;
+    public static final String KEY_ID = "id";
+    public static final String KEY_ID_TYPE = "id_type";
+    public static final String KEY_ZOOM = "zoom";
+    public static final String ID_TYPE_PLACE = "id_type_place";
+    public static final String ID_TYPE_TRAVEL_DATE = "id_type_travel_date";
+    public static final int DEFAULT_ZOOM = 15;
+    public static final int LIST_ZOOM = 13;
+
     private Realm mRealm;
     private Activity mContext;
-    public static final String KEY_PLACE_ID = "place_id";
-    private static final int ZOOM = 15;
 
-    public static PlaceMapFragment newInstance(int placeId) {
+    public static PlaceMapFragment newInstance(int placeId, String idType, int zoom) {
         PlaceMapFragment fragment = new PlaceMapFragment();
         Bundle args = new Bundle();
-        args.putInt(KEY_PLACE_ID, placeId);
+        args.putInt(KEY_ID, placeId);
+        args.putString(KEY_ID_TYPE, idType);
+        args.putInt(KEY_ZOOM, zoom);
         fragment.setArguments(args);
         return fragment;
     }
@@ -44,20 +56,52 @@ public class PlaceMapFragment extends MapFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = super.onCreateView(inflater, container, savedInstanceState);
         mRealm = Realm.getInstance(getActivity());
-        int placeId = getArguments().getInt(KEY_PLACE_ID);
-        Place place = mRealm.where(Place.class).equalTo("id", placeId).findFirst();
-        mLatLon = new LatLng(place.getLatitude(), place.getLongitude());
-
         initMap();
         return v;
     }
 
     private void initMap() {
+        LatLng latLng;
+        int zoom = getArguments().getInt(KEY_ZOOM);
         UiSettings settings = getMap().getUiSettings();
         settings.setCompassEnabled(true);
 
-        getMap().moveCamera(CameraUpdateFactory.newLatLngZoom(mLatLon, ZOOM));
-        getMap().addMarker(new MarkerOptions().position(mLatLon).icon(BitmapDescriptorFactory.defaultMarker()));
+        ArrayList<Place> places = getPlaces();
+
+        if(!places.isEmpty()) {
+            Place firstPlace = places.get(0);
+            latLng = new LatLng(firstPlace.getLatitude(), firstPlace.getLongitude());
+            getMap().moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
+        }
+
+        for(Place place : places) {
+            latLng = new LatLng(place.getLatitude(), place.getLongitude());
+            getMap().addMarker(
+                    new MarkerOptions()
+                            .position(latLng)
+                            .icon(BitmapDescriptorFactory.defaultMarker())
+                            .title(place.getName())
+            );
+        }
+    }
+
+    private ArrayList<Place> getPlaces() {
+        String idType = getArguments().getString(KEY_ID_TYPE);
+        int id = getArguments().getInt(KEY_ID);
+        ArrayList<Place> places = new ArrayList<Place>();
+
+        if (idType == ID_TYPE_PLACE) {
+            RealmResults<Place> results = mRealm.where(Place.class).equalTo("id", id).findAll();
+            for (Place place : results) {
+                places.add(place);
+            }
+        } else if(idType == ID_TYPE_TRAVEL_DATE) {
+            TravelDate travelDate = mRealm.where(TravelDate.class).equalTo("id", id).findFirst();
+            for (Schedule schedule : travelDate.getSchedules()) {
+                places.add(schedule.getPlace());
+            }
+        }
+        return places;
     }
 }
 
