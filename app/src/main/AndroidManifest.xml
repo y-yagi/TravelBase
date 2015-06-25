@@ -57,6 +57,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="xyz.yyagi.travelbase.ui.BaseActivity" />
         </activity>
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="00eadb12433e8df5b18fa4f73b15207f889ff8b1" />
     </application>
 
 </manifest>

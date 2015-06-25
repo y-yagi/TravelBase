@@ -22,6 +22,7 @@ import xyz.yyagi.travelbase.model.Travel;
 public interface TravelBaseService {
     static final String endPoint = "https://travel-base.herokuapp.com";
     static final String PROVIDER_GOOGLE = "google_oauth2";
+    static final String PROVIDER_TWITTER = "twitter";
     static final String API_VERSION = "v1";
 
     @RetryPolicy(timeout = 10000)
