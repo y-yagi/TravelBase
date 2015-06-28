@@ -47,7 +47,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private static final String TWITTER_KEY = BuildConfig.TWITTER_KEY;
     private static final String TWITTER_SECRET = BuildConfig.TWITTER_SECRET;
 
-
     private static final int REQUEST_CODE_GOOGLE_SIGN_IN = 1;
     // @see https://github.com/twitter/twitter-kit-android/blob/master/twitter-core/src/main/java/com/twitter/sdk/android/core/TwitterAuthConfig.java#L37
     private static final int REQUEST_CODE_TWITTER_LOGIN = 140;
@@ -175,10 +174,10 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     }
 
     private void saveTravelList(ArrayList<Travel> travelList) {
+        User user = mRealm.where(User.class).findFirst();
         mRealm.beginTransaction();
-        // FIXME: don't remove all data
-        mRealm.where(Travel.class).findAll().clear();
         for (Travel travel : travelList) {
+            travel.setUser_id(user.getUid());
             mRealm.copyToRealmOrUpdate(travel);
         }
         mRealm.commitTransaction();

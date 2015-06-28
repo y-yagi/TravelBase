@@ -1,5 +1,6 @@
 package xyz.yyagi.travelbase.model;
 
+import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.Ignore;
 

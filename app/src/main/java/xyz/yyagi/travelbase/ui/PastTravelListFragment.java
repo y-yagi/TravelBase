@@ -11,6 +11,7 @@ import java.util.Date;
 import io.realm.RealmResults;
 import xyz.yyagi.travelbase.R;
 import xyz.yyagi.travelbase.model.Travel;
+import xyz.yyagi.travelbase.model.User;
 import xyz.yyagi.travelbase.util.LogUtil;
 
 /**
@@ -28,8 +29,10 @@ public class PastTravelListFragment extends TravelListFragment {
     private void displayTravels() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, -1);
+        User user = mRealm.where(User.class).findFirst();
         RealmResults<Travel> travels = mRealm.where(Travel.class)
                         .lessThan("end_date", calendar.getTime())
+                        .equalTo("user_id", user.getUid())
                         .findAll();
         travels.sort("start_date", RealmResults.SORT_ORDER_DESCENDING);
 
