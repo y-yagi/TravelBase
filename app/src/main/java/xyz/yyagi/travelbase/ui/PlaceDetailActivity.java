@@ -54,6 +54,7 @@ public class PlaceDetailActivity extends BaseActivity implements MaterialTabList
 
         Realm realm = Realm.getInstance(this);
         Place place = realm.where(Place.class).equalTo("id", id).findFirst();
+        realm.close();
         setTitle(place.getName());
 
         mTabHost = (MaterialTabHost) this.findViewById(R.id.materialTabHost);

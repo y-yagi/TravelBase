@@ -87,6 +87,14 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     }
 
     @Override
+    public void onDestroy() {
+       super.onDestroy();
+        if (mRealm != null) {
+            mRealm.close();
+        }
+    }
+
+    @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.google_sign_in_button:

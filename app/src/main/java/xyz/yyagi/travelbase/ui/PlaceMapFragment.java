@@ -39,7 +39,6 @@ public class PlaceMapFragment extends MapFragment {
     public static final int DEFAULT_ZOOM = 15;
     public static final int LIST_ZOOM = 13;
 
-    private Realm mRealm;
     private Activity mContext;
 
     public static PlaceMapFragment newInstance(int placeId, String idType, int zoom) {
@@ -55,7 +54,6 @@ public class PlaceMapFragment extends MapFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = super.onCreateView(inflater, container, savedInstanceState);
-        mRealm = Realm.getInstance(getActivity());
         initMap();
         return v;
     }
@@ -89,18 +87,20 @@ public class PlaceMapFragment extends MapFragment {
         String idType = getArguments().getString(KEY_ID_TYPE);
         int id = getArguments().getInt(KEY_ID);
         ArrayList<Place> places = new ArrayList<Place>();
+        Realm realm = Realm.getInstance(getActivity());
 
         if (idType == ID_TYPE_PLACE) {
-            RealmResults<Place> results = mRealm.where(Place.class).equalTo("id", id).findAll();
+            RealmResults<Place> results = realm.where(Place.class).equalTo("id", id).findAll();
             for (Place place : results) {
                 places.add(place);
             }
         } else if(idType == ID_TYPE_TRAVEL_DATE) {
-            TravelDate travelDate = mRealm.where(TravelDate.class).equalTo("id", id).findFirst();
+            TravelDate travelDate = realm.where(TravelDate.class).equalTo("id", id).findFirst();
             for (Schedule schedule : travelDate.getSchedules()) {
                 places.add(schedule.getPlace());
             }
         }
+        realm.close();
         return places;
     }
 }

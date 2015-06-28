@@ -23,7 +23,6 @@ import xyz.yyagi.travelbase.model.Place;
  * create an instance of this fragment.
  */
 public class PlaceDetailFragment extends Fragment {
-    private Realm mRealm;
     public static final String KEY_PLACE_ID = "place_id";
 
     public static PlaceDetailFragment newInstance(int placeId) {
@@ -41,7 +40,6 @@ public class PlaceDetailFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        mRealm = Realm.getInstance(getActivity());
         displayScheudle(view);
     }
 
@@ -53,7 +51,9 @@ public class PlaceDetailFragment extends Fragment {
     private void displayScheudle(View view) {
         TextView textView;
         int placeId = getArguments().getInt(KEY_PLACE_ID);
-        Place place = mRealm.where(Place.class).equalTo("id", placeId).findFirst();
+        Realm realm = Realm.getInstance(getActivity());
+        Place place = realm.where(Place.class).equalTo("id", placeId).findFirst();
+        realm.close();
 
         textView = (TextView) view.findViewById(R.id.address);
         textView.setText(place.getAddress());
