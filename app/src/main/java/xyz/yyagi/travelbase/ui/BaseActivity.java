@@ -27,6 +27,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import io.realm.Realm;
 import io.realm.RealmResults;
 import xyz.yyagi.travelbase.R;
+import xyz.yyagi.travelbase.model.Travel;
 import xyz.yyagi.travelbase.model.User;
 import xyz.yyagi.travelbase.util.HelpUtils;
 
@@ -93,9 +94,13 @@ public class BaseActivity extends AppCompatActivity {
 
     protected  void logout() {
         Realm realm = Realm.getInstance(this);
+
         realm.beginTransaction();
-        realm.where(User.class).findAll().clear();
+        realm.clear(User.class);
+        // FIXME:remained other tables
+        realm.clear(Travel.class);
         realm.commitTransaction();
+        realm.close();
 
         Intent intent = new Intent(this, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

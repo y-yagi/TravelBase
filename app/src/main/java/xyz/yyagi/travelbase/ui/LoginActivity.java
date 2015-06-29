@@ -13,11 +13,24 @@ import com.google.android.gms.common.SignInButton;
 import com.orhanobut.wasp.CallBack;
 import com.orhanobut.wasp.WaspError;
 
+import com.twitter.sdk.android.Twitter;
+import com.twitter.sdk.android.core.Callback;
+import com.twitter.sdk.android.core.OAuthSigning;
+import com.twitter.sdk.android.core.Result;
+import com.twitter.sdk.android.core.TwitterAuthConfig;
+import com.twitter.sdk.android.core.TwitterAuthToken;
+import com.twitter.sdk.android.core.TwitterCore;
+import com.twitter.sdk.android.core.TwitterException;
+import com.twitter.sdk.android.core.TwitterSession;
+import com.twitter.sdk.android.core.identity.TwitterLoginButton;
+
+import io.fabric.sdk.android.Fabric;
 import java.util.ArrayList;
 import java.util.Map;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
+import xyz.yyagi.travelbase.BuildConfig;
 import xyz.yyagi.travelbase.R;
 import xyz.yyagi.travelbase.model.Authorization;
 import xyz.yyagi.travelbase.model.Travel;
@@ -30,8 +43,15 @@ import xyz.yyagi.travelbase.util.LogUtil;
 
 public class LoginActivity extends Activity implements View.OnClickListener {
 
-    private static final int REQUEST_CODE_SIGN_IN_GOOGLE = 1;
-    private SignInButton mSignInButton;
+    // Note: Your consumer key and secret should be obfuscated in your source code before shipping.
+    private static final String TWITTER_KEY = BuildConfig.TWITTER_KEY;
+    private static final String TWITTER_SECRET = BuildConfig.TWITTER_SECRET;
+
+    private static final int REQUEST_CODE_GOOGLE_SIGN_IN = 1;
+    // @see https://github.com/twitter/twitter-kit-android/blob/master/twitter-core/src/main/java/com/twitter/sdk/android/core/TwitterAuthConfig.java#L37
+    private static final int REQUEST_CODE_TWITTER_LOGIN = 140;
+    private SignInButton mGoogleSignInButton;
+    private TwitterLoginButton mTwitterLoginButton;
     private LoginActivity mActivity;
     private ProgressDialog mProgressDialog;
     private static final String TAG = LogUtil.makeLogTag(LoginActivity.class);
@@ -41,6 +61,8 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
+        Fabric.with(this, new Twitter(authConfig));
 
         // TODO: remove after. use only test.
 //        Realm.deleteRealmFile(this);
@@ -50,7 +72,8 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         setContentView(R.layout.activity_login);
 
         // To use when an error occurs, it is necessary to set previously
-        mSignInButton = (SignInButton) findViewById(R.id.google_sign_in_button);
+        mGoogleSignInButton = (SignInButton) findViewById(R.id.google_sign_in_button);
+        mTwitterLoginButton = (TwitterLoginButton)findViewById(R.id.twitter_sign_in_button);
 
         mProgressDialog = ProgressDialogBuilder.build(this, getString(R.string.loading));
         if (isLogined()) {
@@ -59,8 +82,16 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             return;
         }
 
-        mSignInButton.setOnClickListener(this);
-        mSignInButton.setVisibility(View.VISIBLE);
+        setTwitterLoginButton();
+        setGoogleLoginButton();
+    }
+
+    @Override
+    public void onDestroy() {
+       super.onDestroy();
+        if (mRealm != null) {
+            mRealm.close();
+        }
     }
 
     @Override
@@ -70,7 +101,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 Intent intent = AccountManager.get(this).newChooseAccountIntent(null, null, new String[]{"com.google"
                         }, false, null,
                         null, null, null);
-                startActivityForResult(intent, REQUEST_CODE_SIGN_IN_GOOGLE);
+                startActivityForResult(intent, REQUEST_CODE_GOOGLE_SIGN_IN);
                 break;
         }
     }
@@ -78,12 +109,17 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         mProgressDialog.show();
-        if (requestCode == REQUEST_CODE_SIGN_IN_GOOGLE) {
-            if (resultCode == RESULT_OK) {
-                authenticate(data.getStringExtra(AccountManager.KEY_ACCOUNT_NAME), TravelBaseService.PROVIDER_GOOGLE);
-            } else {
-                // TODO: Do nothing?
-            }
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case REQUEST_CODE_GOOGLE_SIGN_IN:
+                if (resultCode == RESULT_OK) {
+                    String userData = data.getStringExtra(AccountManager.KEY_AUTHTOKEN);
+                    authenticate(data.getStringExtra(AccountManager.KEY_ACCOUNT_NAME), TravelBaseService.PROVIDER_GOOGLE);
+                } else {
+                    // TODO: Do nothing?
+                }
+            case REQUEST_CODE_TWITTER_LOGIN:
+                mTwitterLoginButton.onActivityResult(requestCode, resultCode, data);
         }
     }
 
@@ -138,16 +174,18 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             public void onError(WaspError waspError) {
                 mProgressDialog.dismiss();
                 Toast.makeText(mActivity, getString(R.string.login_faiure), Toast.LENGTH_LONG).show();
-                mSignInButton.setOnClickListener(mActivity);
-                mSignInButton.setVisibility(View.VISIBLE);
+                setGoogleLoginButton();
+                setTwitterLoginButton();
                 Log.d(TAG, waspError.getErrorMessage());
             }
         });
     }
 
     private void saveTravelList(ArrayList<Travel> travelList) {
+        User user = mRealm.where(User.class).findFirst();
         mRealm.beginTransaction();
         for (Travel travel : travelList) {
+            travel.setUser_id(user.getUid());
             mRealm.copyToRealmOrUpdate(travel);
         }
         mRealm.commitTransaction();
@@ -162,6 +200,28 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         user.setAccessToken(CryptoUtil.decrypt(this, user.getEncryptedAccessToken()));
         TravelBaseServiceBuilder.user = user;
         return true;
+    }
+
+    private void setTwitterLoginButton() {
+        mTwitterLoginButton.setVisibility(View.VISIBLE);
+        mTwitterLoginButton.setCallback(new Callback<TwitterSession>() {
+            @Override
+            public void success(Result<TwitterSession> result) {
+                TwitterSession session = Twitter.getSessionManager().getActiveSession();
+                authenticate(String.valueOf(session.getUserId()), TravelBaseService.PROVIDER_TWITTER);
+            }
+
+            @Override
+            public void failure(TwitterException exception) {
+                Toast.makeText(mActivity, getString(R.string.login_faiure), Toast.LENGTH_LONG).show();
+                Log.d(TAG, "Twitter Login fail: " + exception.getMessage());
+            }
+        });
+    }
+
+    private void setGoogleLoginButton() {
+        mGoogleSignInButton.setOnClickListener(this);
+        mGoogleSignInButton.setVisibility(View.VISIBLE);
     }
 }
 

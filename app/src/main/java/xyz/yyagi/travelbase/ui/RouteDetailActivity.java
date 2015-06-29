@@ -36,6 +36,7 @@ public class RouteDetailActivity extends BaseActivity {
 
         Realm realm = Realm.getInstance(this);
         Route route = realm.where(Route.class).equalTo("id", id).findFirst();
+        realm.close();
 
         TextView routeDetail = (TextView)findViewById(R.id.route_detail);
         routeDetail.setText(route.getDetail());

@@ -21,6 +21,7 @@ public class Travel extends RealmObject {
     private String formatted_end_date;
     private String memo;
     private RealmList<TravelDate> travel_dates;
+    private String user_id;
 
     public int getId() {
         return id;
@@ -84,6 +85,14 @@ public class Travel extends RealmObject {
 
     public void setTravel_dates(RealmList<TravelDate> travel_dates) {
         this.travel_dates = travel_dates;
+    }
+
+    public String getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
     }
 }
 

@@ -24,7 +24,6 @@ import xyz.yyagi.travelbase.util.LogUtil;
 
 public class TravelDetailActivity extends BaseActivity implements MaterialTabListener {
     private static final String TAG = LogUtil.makeLogTag(TravelDetailActivity.class);
-    private Realm mRealm;
     private static final String EXTRA_TRAVEL_ID = "id";
     private MaterialTabHost mTabHost;
     private ViewPager mPager;
@@ -35,10 +34,11 @@ public class TravelDetailActivity extends BaseActivity implements MaterialTabLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_travel_detail);
-        mRealm = Realm.getInstance(this);
+        Realm realm = Realm.getInstance(this);
         Bundle extras = getIntent().getExtras();
         int id = extras.getInt(EXTRA_TRAVEL_ID);
-        Travel travel = mRealm.where(Travel.class).equalTo("id", id).findFirst();
+        Travel travel = realm.where(Travel.class).equalTo("id", id).findFirst();
+        realm.close();
         setTitle(travel.getName());
 
         mTabHost = (MaterialTabHost) this.findViewById(R.id.materialTabHost);

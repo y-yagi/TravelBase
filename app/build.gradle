@@ -1,4 +1,19 @@
+buildscript {
+    repositories {
+        maven { url 'https://maven.fabric.io/public' }
+    }
+
+    dependencies {
+        classpath 'io.fabric.tools:gradle:1.+'
+    }
+}
 apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
+
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
+}
+
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -16,6 +31,9 @@ android {
             buildConfigField "String", "TRAVEL_BASE_API_ID", "\"${project.property("travelBaseApiId")}\""
             buildConfigField "String", "TRAVEL_BASE_API_SECRET", "\"${project.property("travelBaseApiSecret")}\""
             buildConfigField "String", "ENCRYPT_KEY", "\"${project.property("encryptKey")}\""
+            buildConfigField "String", "TWITTER_KEY", "\"${project.property("twitterKey")}\""
+            buildConfigField "String", "TWITTER_SECRET", "\"${project.property("twitterSecret")}\""
+
         }
         release {
             minifyEnabled false
@@ -37,5 +55,8 @@ dependencies {
     compile 'com.facebook.conceal:conceal:1.0.0@aar'
     compile('com.mikepenz:materialdrawer:3.0.2@aar') {
         transitive = true
+    }
+    compile('com.twitter.sdk.android:twitter:1.6.0@aar') {
+        transitive = true;
     }
 }

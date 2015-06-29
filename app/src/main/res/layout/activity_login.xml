@@ -31,6 +31,13 @@
             android:visibility="gone"
             />
 
+        <xyz.yyagi.travelbase.ui.widget.TravelBaseTwitterLoginButton
+            android:id="@+id/twitter_sign_in_button"
+            android:layout_marginBottom="30dip"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
     </LinearLayout>
 
 </FrameLayout>
