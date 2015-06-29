@@ -30,4 +30,5 @@
     <string name="label_station">最寄り駅: </string>
     <string name="label_memo">メモ: </string>
     <string name="linkt_to_places_map"><u>場所の一覧を地図で見る</u></string>
+    <string name="twitter_login">ログイン</string>
 </resources>

@@ -45,4 +45,5 @@
     <string name="title_about">About</string>
     <string name="title_activity_route_detail">RouteDetailActivity</string>
     <string name="linkt_to_places_map"><u>See a list of places in Map</u></string>
+    <string name="twitter_login">login</string>
 </resources>
