@@ -100,11 +100,15 @@ public class TravelDetailFragment extends Fragment {
             });
             mTravelDetailLayout.addView(scheduleView);
         }
-        setPlacesMap(travelDate.getId());
+
+        if (!travelDate.getSchedules().isEmpty()) {
+            setPlacesMap(travelDate.getId());
+        }
     }
 
     private void setPlacesMap(final int travelDateId) {
         final FragmentManager fragmentManager = getFragmentManager();
+        mMapTextLink.setVisibility(View.VISIBLE);
         mMapTextLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
