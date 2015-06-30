@@ -19,6 +19,7 @@
     </string-array>
     <string name="no_plan_of_travel">旅行の予定はありません</string>
     <string name="no_past_travel">過去の旅行の情報はありません</string>
+    <string name="no_schedules">予定は登録されていません</string>
     <string name="route_title">「%1$s」への行き方</string>
 
     <string-array name="place_detail_tab_titles">
