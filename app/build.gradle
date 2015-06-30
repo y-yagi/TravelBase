@@ -25,15 +25,15 @@ android {
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
+        buildConfigField "String", "TRAVEL_BASE_API_ID", "\"${project.property("travelBaseApiId")}\""
+        buildConfigField "String", "TRAVEL_BASE_API_SECRET", "\"${project.property("travelBaseApiSecret")}\""
+        buildConfigField "String", "ENCRYPT_KEY", "\"${project.property("encryptKey")}\""
+        buildConfigField "String", "TWITTER_KEY", "\"${project.property("twitterKey")}\""
+        buildConfigField "String", "TWITTER_SECRET", "\"${project.property("twitterSecret")}\""
+        resValue "string", "google_map_key", "\"${project.property("googleMapKey")}\""
     }
     buildTypes {
         debug {
-            buildConfigField "String", "TRAVEL_BASE_API_ID", "\"${project.property("travelBaseApiId")}\""
-            buildConfigField "String", "TRAVEL_BASE_API_SECRET", "\"${project.property("travelBaseApiSecret")}\""
-            buildConfigField "String", "ENCRYPT_KEY", "\"${project.property("encryptKey")}\""
-            buildConfigField "String", "TWITTER_KEY", "\"${project.property("twitterKey")}\""
-            buildConfigField "String", "TWITTER_SECRET", "\"${project.property("twitterSecret")}\""
-
         }
         release {
             minifyEnabled false
