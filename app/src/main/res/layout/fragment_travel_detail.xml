@@ -15,6 +15,7 @@
         android:text="@string/linkt_to_places_map"
         android:layout_gravity="center"
         android:layout_marginBottom="10dp"
+        android:visibility="invisible"
         />
 
     <ScrollView

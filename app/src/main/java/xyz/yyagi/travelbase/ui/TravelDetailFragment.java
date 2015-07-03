@@ -23,6 +23,7 @@ public class TravelDetailFragment extends Fragment {
     private LinearLayout mTravelDetailLayout;
     private LayoutInflater mInflater;
     private TextView mMapTextLink;
+    private TextView mNoticeTextView;
     public static final String KEY_TRAVEL_DATE_ID = "travel_date_id";
     private static final String TAG = LogUtil.makeLogTag(PlaceDetailActivity.class);
 
@@ -45,6 +46,7 @@ public class TravelDetailFragment extends Fragment {
         mTravelDetailLayout = (LinearLayout) view.findViewById(R.id.travelDetail);
         mRealm = Realm.getInstance(getActivity());
         mMapTextLink = (TextView) view.findViewById(R.id.mapLinkText);
+        mNoticeTextView = (TextView)view.findViewById(R.id.noticeText);
         displayScheudle();
     }
 
@@ -56,6 +58,12 @@ public class TravelDetailFragment extends Fragment {
     private void displayScheudle() {
         int travelDateId = getArguments().getInt(KEY_TRAVEL_DATE_ID);
         TravelDate travelDate = mRealm.where(TravelDate.class).equalTo("id", travelDateId).findFirst();
+
+        if (travelDate.getSchedules().isEmpty()) {
+            mNoticeTextView.setText(getString(R.string.no_schedules));
+            mNoticeTextView.setVisibility(View.VISIBLE);
+            return;
+        }
 
         CardView scheduleView;
         CardView routeView;
@@ -100,11 +108,13 @@ public class TravelDetailFragment extends Fragment {
             });
             mTravelDetailLayout.addView(scheduleView);
         }
+
         setPlacesMap(travelDate.getId());
     }
 
     private void setPlacesMap(final int travelDateId) {
         final FragmentManager fragmentManager = getFragmentManager();
+        mMapTextLink.setVisibility(View.VISIBLE);
         mMapTextLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
