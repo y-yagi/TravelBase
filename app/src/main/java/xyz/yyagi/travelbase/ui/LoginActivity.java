@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import io.realm.Realm;
+import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
 import xyz.yyagi.travelbase.BuildConfig;
 import xyz.yyagi.travelbase.R;
@@ -65,7 +66,9 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         Fabric.with(this, new Twitter(authConfig));
 
         // TODO: remove after. use only test.
-//        Realm.deleteRealmFile(this);
+//        RealmConfiguration realmConfiguration = new RealmConfiguration.Builder(this).build();
+//        Realm.deleteRealm(realmConfiguration);
+
         mRealm = Realm.getInstance(this);
         mActivity = this;
 
