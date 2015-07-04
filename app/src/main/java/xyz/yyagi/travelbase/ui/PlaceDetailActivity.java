@@ -24,6 +24,7 @@ import it.neokree.materialtabs.MaterialTabHost;
 import it.neokree.materialtabs.MaterialTabListener;
 import xyz.yyagi.travelbase.R;
 import xyz.yyagi.travelbase.model.Place;
+import xyz.yyagi.travelbase.service.RealmBuilder;
 import xyz.yyagi.travelbase.util.LogUtil;
 
 
@@ -52,7 +53,7 @@ public class PlaceDetailActivity extends BaseActivity implements MaterialTabList
         Bundle extras = getIntent().getExtras();
         int id = extras.getInt(EXTRA_PLACE_ID);
 
-        Realm realm = Realm.getInstance(this);
+        Realm realm = RealmBuilder.getRealmInstance(this);
         Place place = realm.where(Place.class).equalTo("id", id).findFirst();
         realm.close();
         setTitle(place.getName());

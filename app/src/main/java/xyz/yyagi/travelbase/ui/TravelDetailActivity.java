@@ -18,6 +18,7 @@ import it.neokree.materialtabs.MaterialTabListener;
 import xyz.yyagi.travelbase.R;
 import xyz.yyagi.travelbase.model.Travel;
 import xyz.yyagi.travelbase.model.TravelDate;
+import xyz.yyagi.travelbase.service.RealmBuilder;
 import xyz.yyagi.travelbase.util.DateUtil;
 import xyz.yyagi.travelbase.util.LogUtil;
 
@@ -34,7 +35,7 @@ public class TravelDetailActivity extends BaseActivity implements MaterialTabLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_travel_detail);
-        Realm realm = Realm.getInstance(this);
+        Realm realm = RealmBuilder.getRealmInstance(this);
         Bundle extras = getIntent().getExtras();
         int id = extras.getInt(EXTRA_TRAVEL_ID);
         Travel travel = realm.where(Travel.class).equalTo("id", id).findFirst();

@@ -3,12 +3,8 @@ package xyz.yyagi.travelbase.ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 
@@ -20,15 +16,14 @@ import com.mikepenz.materialdrawer.accountswitcher.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
-import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
 import io.realm.Realm;
-import io.realm.RealmResults;
 import xyz.yyagi.travelbase.R;
 import xyz.yyagi.travelbase.model.Travel;
 import xyz.yyagi.travelbase.model.User;
+import xyz.yyagi.travelbase.service.RealmBuilder;
 import xyz.yyagi.travelbase.util.HelpUtils;
 
 public class BaseActivity extends AppCompatActivity {
@@ -93,7 +88,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     protected  void logout() {
-        Realm realm = Realm.getInstance(this);
+        Realm realm = RealmBuilder.getRealmInstance(this);
 
         realm.beginTransaction();
         realm.clear(User.class);

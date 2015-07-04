@@ -28,6 +28,7 @@ import xyz.yyagi.travelbase.R;
 import xyz.yyagi.travelbase.model.Place;
 import xyz.yyagi.travelbase.model.Schedule;
 import xyz.yyagi.travelbase.model.TravelDate;
+import xyz.yyagi.travelbase.service.RealmBuilder;
 
 public class PlaceMapFragment extends MapFragment {
 
@@ -87,7 +88,7 @@ public class PlaceMapFragment extends MapFragment {
         String idType = getArguments().getString(KEY_ID_TYPE);
         int id = getArguments().getInt(KEY_ID);
         ArrayList<Place> places = new ArrayList<Place>();
-        Realm realm = Realm.getInstance(getActivity());
+        Realm realm = RealmBuilder.getRealmInstance(getActivity());
 
         if (idType == ID_TYPE_PLACE) {
             RealmResults<Place> results = realm.where(Place.class).equalTo("id", id).findAll();

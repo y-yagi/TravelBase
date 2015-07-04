@@ -14,6 +14,7 @@ import android.widget.TextView;
 import io.realm.Realm;
 import xyz.yyagi.travelbase.R;
 import xyz.yyagi.travelbase.model.Place;
+import xyz.yyagi.travelbase.service.RealmBuilder;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -51,7 +52,7 @@ public class PlaceDetailFragment extends Fragment {
     private void displayScheudle(View view) {
         TextView textView;
         int placeId = getArguments().getInt(KEY_PLACE_ID);
-        Realm realm = Realm.getInstance(getActivity());
+        Realm realm = RealmBuilder.getRealmInstance(getActivity());
         Place place = realm.where(Place.class).equalTo("id", placeId).findFirst();
         realm.close();
 
