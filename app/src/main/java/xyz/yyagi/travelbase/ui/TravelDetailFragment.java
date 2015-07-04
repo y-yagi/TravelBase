@@ -16,6 +16,7 @@ import xyz.yyagi.travelbase.R;
 import xyz.yyagi.travelbase.model.Place;
 import xyz.yyagi.travelbase.model.Schedule;
 import xyz.yyagi.travelbase.model.TravelDate;
+import xyz.yyagi.travelbase.service.RealmBuilder;
 import xyz.yyagi.travelbase.util.LogUtil;
 
 public class TravelDetailFragment extends Fragment {
@@ -44,7 +45,7 @@ public class TravelDetailFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         mTravelDetailLayout = (LinearLayout) view.findViewById(R.id.travelDetail);
-        mRealm = Realm.getInstance(getActivity());
+        mRealm = RealmBuilder.getRealmInstance(getActivity());
         mMapTextLink = (TextView) view.findViewById(R.id.mapLinkText);
         mNoticeTextView = (TextView)view.findViewById(R.id.noticeText);
         displayScheudle();

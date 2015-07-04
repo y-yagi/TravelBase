@@ -15,11 +15,8 @@ import com.orhanobut.wasp.WaspError;
 
 import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.Callback;
-import com.twitter.sdk.android.core.OAuthSigning;
 import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
-import com.twitter.sdk.android.core.TwitterAuthToken;
-import com.twitter.sdk.android.core.TwitterCore;
 import com.twitter.sdk.android.core.TwitterException;
 import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.core.identity.TwitterLoginButton;
@@ -29,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import io.realm.Realm;
+import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
 import xyz.yyagi.travelbase.BuildConfig;
 import xyz.yyagi.travelbase.R;
@@ -36,6 +34,7 @@ import xyz.yyagi.travelbase.model.Authorization;
 import xyz.yyagi.travelbase.model.Travel;
 import xyz.yyagi.travelbase.model.User;
 import xyz.yyagi.travelbase.service.ProgressDialogBuilder;
+import xyz.yyagi.travelbase.service.RealmBuilder;
 import xyz.yyagi.travelbase.service.TravelBaseService;
 import xyz.yyagi.travelbase.service.TravelBaseServiceBuilder;
 import xyz.yyagi.travelbase.util.CryptoUtil;
@@ -63,10 +62,12 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
         Fabric.with(this, new Twitter(authConfig));
+        RealmConfiguration realmConfiguration = RealmBuilder.getRealmConfiguration(this);
 
         // TODO: remove after. use only test.
-//        Realm.deleteRealmFile(this);
-        mRealm = Realm.getInstance(this);
+//        Realm.deleteRealm(realmConfiguration);
+
+        mRealm = RealmBuilder.getRealmInstance(realmConfiguration);
         mActivity = this;
 
         setContentView(R.layout.activity_login);

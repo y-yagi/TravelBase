@@ -19,6 +19,7 @@ import io.realm.Realm;
 import io.realm.RealmResults;
 import xyz.yyagi.travelbase.R;
 import xyz.yyagi.travelbase.model.Travel;
+import xyz.yyagi.travelbase.service.RealmBuilder;
 import xyz.yyagi.travelbase.service.TravelBaseService;
 import xyz.yyagi.travelbase.service.TravelBaseServiceBuilder;
 import xyz.yyagi.travelbase.util.LogUtil;
@@ -43,7 +44,7 @@ public class TravelListFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         mTravelListLayout = (LinearLayout) view.findViewById(R.id.travelList);
         mNoticeTextView = (TextView)view.findViewById(R.id.noticeText);
-        mRealm = Realm.getInstance(getActivity());
+        mRealm = RealmBuilder.getRealmInstance(getActivity());
     }
 
     protected void displayTravels(RealmResults<Travel> travels) {

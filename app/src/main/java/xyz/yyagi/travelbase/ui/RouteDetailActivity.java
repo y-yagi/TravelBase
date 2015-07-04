@@ -11,6 +11,7 @@ import android.widget.TextView;
 import io.realm.Realm;
 import xyz.yyagi.travelbase.R;
 import xyz.yyagi.travelbase.model.Route;
+import xyz.yyagi.travelbase.service.RealmBuilder;
 import xyz.yyagi.travelbase.util.LogUtil;
 
 public class RouteDetailActivity extends BaseActivity {
@@ -34,7 +35,7 @@ public class RouteDetailActivity extends BaseActivity {
         int id = extras.getInt(EXTRA_ROUTE_ID);
         String placeName = extras.getString(EXTRA_PLACE_NAME);
 
-        Realm realm = Realm.getInstance(this);
+        Realm realm = RealmBuilder.getRealmInstance(this);
         Route route = realm.where(Route.class).equalTo("id", id).findFirst();
         realm.close();
 
