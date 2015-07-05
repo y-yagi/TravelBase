@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.annotation.Nullable;
+import android.text.util.Linkify;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,6 +63,13 @@ public class PlaceDetailFragment extends Fragment {
             textView = (TextView) view.findViewById(R.id.station);
             textView.setText(place.getStation_info());
         }
+
+        if (!place.getUrl().isEmpty()) {
+            textView = (TextView) view.findViewById(R.id.url);
+            textView.setText(place.getUrl().replace(",", "\n"));
+            Linkify.addLinks(textView, Linkify.ALL);
+        }
+
         if (!place.getName().isEmpty()) {
             textView = (TextView) view.findViewById(R.id.memo);
             textView.setText(place.getMemo());

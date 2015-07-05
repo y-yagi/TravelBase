@@ -15,6 +15,7 @@ public class Place extends RealmObject {
     private float latitude;
     private float longitude;
     private String station_info;
+    private String url;
 
     public int getId() {
         return id;
@@ -70,5 +71,13 @@ public class Place extends RealmObject {
 
     public void setStation_info(String station_info) {
         this.station_info = station_info;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }
