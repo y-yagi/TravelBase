@@ -32,6 +32,7 @@
 
     <string name="label_address">Address: </string>
     <string name="label_station">Station: </string>
+    <string name="label_url">URL: </string>
     <string name="label_memo">Memo: </string>
 
     <string name="about_body"><![CDATA[
