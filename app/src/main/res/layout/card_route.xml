@@ -20,7 +20,7 @@
             android:textSize="18sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/accent"
+            android:textColor="@color/primary_dark"
             android:layout_marginLeft="5dp"
             />
         <TextView
