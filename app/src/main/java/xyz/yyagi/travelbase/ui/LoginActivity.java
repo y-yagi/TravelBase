@@ -163,21 +163,23 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             @Override
             public void onSuccess(ArrayList<Travel> travelList) {
                 saveTravelList(travelList);
-
                 mProgressDialog.dismiss();
-                Intent intent = new Intent(mActivity, TravelListActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                finish();
-                startActivity(intent);
+                startStartPointActivity();
             }
 
             @Override
             public void onError(WaspError waspError) {
                 mProgressDialog.dismiss();
-                Toast.makeText(mActivity, getString(R.string.login_faiure), Toast.LENGTH_LONG).show();
-                setGoogleLoginButton();
-                setTwitterLoginButton();
                 Log.d(TAG, waspError.getErrorMessage());
+                // failure to get the latest data, the process continues with past data
+                startStartPointActivity();
+            }
+
+            private void startStartPointActivity() {
+                Intent intent = new Intent(mActivity, TravelListActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                finish();
+                startActivity(intent);
             }
         });
     }
