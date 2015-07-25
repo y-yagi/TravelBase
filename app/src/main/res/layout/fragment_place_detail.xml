@@ -18,7 +18,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/primary"
@@ -27,7 +27,7 @@
                 />
             <TextView
                 android:id="@+id/address"
-                android:textSize="18sp"
+                android:textSize="12sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
@@ -36,7 +36,7 @@
                 />
 
             <TextView
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/primary"
@@ -45,7 +45,7 @@
                 />
             <TextView
                 android:id="@+id/station"
-                android:textSize="18sp"
+                android:textSize="12sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
@@ -54,7 +54,7 @@
                 />
 
             <TextView
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/primary"
@@ -63,7 +63,7 @@
                 />
             <TextView
                 android:id="@+id/url"
-                android:textSize="18sp"
+                android:textSize="12sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
@@ -72,7 +72,7 @@
                 />
 
             <TextView
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/primary"
@@ -81,7 +81,7 @@
                 />
             <TextView
                 android:id="@+id/memo"
-                android:textSize="18sp"
+                android:textSize="12sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
