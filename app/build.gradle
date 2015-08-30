@@ -25,12 +25,24 @@ android {
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
-        buildConfigField "String", "TRAVEL_BASE_API_ID", "\"${project.property("travelBaseApiId")}\""
-        buildConfigField "String", "TRAVEL_BASE_API_SECRET", "\"${project.property("travelBaseApiSecret")}\""
-        buildConfigField "String", "ENCRYPT_KEY", "\"${project.property("encryptKey")}\""
-        buildConfigField "String", "TWITTER_KEY", "\"${project.property("twitterKey")}\""
-        buildConfigField "String", "TWITTER_SECRET", "\"${project.property("twitterSecret")}\""
-        resValue "string", "google_map_key", "\"${project.property("googleMapKey")}\""
+
+        if(project.hasProperty("travelBaseApiId")) {
+            buildConfigField "String", "TRAVEL_BASE_API_ID", "\"${project.property("travelBaseApiId")}\""
+            buildConfigField "String", "TRAVEL_BASE_API_SECRET", "\"${project.property("travelBaseApiSecret")}\""
+            buildConfigField "String", "ENCRYPT_KEY", "\"${project.property("encryptKey")}\""
+            buildConfigField "String", "TWITTER_KEY", "\"${project.property("twitterKey")}\""
+            buildConfigField "String", "TWITTER_SECRET", "\"${project.property("twitterSecret")}\""
+            resValue "string", "google_map_key", "\"${project.property("googleMapKey")}\""
+        } else {
+            buildConfigField "String", "TRAVEL_BASE_API_ID", "\"travelBaseApiId\""
+            buildConfigField "String", "TRAVEL_BASE_API_SECRET", "\"travelBaseApiSecret\""
+            buildConfigField "String", "ENCRYPT_KEY", "\"encryptKey\""
+            buildConfigField "String", "TWITTER_KEY", "\"twitterKey\""
+            buildConfigField "String", "TWITTER_SECRET", "\"twitterSecret\""
+            resValue "string", "google_map_key", "\"googleMapKey\""
+        }
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         debug {
@@ -39,6 +51,11 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'LICENSE.txt'
     }
 }
 
@@ -59,4 +76,10 @@ dependencies {
     compile('com.twitter.sdk.android:twitter:1.6.0@aar') {
         transitive = true;
     }
+
+    compile 'com.android.support:support-annotations:22.2.0'
+    // Testing-only dependencies
+    androidTestCompile 'com.android.support.test:runner:0.3'
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2'
 }
+
