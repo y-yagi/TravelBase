@@ -31,6 +31,7 @@ public class BaseActivity extends AppCompatActivity {
     private static final int DRAWER_TRAVEL_LIST = 1;
     private static final int DRAWER_LOGOUT = 2;
     private static final int DRAWER_DETAIL = 3;
+    private static final int DRAWER_PLACE_LIST = 4;
 
     protected  void setupDrawer() {
         mActivity = this;
@@ -58,6 +59,9 @@ public class BaseActivity extends AppCompatActivity {
                         new PrimaryDrawerItem().withName(getString(R.string.title_activity_travel_list))
                                 .withIcon(FontAwesome.Icon.faw_calendar).withIdentifier(DRAWER_TRAVEL_LIST),
                         new DividerDrawerItem(),
+                        new PrimaryDrawerItem().withName(getString(R.string.title_activity_place_list))
+                                .withIcon(FontAwesome.Icon.faw_map_marker).withIdentifier(DRAWER_PLACE_LIST),
+                        new DividerDrawerItem(),
                         new PrimaryDrawerItem().withName(getString(R.string.action_detail)).
                                 withIcon(FontAwesome.Icon.faw_info_circle).withIdentifier(DRAWER_DETAIL),
                         new DividerDrawerItem(),
@@ -72,6 +76,10 @@ public class BaseActivity extends AppCompatActivity {
                         switch (identifier) {
                             case DRAWER_TRAVEL_LIST:
                                 intent = new Intent(mActivity, TravelListActivity.class);
+                                startActivity(intent);
+                                return true;
+                            case DRAWER_PLACE_LIST:
+                                intent = new Intent(mActivity, PlaceListActivity.class);
                                 startActivity(intent);
                                 return true;
                             case DRAWER_LOGOUT:

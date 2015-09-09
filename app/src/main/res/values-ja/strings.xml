@@ -8,6 +8,7 @@
 
     <string name="title_activity_login">ログイン</string>
     <string name="title_activity_travel_list">旅行一覧</string>
+    <string name="title_activity_place_list">場所一覧</string>
 
     <string name="app_theme">さあ、出かけよう</string>
     <string name="login_faiure">ログインに失敗しました。アカウントが登録済みかご確認下さい。アカウントが未登録の場合、サイトより登録をお願い致します。</string>
