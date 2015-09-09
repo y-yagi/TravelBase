@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import xyz.yyagi.travelbase.model.Authorization;
+import xyz.yyagi.travelbase.model.Place;
 import xyz.yyagi.travelbase.model.Travel;
 
 /**
@@ -50,6 +51,15 @@ public interface TravelBaseService {
             @Path("id") int id,
             @QueryMap Map query,
             CallBack<Travel> callBack
+    );
+
+    @RetryPolicy(timeout = TIME_OUT)
+    @GET("/api/{version}/places")
+    void places(
+            @Header("Authorization") String authToken,
+            @Path("version") String version,
+            @QueryMap Map query,
+            CallBack<ArrayList<Place>> callBack
     );
 }
 
