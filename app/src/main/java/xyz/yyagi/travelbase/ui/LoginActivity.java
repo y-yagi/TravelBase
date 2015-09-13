@@ -66,7 +66,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         RealmConfiguration realmConfiguration = RealmBuilder.getRealmConfiguration(this);
 
         // TODO: remove after. use only test.
-        Realm.deleteRealm(realmConfiguration);
+//        Realm.deleteRealm(realmConfiguration);
 
         mRealm = RealmBuilder.getRealmInstance(realmConfiguration);
         mActivity = this;
