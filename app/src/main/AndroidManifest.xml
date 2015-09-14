@@ -41,6 +41,10 @@
             android:name=".ui.PlaceDetailActivity"
             android:label="@string/title_activity_place_detail" >
         </activity>
+        <activity
+            android:name=".ui.PlaceListActivity"
+            android:label="@string/title_activity_place_list" >
+        </activity>
 
         <meta-data
             android:name="com.google.android.gms.version"

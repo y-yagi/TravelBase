@@ -31,6 +31,7 @@ import io.realm.RealmResults;
 import xyz.yyagi.travelbase.BuildConfig;
 import xyz.yyagi.travelbase.R;
 import xyz.yyagi.travelbase.model.Authorization;
+import xyz.yyagi.travelbase.model.Place;
 import xyz.yyagi.travelbase.model.Travel;
 import xyz.yyagi.travelbase.model.User;
 import xyz.yyagi.travelbase.service.ProgressDialogBuilder;
@@ -153,6 +154,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             }
         });
     }
+
     private void fetchTravelList() {
         TravelBaseService service = TravelBaseServiceBuilder.build(this);
         String authHeader = TravelBaseServiceBuilder.makeBearerAuthHeader();
@@ -163,6 +165,29 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             @Override
             public void onSuccess(ArrayList<Travel> travelList) {
                 saveTravelList(travelList);
+                fetchPlaceList();
+            }
+
+            @Override
+            public void onError(WaspError waspError) {
+                mProgressDialog.dismiss();
+                Log.d(TAG, waspError.getErrorMessage());
+                // failure to get the latest data, the process continues with past data
+                startStartPointActivity();
+            }
+        });
+    }
+
+    private void fetchPlaceList() {
+        TravelBaseService service = TravelBaseServiceBuilder.build(this);
+        String authHeader = TravelBaseServiceBuilder.makeBearerAuthHeader();
+        Map query = TravelBaseServiceBuilder.makeResourceOwnerInfo();
+        query.put("fields", "*");
+
+        service.places(authHeader, "v1", query, new CallBack<ArrayList<Place>>() {
+            @Override
+            public void onSuccess(ArrayList<Place> placeList) {
+                savePlaceList(placeList);
                 mProgressDialog.dismiss();
                 startStartPointActivity();
             }
@@ -173,13 +198,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 Log.d(TAG, waspError.getErrorMessage());
                 // failure to get the latest data, the process continues with past data
                 startStartPointActivity();
-            }
-
-            private void startStartPointActivity() {
-                Intent intent = new Intent(mActivity, TravelListActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                finish();
-                startActivity(intent);
             }
         });
     }
@@ -192,6 +210,23 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             mRealm.copyToRealmOrUpdate(travel);
         }
         mRealm.commitTransaction();
+    }
+
+    private void savePlaceList(ArrayList<Place> placeList) {
+        User user = mRealm.where(User.class).findFirst();
+        mRealm.beginTransaction();
+        for (Place place : placeList) {
+            place.setUser_id(user.getUid());
+            mRealm.copyToRealmOrUpdate(place);
+        }
+        mRealm.commitTransaction();
+    }
+
+    private void startStartPointActivity() {
+        Intent intent = new Intent(mActivity, TravelListActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        finish();
+        startActivity(intent);
     }
 
     private boolean isLogined() {
