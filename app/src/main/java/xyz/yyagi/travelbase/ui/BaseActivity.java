@@ -58,15 +58,13 @@ public class BaseActivity extends AppCompatActivity {
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName(getString(R.string.title_activity_travel_list))
                                 .withIcon(FontAwesome.Icon.faw_calendar).withIdentifier(DRAWER_TRAVEL_LIST),
-                        new DividerDrawerItem(),
                         new PrimaryDrawerItem().withName(getString(R.string.title_activity_place_list))
                                 .withIcon(FontAwesome.Icon.faw_map_marker).withIdentifier(DRAWER_PLACE_LIST),
                         new DividerDrawerItem(),
                         new PrimaryDrawerItem().withName(getString(R.string.action_detail)).
                                 withIcon(FontAwesome.Icon.faw_info_circle).withIdentifier(DRAWER_DETAIL),
-                        new DividerDrawerItem(),
-                new PrimaryDrawerItem().withName(getString(R.string.action_logout)).
-                        withIcon(FontAwesome.Icon.faw_sign_out).withIdentifier(DRAWER_LOGOUT)
+                        new PrimaryDrawerItem().withName(getString(R.string.action_logout)).
+                                withIcon(FontAwesome.Icon.faw_sign_out).withIdentifier(DRAWER_LOGOUT)
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
