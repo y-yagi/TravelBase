@@ -18,6 +18,7 @@ import com.orhanobut.wasp.WaspError;
 import io.realm.Realm;
 import io.realm.RealmResults;
 import xyz.yyagi.travelbase.R;
+import xyz.yyagi.travelbase.model.DropboxFile;
 import xyz.yyagi.travelbase.model.Travel;
 import xyz.yyagi.travelbase.service.RealmBuilder;
 import xyz.yyagi.travelbase.service.TravelBaseService;

@@ -20,6 +20,7 @@ public class Travel extends RealmObject {
     private String formatted_end_date;
     private String memo;
     private RealmList<TravelDate> travel_dates;
+    private RealmList<DropboxFile> dropbox_files;
     private String user_id;
 
     public int getId() {
@@ -84,6 +85,14 @@ public class Travel extends RealmObject {
 
     public void setTravel_dates(RealmList<TravelDate> travel_dates) {
         this.travel_dates = travel_dates;
+    }
+
+    public RealmList<DropboxFile> getDropbox_files() {
+        return dropbox_files;
+    }
+
+    public void setDropbox_files(RealmList<DropboxFile> dropbox_files) {
+        this.dropbox_files = dropbox_files;
     }
 
     public String getUser_id() {
