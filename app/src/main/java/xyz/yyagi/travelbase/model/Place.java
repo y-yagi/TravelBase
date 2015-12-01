@@ -17,6 +17,7 @@ public class Place extends RealmObject {
     private String station_info;
     private String url;
     private String user_id;
+    private String status;
 
     public int getId() {
         return id;
@@ -88,5 +89,13 @@ public class Place extends RealmObject {
 
     public void setUser_id(String user_id) {
         this.user_id = user_id;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

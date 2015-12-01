@@ -69,7 +69,7 @@ public class PlaceListActivity extends BaseActivity {
 
     private RealmResults<Place> getPlaces() {
         Realm realm = RealmBuilder.getRealmInstance(this);
-        RealmResults<Place> places = realm.where(Place.class).findAll();
+        RealmResults<Place> places = realm.where(Place.class).equalTo("status", "not_gone").findAll();
         places.sort("id", RealmResults.SORT_ORDER_DESCENDING);
         return places;
     }
