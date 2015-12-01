@@ -24,7 +24,7 @@ public interface TravelBaseService {
     static final String endPoint = "https://travel-base.herokuapp.com";
     static final String PROVIDER_GOOGLE = "google_oauth2";
     static final String PROVIDER_TWITTER = "twitter";
-    static final     String API_VERSION = "v1";
+    static final String API_VERSION = "v1";
     static final int TIME_OUT = 5000;
 
     @RetryPolicy(timeout = TIME_OUT)
