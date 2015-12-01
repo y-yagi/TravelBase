@@ -10,4 +10,8 @@ public class DateUtil {
     public static String format(Date d) {
         return new SimpleDateFormat("yyyy/MM/dd").format(d);
     }
+
+    public static String formatWithTime(Date d) {
+        return new SimpleDateFormat("yyyy-MM-dd HH:mm").format(d);
+    }
 }

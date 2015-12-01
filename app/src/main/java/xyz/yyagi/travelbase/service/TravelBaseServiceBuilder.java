@@ -48,6 +48,7 @@ public class TravelBaseServiceBuilder {
                 .setParser(new GsonParser(gson))
                 .trustCertificates()
                 .enableCookies(CookiePolicy.ACCEPT_ALL)
+                .setLogLevel(LogLevel.FULL)
                 .build()
                 .create(TravelBaseService.class);
     }

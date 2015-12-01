@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Map;
+import java.util.TimeZone;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -42,6 +43,7 @@ import xyz.yyagi.travelbase.service.RealmBuilder;
 import xyz.yyagi.travelbase.service.TravelBaseService;
 import xyz.yyagi.travelbase.service.TravelBaseServiceBuilder;
 import xyz.yyagi.travelbase.util.CryptoUtil;
+import xyz.yyagi.travelbase.util.DateUtil;
 import xyz.yyagi.travelbase.util.LogUtil;
 
 public class LoginActivity extends Activity implements View.OnClickListener {
@@ -189,7 +191,13 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         String authHeader = TravelBaseServiceBuilder.makeBearerAuthHeader();
         Map query = TravelBaseServiceBuilder.makeResourceOwnerInfo();
         query.put("fields", "*");
-        mCalendar = GregorianCalendar.getInstance();
+        if (mSystemData != null) {
+            query.put("updated_at", DateUtil.formatWithTime(mSystemData.getApi_last_acquisition_time()));
+        }
+
+        mCalendar = GregorianCalendar.getInstance(TimeZone.getTimeZone("UTC"));
+        // FIXME: timezoneにUTCを指定しているが、実際取得出来る値がJSTになってしまっている為9マイナス
+        mCalendar.add(Calendar.HOUR, -9);
 
         service.places(authHeader, "v1", query, new CallBack<ArrayList<Place>>() {
             @Override
