@@ -23,7 +23,10 @@ import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 
 import io.fabric.sdk.android.Fabric;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Map;
+import java.util.TimeZone;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -32,6 +35,7 @@ import xyz.yyagi.travelbase.BuildConfig;
 import xyz.yyagi.travelbase.R;
 import xyz.yyagi.travelbase.model.Authorization;
 import xyz.yyagi.travelbase.model.Place;
+import xyz.yyagi.travelbase.model.SystemData;
 import xyz.yyagi.travelbase.model.Travel;
 import xyz.yyagi.travelbase.model.User;
 import xyz.yyagi.travelbase.service.ProgressDialogBuilder;
@@ -39,6 +43,7 @@ import xyz.yyagi.travelbase.service.RealmBuilder;
 import xyz.yyagi.travelbase.service.TravelBaseService;
 import xyz.yyagi.travelbase.service.TravelBaseServiceBuilder;
 import xyz.yyagi.travelbase.util.CryptoUtil;
+import xyz.yyagi.travelbase.util.DateUtil;
 import xyz.yyagi.travelbase.util.LogUtil;
 
 public class LoginActivity extends Activity implements View.OnClickListener {
@@ -57,6 +62,8 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private static final String TAG = LogUtil.makeLogTag(LoginActivity.class);
     private Realm mRealm;
     private User mUser;
+    private SystemData mSystemData;
+    Calendar mCalendar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +76,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 //        Realm.deleteRealm(realmConfiguration);
 
         mRealm = RealmBuilder.getRealmInstance(realmConfiguration);
+        mSystemData = mRealm.where(SystemData.class).findFirst();
         mActivity = this;
 
         setContentView(R.layout.activity_login);
@@ -183,6 +191,13 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         String authHeader = TravelBaseServiceBuilder.makeBearerAuthHeader();
         Map query = TravelBaseServiceBuilder.makeResourceOwnerInfo();
         query.put("fields", "*");
+        if (mSystemData != null) {
+            query.put("updated_at", DateUtil.formatWithTime(mSystemData.getApi_last_acquisition_time()));
+        }
+
+        mCalendar = GregorianCalendar.getInstance(TimeZone.getTimeZone("UTC"));
+        // FIXME: timezoneにUTCを指定しているが、実際取得出来る値がJSTになってしまっている為9マイナス
+        mCalendar.add(Calendar.HOUR, -9);
 
         service.places(authHeader, "v1", query, new CallBack<ArrayList<Place>>() {
             @Override
@@ -219,6 +234,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             place.setUser_id(user.getUid());
             mRealm.copyToRealmOrUpdate(place);
         }
+        updateApiLastAcquisitionTime();
         mRealm.commitTransaction();
     }
 
@@ -260,6 +276,13 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private void setGoogleLoginButton() {
         mGoogleSignInButton.setOnClickListener(this);
         mGoogleSignInButton.setVisibility(View.VISIBLE);
+    }
+
+    private void updateApiLastAcquisitionTime() {
+        if (mSystemData == null) {
+            mSystemData = mRealm.createObject(SystemData.class);
+        }
+        mSystemData.setApi_last_acquisition_time(mCalendar.getTime());
     }
 }
 
