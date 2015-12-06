@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.gms.common.AccountPicker;
 import com.google.android.gms.common.SignInButton;
 import com.orhanobut.wasp.CallBack;
 import com.orhanobut.wasp.WaspError;
@@ -108,9 +109,8 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.google_sign_in_button:
-                Intent intent = AccountManager.get(this).newChooseAccountIntent(null, null, new String[]{"com.google"
-                        }, false, null,
-                        null, null, null);
+                Intent intent = AccountPicker.newChooseAccountIntent(null, null, new String[]{"com.google"},
+                        false, null, null, null, null);
                 startActivityForResult(intent, REQUEST_CODE_GOOGLE_SIGN_IN);
                 break;
         }
