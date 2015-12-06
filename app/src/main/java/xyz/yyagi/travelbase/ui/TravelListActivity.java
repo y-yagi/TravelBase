@@ -32,6 +32,7 @@ public class TravelListActivity extends BaseActivity implements MaterialTabListe
     private static final String TAG = LogUtil.makeLogTag(TravelListActivity.class);
     private MaterialTabHost mTabHost;
     private ViewPager mPager;
+    private String[] mPageTitles = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
