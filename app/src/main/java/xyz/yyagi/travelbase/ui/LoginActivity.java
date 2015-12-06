@@ -26,6 +26,7 @@ import io.fabric.sdk.android.Fabric;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.TimeZone;
 
@@ -166,8 +167,10 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private void fetchTravelList() {
         TravelBaseService service = TravelBaseServiceBuilder.build(this);
         String authHeader = TravelBaseServiceBuilder.makeBearerAuthHeader();
-        Map query = TravelBaseServiceBuilder.makeResourceOwnerInfo();
-        query.put("fields", "*");
+        HashMap<String, String> query = TravelBaseServiceBuilder.makeResourceOwnerInfo();
+        if (query != null) {
+            query.put("fields", "*");
+        }
 
         service.travels(authHeader, "v1", query, new CallBack<ArrayList<Travel>>() {
             @Override
@@ -189,10 +192,13 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private void fetchPlaceList() {
         TravelBaseService service = TravelBaseServiceBuilder.build(this);
         String authHeader = TravelBaseServiceBuilder.makeBearerAuthHeader();
-        Map query = TravelBaseServiceBuilder.makeResourceOwnerInfo();
-        query.put("fields", "*");
-        if (mSystemData != null) {
-            query.put("updated_at", DateUtil.formatWithTime(mSystemData.getApi_last_acquisition_time()));
+        HashMap<String, String> query = TravelBaseServiceBuilder.makeResourceOwnerInfo();
+        if (query != null) {
+            query.put("fields", "*");
+
+            if (mSystemData != null) {
+                query.put("updated_at", DateUtil.formatWithTime(mSystemData.getApi_last_acquisition_time()));
+            }
         }
 
         mCalendar = GregorianCalendar.getInstance(TimeZone.getTimeZone("UTC"));
