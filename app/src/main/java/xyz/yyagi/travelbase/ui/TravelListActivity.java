@@ -32,7 +32,6 @@ public class TravelListActivity extends BaseActivity implements MaterialTabListe
     private static final String TAG = LogUtil.makeLogTag(TravelListActivity.class);
     private MaterialTabHost mTabHost;
     private ViewPager mPager;
-    private PagerAdapter mPagerAdaper;
     private String[] mPageTitles = null;
 
     @Override
@@ -47,8 +46,8 @@ public class TravelListActivity extends BaseActivity implements MaterialTabListe
         mPageTitles = getResources().getStringArray(R.array.travel_list_tab_titles);
 
         // init view pager
-        mPagerAdaper = new ViewPagerAdapter(getFragmentManager());
-        mPager.setAdapter(mPagerAdaper);
+        PagerAdapter pagerAdapter = new ViewPagerAdapter(getFragmentManager());
+        mPager.setAdapter(pagerAdapter);
         mPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
@@ -56,7 +55,7 @@ public class TravelListActivity extends BaseActivity implements MaterialTabListe
             }
         });
 
-        for (int i = 0; i < mPagerAdaper.getCount(); i++) {
+        for (int i = 0; i < pagerAdapter.getCount(); i++) {
             mTabHost.addTab(mTabHost.newTab().setText(mPageTitles[i]).setTabListener(this));
         }
         setupDrawer();

@@ -32,10 +32,8 @@ public class PlaceDetailActivity extends BaseActivity implements MaterialTabList
     private static final String TAG = LogUtil.makeLogTag(PlaceDetailActivity.class);
     private static final String EXTRA_PLACE_ID = "id";
 
-    private Activity mActivity;
     private MaterialTabHost mTabHost;
     private ViewPager mPager;
-    private PagerAdapter mPagerAdaper;
     private String[] mPageTitles = null;
 
     public static void startActivity(Context context, int id) {
@@ -48,7 +46,6 @@ public class PlaceDetailActivity extends BaseActivity implements MaterialTabList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_travel_detail);
-        mActivity = this;
 
         Bundle extras = getIntent().getExtras();
         int id = extras.getInt(EXTRA_PLACE_ID);
@@ -63,8 +60,8 @@ public class PlaceDetailActivity extends BaseActivity implements MaterialTabList
         mPageTitles = getResources().getStringArray(R.array.place_detail_tab_titles);
 
         // init view pager
-        mPagerAdaper = new ViewPagerAdapter(getFragmentManager(), id);
-        mPager.setAdapter(mPagerAdaper);
+        PagerAdapter pagerAdaper = new ViewPagerAdapter(getFragmentManager(), id);
+        mPager.setAdapter(pagerAdaper);
         mPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
@@ -72,7 +69,7 @@ public class PlaceDetailActivity extends BaseActivity implements MaterialTabList
             }
         });
 
-        for (int i = 0; i < mPagerAdaper.getCount(); i++) {
+        for (int i = 0; i < pagerAdaper.getCount(); i++) {
             mTabHost.addTab(mTabHost.newTab().setText(mPageTitles[i]).setTabListener(this));
         }
         setupDrawer();

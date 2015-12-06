@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -39,8 +40,6 @@ public class PlaceMapFragment extends MapFragment {
     public static final String ID_TYPE_TRAVEL_DATE = "id_type_travel_date";
     public static final int DEFAULT_ZOOM = 15;
     public static final int LIST_ZOOM = 13;
-
-    private Activity mContext;
 
     public static PlaceMapFragment newInstance(int placeId, String idType, int zoom) {
         PlaceMapFragment fragment = new PlaceMapFragment();
@@ -86,16 +85,20 @@ public class PlaceMapFragment extends MapFragment {
 
     private ArrayList<Place> getPlaces() {
         String idType = getArguments().getString(KEY_ID_TYPE);
+        if (idType == null) {
+            return null;
+        }
+
         int id = getArguments().getInt(KEY_ID);
         ArrayList<Place> places = new ArrayList<Place>();
         Realm realm = RealmBuilder.getRealmInstance(getActivity());
 
-        if (idType == ID_TYPE_PLACE) {
+        if (idType.equals(ID_TYPE_PLACE)) {
             RealmResults<Place> results = realm.where(Place.class).equalTo("id", id).findAll();
             for (Place place : results) {
                 places.add(place);
             }
-        } else if(idType == ID_TYPE_TRAVEL_DATE) {
+        } else if(idType.equals(ID_TYPE_TRAVEL_DATE)) {
             TravelDate travelDate = realm.where(TravelDate.class).equalTo("id", id).findFirst();
             for (Schedule schedule : travelDate.getSchedules()) {
                 places.add(schedule.getPlace());

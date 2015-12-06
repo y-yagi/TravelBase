@@ -26,9 +26,6 @@ import xyz.yyagi.travelbase.util.LogUtil;
 public class PlaceListActivity extends BaseActivity {
     private Activity mActivity;
     private static final String TAG = LogUtil.makeLogTag(PlaceListActivity.class);
-    private ViewPager mPager;
-    private PagerAdapter mPagerAdaper;
-    private String[] mPageTitles = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
