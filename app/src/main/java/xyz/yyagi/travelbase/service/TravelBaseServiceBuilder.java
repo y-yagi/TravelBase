@@ -53,19 +53,19 @@ public class TravelBaseServiceBuilder {
                 .create(TravelBaseService.class);
     }
 
-    public static HashMap makeClientCredentials() {
-        HashMap mapBody = new HashMap<>();
+    public static HashMap<String, String> makeClientCredentials() {
+        HashMap<String, String> mapBody = new HashMap<>();
         mapBody.put("grant_type", "client_credentials");
         mapBody.put("client_id", BuildConfig.TRAVEL_BASE_API_ID);
         mapBody.put("client_secret", BuildConfig.TRAVEL_BASE_API_SECRET);
         return mapBody;
     }
 
-    public static HashMap makeResourceOwnerInfo() {
+    public static HashMap<String, String> makeResourceOwnerInfo() {
         if (user == null) {
             return null;
         }
-        HashMap mapBody = new HashMap<>();
+        HashMap<String, String> mapBody = new HashMap<String, String>();
         mapBody.put("user_id", user.getUid());
         mapBody.put("user_provider", user.getProvider());
         return mapBody;
