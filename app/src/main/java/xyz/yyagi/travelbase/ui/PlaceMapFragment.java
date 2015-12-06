@@ -40,8 +40,6 @@ public class PlaceMapFragment extends MapFragment {
     public static final int DEFAULT_ZOOM = 15;
     public static final int LIST_ZOOM = 13;
 
-    private Activity mContext;
-
     public static PlaceMapFragment newInstance(int placeId, String idType, int zoom) {
         PlaceMapFragment fragment = new PlaceMapFragment();
         Bundle args = new Bundle();

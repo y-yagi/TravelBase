@@ -28,8 +28,6 @@ public class TravelDetailActivity extends BaseActivity implements MaterialTabLis
     private static final String EXTRA_TRAVEL_ID = "id";
     private MaterialTabHost mTabHost;
     private ViewPager mPager;
-    private PagerAdapter mPagerAdaper;
-    private String[] mPageTitles = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +50,8 @@ public class TravelDetailActivity extends BaseActivity implements MaterialTabLis
             travelDates.add(travelDate);
         }
 
-        mPagerAdaper = new ViewPagerAdapter(getFragmentManager(), travel, pageTitles, travelDates);
-        mPager.setAdapter(mPagerAdaper);
+        PagerAdapter pagerAdapter = new ViewPagerAdapter(getFragmentManager(), travel, pageTitles, travelDates);
+        mPager.setAdapter(pagerAdapter);
         mPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
@@ -61,8 +59,8 @@ public class TravelDetailActivity extends BaseActivity implements MaterialTabLis
             }
         });
 
-        for (int i = 0; i < mPagerAdaper.getCount(); i++) {
-            mTabHost.addTab(mTabHost.newTab().setText(mPagerAdaper.getPageTitle(i)).setTabListener(this));
+        for (int i = 0; i < pagerAdapter.getCount(); i++) {
+            mTabHost.addTab(mTabHost.newTab().setText(pagerAdapter.getPageTitle(i)).setTabListener(this));
         }
         setupDrawer();
     }
