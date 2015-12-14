@@ -65,7 +65,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private Realm mRealm;
     private User mUser;
     private SystemData mSystemData;
-    Calendar mCalendar;
+    private Calendar mCalendar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +80,10 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         mRealm = RealmBuilder.getRealmInstance(realmConfiguration);
         mSystemData = mRealm.where(SystemData.class).findFirst();
         mActivity = this;
+        mCalendar = GregorianCalendar.getInstance(TimeZone.getTimeZone("UTC"));
+        // FIXME: timezoneにUTCを指定しているが、実際取得出来る値がJSTになってしまっている為9マイナス
+        mCalendar.add(Calendar.HOUR, -9);
+
 
         setContentView(R.layout.activity_login);
 
@@ -170,6 +174,9 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         HashMap<String, String> query = TravelBaseServiceBuilder.makeResourceOwnerInfo();
         if (query != null) {
             query.put("fields", "*");
+            if (mSystemData != null) {
+                query.put("updated_at", DateUtil.formatWithTime(mSystemData.getApi_last_acquisition_time()));
+            }
         }
 
         service.travels(authHeader, "v1", query, new CallBack<ArrayList<Travel>>() {
@@ -200,10 +207,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 query.put("updated_at", DateUtil.formatWithTime(mSystemData.getApi_last_acquisition_time()));
             }
         }
-
-        mCalendar = GregorianCalendar.getInstance(TimeZone.getTimeZone("UTC"));
-        // FIXME: timezoneにUTCを指定しているが、実際取得出来る値がJSTになってしまっている為9マイナス
-        mCalendar.add(Calendar.HOUR, -9);
 
         service.places(authHeader, "v1", query, new CallBack<ArrayList<Place>>() {
             @Override
