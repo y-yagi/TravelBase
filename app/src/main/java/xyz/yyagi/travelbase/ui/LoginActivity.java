@@ -72,10 +72,9 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
         Fabric.with(this, new Twitter(authConfig));
-        RealmConfiguration realmConfiguration = RealmBuilder.getRealmConfiguration(this);
-
-        // TODO: remove after. use only test.
-//        Realm.deleteRealm(realmConfiguration);
+        RealmConfiguration realmConfiguration = new RealmConfiguration.Builder(this)
+//                .deleteRealmIfMigrationNeeded()
+                .build();
 
         mRealm = RealmBuilder.getRealmInstance(realmConfiguration);
         mSystemData = mRealm.where(SystemData.class).findFirst();
