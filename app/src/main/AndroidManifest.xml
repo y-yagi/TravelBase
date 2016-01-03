@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="xyz.yyagi.travelbase" >
+    package="xyz.yyagi.travelbase">
 
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -18,15 +18,14 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/TravelBase" >
+        android:theme="@style/TravelBase">
         <activity
             android:name=".ui.TravelDetailActivity"
-            android:label="@string/app_name" >
-        </activity>
+            android:label="@string/app_name"></activity>
         <activity
             android:name=".ui.LoginActivity"
             android:label="@string/app_name"
-            android:theme="@style/TravelBase" >
+            android:theme="@style/TravelBase">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -35,16 +34,13 @@
         </activity>
         <activity
             android:name=".ui.TravelListActivity"
-            android:label="@string/title_activity_travel_list" >
-        </activity>
+            android:label="@string/title_activity_travel_list"></activity>
         <activity
             android:name=".ui.PlaceDetailActivity"
-            android:label="@string/title_activity_place_detail" >
-        </activity>
+            android:label="@string/title_activity_place_detail"></activity>
         <activity
             android:name=".ui.PlaceListActivity"
-            android:label="@string/title_activity_place_list" >
-        </activity>
+            android:label="@string/title_activity_place_list"></activity>
 
         <meta-data
             android:name="com.google.android.gms.version"
@@ -56,14 +52,19 @@
         <activity
             android:name=".ui.RouteDetailActivity"
             android:label="@string/title_activity_route_detail"
-            android:parentActivityName=".ui.BaseActivity" >
+            android:parentActivityName=".ui.BaseActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="xyz.yyagi.travelbase.ui.BaseActivity" />
         </activity>
+
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="00eadb12433e8df5b18fa4f73b15207f889ff8b1" />
+
+        <activity
+            android:name=".ui.PlaceSearchActivity"
+            android:label="@string/title_activity_place_search"></activity>
     </application>
 
 </manifest>
