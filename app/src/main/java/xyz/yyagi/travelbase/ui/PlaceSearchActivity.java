@@ -3,6 +3,7 @@ package xyz.yyagi.travelbase.ui;
 import android.os.Bundle;
 import android.app.Activity;
 
+
 import xyz.yyagi.travelbase.R;
 
 public class PlaceSearchActivity extends Activity {
