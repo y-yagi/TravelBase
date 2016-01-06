@@ -15,13 +15,13 @@ import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
-
+import com.google.android.gms.maps.model.LatLng;
 
 
 import xyz.yyagi.travelbase.R;
 import xyz.yyagi.travelbase.util.LogUtil;
 
-public class PlaceSearchActivity extends Activity implements PlaceSelectionListener {
+public class PlaceSearchActivity extends BaseActivity implements PlaceSelectionListener {
     private static final String TAG = LogUtil.makeLogTag(PlaceSearchActivity.class);
 
     private TextView mPlaceDetailsText;
@@ -44,6 +44,8 @@ public class PlaceSearchActivity extends Activity implements PlaceSelectionListe
         // Retrieve the TextViews that will display details about the selected place.
         mPlaceDetailsText = (TextView) findViewById(R.id.place_details);
         mPlaceAttribution = (TextView) findViewById(R.id.place_attribution);
+
+        setupDrawer();
     }
 
     /**
@@ -54,8 +56,7 @@ public class PlaceSearchActivity extends Activity implements PlaceSelectionListe
         Log.i(TAG, "Place Selected: " + place.getName());
 
         // Format the returned place's details and display them in the TextView.
-        mPlaceDetailsText.setText(formatPlaceDetails(getResources(), place.getName(), place.getId(),
-                place.getAddress(), place.getPhoneNumber(), place.getWebsiteUri()));
+        mPlaceDetailsText.setText(formatPlaceDetails(getResources(), place.getName(), place.getId(), place.getAddress(), place.getLatLng()));
 
         CharSequence attributions = place.getAttributions();
         if (!TextUtils.isEmpty(attributions)) {
@@ -80,11 +81,8 @@ public class PlaceSearchActivity extends Activity implements PlaceSelectionListe
      * Helper method to format information about a place nicely.
      */
     private static Spanned formatPlaceDetails(Resources res, CharSequence name, String id,
-                                              CharSequence address, CharSequence phoneNumber, Uri websiteUri) {
-        Log.e(TAG, res.getString(R.string.place_details, name, id, address, phoneNumber,
-                websiteUri));
-        return Html.fromHtml(res.getString(R.string.place_details, name, id, address, phoneNumber,
-                websiteUri));
+                                              CharSequence address, LatLng latlng) {
+        return Html.fromHtml(res.getString(R.string.place_details, name, id, address, latlng.latitude, latlng.longitude));
 
     }
 }
