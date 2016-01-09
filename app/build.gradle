@@ -80,6 +80,8 @@ dependencies {
 
     compile 'com.melnykov:floatingactionbutton:1.3.0'
     compile 'com.android.support:support-annotations:23.1.1'
+    compile 'com.github.navasmdc:MaterialDesign:1.5@aar'
+
     // Testing-only dependencies
     androidTestCompile 'com.android.support.test:runner:0.4'
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.1'

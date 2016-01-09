@@ -50,6 +50,7 @@
     <string name="linkt_to_places_map"><u>See a list of places in Map</u></string>
     <string name="twitter_login">login</string>
     <string name="title_activity_place_search">PlaceSearch</string>
+    <string name="registration_place">Registration</string>
 
     <string name="place_details">
     <![CDATA[

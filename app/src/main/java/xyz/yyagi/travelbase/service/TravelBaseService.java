@@ -60,5 +60,14 @@ public interface TravelBaseService {
             @QueryMap Map query,
             CallBack<ArrayList<Place>> callBack
     );
+
+    @RetryPolicy(timeout = TIME_OUT)
+    @POST("/api/{version}/places")
+    void addPlace(
+            @Header("Authorization") String authToken,
+            @Path("version") String version,
+            @QueryMap Map query,
+            CallBack<Place> callBack
+    );
 }
 
