@@ -20,7 +20,6 @@ import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
-import com.google.android.gms.maps.model.LatLng;
 import com.orhanobut.wasp.CallBack;
 import com.orhanobut.wasp.WaspError;
 
@@ -41,6 +40,7 @@ public class PlaceSearchActivity extends BaseActivity implements PlaceSelectionL
     private Place mPlace;
     private Context mContext;
     private ProgressDialog mProgressDialog;
+    private ButtonRectangle mRegistrationButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,8 +62,8 @@ public class PlaceSearchActivity extends BaseActivity implements PlaceSelectionL
         mContext = this;
         mProgressDialog = new ProgressDialog(this, getString(R.string.loading));
 
-        ButtonRectangle button = (ButtonRectangle) findViewById(R.id.registration_place_button);
-        button.setOnClickListener(this);
+        mRegistrationButton = (ButtonRectangle) findViewById(R.id.registration_place_button);
+        mRegistrationButton.setOnClickListener(this);
 
         setupDrawer();
     }
@@ -85,6 +85,7 @@ public class PlaceSearchActivity extends BaseActivity implements PlaceSelectionL
         } else {
             mPlaceAttribution.setText("");
         }
+        mRegistrationButton.setVisibility(View.VISIBLE);
     }
 
     /**
@@ -108,10 +109,7 @@ public class PlaceSearchActivity extends BaseActivity implements PlaceSelectionL
 
     @Override
     public void onClick(View v) {
-        if (mPlace == null) {
-            // TODO: とりあえずガード
-            return;
-        }
+        if (mPlace == null) return;
 
         mProgressDialog.show();
         TravelBaseService service = TravelBaseServiceBuilder.build(this);
@@ -119,7 +117,8 @@ public class PlaceSearchActivity extends BaseActivity implements PlaceSelectionL
         HashMap<String, String> query = TravelBaseServiceBuilder.makeResourceOwnerInfo();
         if (query != null) {
             query.put("name", (String)mPlace.getName());
-            query.put("address", (String)mPlace.getAddress());
+            // TODO: Placeから正しいaddressが取得出来ない場合があるので送信しない。正しいaddresが取得出来るようになったらコメントを外す。
+            // query.put("address", (String)mPlace.getAddress());
             query.put("latitude", String.valueOf(mPlace.getLatLng().latitude));
             query.put("longitude", String.valueOf(mPlace.getLatLng().longitude));
         }
@@ -128,13 +127,13 @@ public class PlaceSearchActivity extends BaseActivity implements PlaceSelectionL
             @Override
             public void onSuccess(xyz.yyagi.travelbase.model.Place place) {
                 mProgressDialog.dismiss();
-                Toast.makeText(mContext, "success", Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext, getString(R.string.registration_place_success), Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onError(WaspError waspError) {
                 mProgressDialog.dismiss();
-                Toast.makeText(mContext, "error", Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext, getString(R.string.system_error), Toast.LENGTH_LONG).show();
             }
         });
     }

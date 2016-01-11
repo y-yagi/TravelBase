@@ -66,4 +66,5 @@
     ]]>
     </string>
 
+    <string name="registration_place_success">Registered the selected location</string>
 </resources>
