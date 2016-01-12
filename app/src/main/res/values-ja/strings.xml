@@ -34,6 +34,6 @@
     <string name="label_memo">メモ: </string>
     <string name="linkt_to_places_map"><u>場所の一覧を地図で見る</u></string>
     <string name="twitter_login">ログイン</string>
-    <string name="registration_place">登録</string>
-    <string name="registration_place_success">選択された場所を登録しました</string>
+    <string name="registration_place">選択した場所を登録する</string>
+    <string name="registration_place_success">場所を登録しました</string>
 </resources>

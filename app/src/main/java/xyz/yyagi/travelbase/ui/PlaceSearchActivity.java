@@ -35,8 +35,6 @@ import xyz.yyagi.travelbase.util.LogUtil;
 public class PlaceSearchActivity extends BaseActivity implements PlaceSelectionListener, View.OnClickListener {
     private static final String TAG = LogUtil.makeLogTag(PlaceSearchActivity.class);
 
-    private TextView mPlaceDetailsText;
-    private TextView mPlaceAttribution;
     private Place mPlace;
     private Context mContext;
     private ProgressDialog mProgressDialog;
@@ -56,9 +54,6 @@ public class PlaceSearchActivity extends BaseActivity implements PlaceSelectionL
         // occurred.
         autocompleteFragment.setOnPlaceSelectedListener(this);
 
-        // Retrieve the TextViews that will display details about the selected place.
-        mPlaceDetailsText = (TextView) findViewById(R.id.place_details);
-        mPlaceAttribution = (TextView) findViewById(R.id.place_attribution);
         mContext = this;
         mProgressDialog = new ProgressDialog(this, getString(R.string.loading));
 
@@ -73,18 +68,7 @@ public class PlaceSearchActivity extends BaseActivity implements PlaceSelectionL
      */
     @Override
     public void onPlaceSelected(Place place) {
-        Log.i(TAG, "Place Selected: " + place.getName());
-
-        // Format the returned place's details and display them in the TextView.
         mPlace = place;
-        mPlaceDetailsText.setText(formatPlaceDetails(getResources(), place));
-
-        CharSequence attributions = place.getAttributions();
-        if (!TextUtils.isEmpty(attributions)) {
-            mPlaceAttribution.setText(Html.fromHtml(attributions.toString()));
-        } else {
-            mPlaceAttribution.setText("");
-        }
         mRegistrationButton.setVisibility(View.VISIBLE);
     }
 
@@ -95,16 +79,7 @@ public class PlaceSearchActivity extends BaseActivity implements PlaceSelectionL
     public void onError(Status status) {
         Log.e(TAG, "onError: Status = " + status.toString());
 
-        Toast.makeText(this, "Place selection failed: " + status.getStatusMessage(),
-                Toast.LENGTH_SHORT).show();
-    }
-
-    /**
-     * Helper method to format information about a place nicely.
-     */
-    private static Spanned formatPlaceDetails(Resources res, Place place) {
-        return Html.fromHtml(res.getString(R.string.place_details, place.getName(), place.getId(),
-                place.getAddress(), place.getLatLng().latitude, place.getLatLng().longitude));
+        Toast.makeText(this, getString(R.string.system_error), Toast.LENGTH_SHORT).show();
     }
 
     @Override
