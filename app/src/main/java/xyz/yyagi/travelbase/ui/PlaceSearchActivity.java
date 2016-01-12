@@ -1,5 +1,6 @@
 package xyz.yyagi.travelbase.ui;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -15,7 +16,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gc.materialdesign.views.ButtonRectangle;
-import com.gc.materialdesign.widgets.ProgressDialog;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
@@ -55,7 +55,7 @@ public class PlaceSearchActivity extends BaseActivity implements PlaceSelectionL
         autocompleteFragment.setOnPlaceSelectedListener(this);
 
         mContext = this;
-        mProgressDialog = new ProgressDialog(this, getString(R.string.loading));
+        mProgressDialog = ProgressDialogBuilder.build(this, getString(R.string.loading));
 
         mRegistrationButton = (ButtonRectangle) findViewById(R.id.registration_place_button);
         mRegistrationButton.setOnClickListener(this);
@@ -103,6 +103,8 @@ public class PlaceSearchActivity extends BaseActivity implements PlaceSelectionL
             public void onSuccess(xyz.yyagi.travelbase.model.Place place) {
                 mProgressDialog.dismiss();
                 Toast.makeText(mContext, getString(R.string.registration_place_success), Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(mContext, PlaceListActivity.class);
+                startActivity(intent);
             }
 
             @Override

@@ -23,6 +23,7 @@
     <string name="no_schedules">no scheules</string>
     <string name="route_title">way to %1$s</string>
     <string name="loading">Now Loading...</string>
+    <string name="saving">Now Saving...</string>
 
     <string name="title_activity_place_detail">PlaceDetailActivity</string>
     <string name="title_activity_place_list">PlaceListActivity</string>
