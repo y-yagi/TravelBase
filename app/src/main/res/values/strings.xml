@@ -51,20 +51,5 @@
     <string name="twitter_login">login</string>
     <string name="title_activity_place_search">PlaceSearch</string>
     <string name="registration_place">Registration</string>
-
-    <string name="place_details">
-    <![CDATA[
-        <b>%1$s</b>
-        <br/>
-        <i>Place Id: %2$s</i>
-        <br/>
-        Address: %3$s
-        <br/>
-        Latitude : %4$s
-        <br/>
-        Longitude: %5$s
-    ]]>
-    </string>
-
     <string name="registration_place_success">Registered the selected location</string>
 </resources>
