@@ -26,6 +26,7 @@ import com.orhanobut.wasp.WaspError;
 
 import java.util.HashMap;
 
+import io.realm.Realm;
 import xyz.yyagi.travelbase.R;
 import xyz.yyagi.travelbase.service.ProgressDialogBuilder;
 import xyz.yyagi.travelbase.service.TravelBaseService;
@@ -101,6 +102,7 @@ public class PlaceSearchActivity extends BaseActivity implements PlaceSelectionL
         service.addPlace(authHeader, "v1", query, new CallBack<xyz.yyagi.travelbase.model.Place>() {
             @Override
             public void onSuccess(xyz.yyagi.travelbase.model.Place place) {
+                savePlace(place);
                 mProgressDialog.dismiss();
                 Toast.makeText(mContext, getString(R.string.registration_place_success), Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(mContext, PlaceListActivity.class);
@@ -111,6 +113,14 @@ public class PlaceSearchActivity extends BaseActivity implements PlaceSelectionL
             public void onError(WaspError waspError) {
                 mProgressDialog.dismiss();
                 Toast.makeText(mContext, getString(R.string.system_error), Toast.LENGTH_LONG).show();
+            }
+
+            public void savePlace(xyz.yyagi.travelbase.model.Place place) {
+                Realm realm = Realm.getInstance(mContext);
+
+                realm.beginTransaction();
+                realm.copyToRealm(place);
+                realm.commitTransaction();
             }
         });
     }
