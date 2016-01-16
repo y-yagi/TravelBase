@@ -64,7 +64,8 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private static final String TAG = LogUtil.makeLogTag(LoginActivity.class);
     private Realm mRealm;
     private User mUser;
-    private SystemData mSystemData;
+    private SystemData mPlaceSystemData;
+    private SystemData mTravelSystemData;
     private Calendar mCalendar;
 
     @Override
@@ -73,11 +74,12 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
         Fabric.with(this, new Twitter(authConfig));
         RealmConfiguration realmConfiguration = new RealmConfiguration.Builder(this)
-//                .deleteRealmIfMigrationNeeded()
+                .deleteRealmIfMigrationNeeded()
                 .build();
 
         mRealm = RealmBuilder.getRealmInstance(realmConfiguration);
-        mSystemData = mRealm.where(SystemData.class).findFirst();
+        mPlaceSystemData = mRealm.where(SystemData.class).equalTo("table", Place.class.toString()).findFirst();
+        mTravelSystemData = mRealm.where(SystemData.class).equalTo("table", Travel.class.toString()).findFirst();
         mActivity = this;
         mCalendar = GregorianCalendar.getInstance(TimeZone.getTimeZone("UTC"));
         // FIXME: timezoneにUTCを指定しているが、実際取得出来る値がJSTになってしまっている為9マイナス
@@ -173,8 +175,8 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         HashMap<String, String> query = TravelBaseServiceBuilder.makeResourceOwnerInfo();
         if (query != null) {
             query.put("fields", "*");
-            if (mSystemData != null) {
-                query.put("updated_at", DateUtil.formatWithTime(mSystemData.getApi_last_acquisition_time()));
+            if (mTravelSystemData != null) {
+                query.put("updated_at", DateUtil.formatWithTime(mTravelSystemData.getApi_last_acquisition_time()));
             }
         }
 
@@ -202,8 +204,8 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         if (query != null) {
             query.put("fields", "*");
 
-            if (mSystemData != null) {
-                query.put("updated_at", DateUtil.formatWithTime(mSystemData.getApi_last_acquisition_time()));
+            if (mPlaceSystemData != null) {
+                query.put("updated_at", DateUtil.formatWithTime(mPlaceSystemData.getApi_last_acquisition_time()));
             }
         }
 
@@ -232,6 +234,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             travel.setUser_id(user.getUid());
             mRealm.copyToRealmOrUpdate(travel);
         }
+        updateApiLastAcquisitionTime(mTravelSystemData, Travel.class.toString());
         mRealm.commitTransaction();
     }
 
@@ -242,7 +245,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             place.setUser_id(user.getUid());
             mRealm.copyToRealmOrUpdate(place);
         }
-        updateApiLastAcquisitionTime();
+        updateApiLastAcquisitionTime(mPlaceSystemData, Place.class.toString());
         mRealm.commitTransaction();
     }
 
@@ -286,11 +289,12 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         mGoogleSignInButton.setVisibility(View.VISIBLE);
     }
 
-    private void updateApiLastAcquisitionTime() {
-        if (mSystemData == null) {
-            mSystemData = mRealm.createObject(SystemData.class);
+    private void updateApiLastAcquisitionTime(SystemData systemData, String table) {
+        if (systemData == null) {
+            systemData = mRealm.createObject(SystemData.class);
+            systemData.setTable(table);
         }
-        mSystemData.setApi_last_acquisition_time(mCalendar.getTime());
+        systemData.setApi_last_acquisition_time(mCalendar.getTime());
     }
 }
 

@@ -9,6 +9,7 @@ import io.realm.RealmObject;
  */
 public class SystemData extends RealmObject {
    private Date api_last_acquisition_time;
+   private String table;
 
    public Date getApi_last_acquisition_time() {
       return api_last_acquisition_time;
@@ -16,5 +17,13 @@ public class SystemData extends RealmObject {
 
    public void setApi_last_acquisition_time(Date api_last_acquisition_time) {
       this.api_last_acquisition_time = api_last_acquisition_time;
+   }
+
+   public String getTable() {
+      return table;
+   }
+
+   public void setTable(String table) {
+      this.table = table;
    }
 }
