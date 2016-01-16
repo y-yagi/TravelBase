@@ -17,12 +17,13 @@
     <string-array name="travel_list_tab_titles">
         <item>future travel</item>
         <item>past travel</item>
-    </string-array> 
+    </string-array>
     <string name="no_plan_of_travel">no plan of the travel</string>
     <string name="no_past_travel">no past travel</string>
     <string name="no_schedules">no scheules</string>
     <string name="route_title">way to %1$s</string>
     <string name="loading">Now Loading...</string>
+    <string name="saving">Now Saving...</string>
 
     <string name="title_activity_place_detail">PlaceDetailActivity</string>
     <string name="title_activity_place_list">PlaceListActivity</string>
@@ -49,4 +50,7 @@
     <string name="title_activity_route_detail">RouteDetailActivity</string>
     <string name="linkt_to_places_map"><u>See a list of places in Map</u></string>
     <string name="twitter_login">login</string>
+    <string name="title_activity_place_search">PlaceSearch</string>
+    <string name="registration_place">Registration</string>
+    <string name="registration_place_success">Registered the selected location</string>
 </resources>

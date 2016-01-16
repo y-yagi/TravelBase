@@ -22,6 +22,7 @@
     <string name="no_past_travel">過去の旅行の情報はありません</string>
     <string name="no_schedules">予定は登録されていません</string>
     <string name="route_title">「%1$s」への行き方</string>
+    <string name="saving">保存中...</string>
 
     <string-array name="place_detail_tab_titles">
         <item>詳細</item>
@@ -34,4 +35,7 @@
     <string name="label_memo">メモ: </string>
     <string name="linkt_to_places_map"><u>場所の一覧を地図で見る</u></string>
     <string name="twitter_login">ログイン</string>
+    <string name="title_activity_place_search">場所検索</string>
+    <string name="registration_place">選択した場所を登録する</string>
+    <string name="registration_place_success">場所を登録しました</string>
 </resources>

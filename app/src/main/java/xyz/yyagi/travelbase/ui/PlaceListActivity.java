@@ -3,6 +3,7 @@ package xyz.yyagi.travelbase.ui;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v13.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
@@ -11,6 +12,8 @@ import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.melnykov.fab.FloatingActionButton;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -23,7 +26,7 @@ import xyz.yyagi.travelbase.model.User;
 import xyz.yyagi.travelbase.service.RealmBuilder;
 import xyz.yyagi.travelbase.util.LogUtil;
 
-public class PlaceListActivity extends BaseActivity {
+public class PlaceListActivity extends BaseActivity implements View.OnClickListener {
     private Activity mActivity;
     private static final String TAG = LogUtil.makeLogTag(PlaceListActivity.class);
 
@@ -33,6 +36,9 @@ public class PlaceListActivity extends BaseActivity {
         setContentView(R.layout.activity_place_list);
 
         mActivity = this;
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(this);
 
         displayPlaces();
         setupDrawer();
@@ -63,11 +69,16 @@ public class PlaceListActivity extends BaseActivity {
         }
     }
 
-
     private RealmResults<Place> getPlaces() {
         Realm realm = RealmBuilder.getRealmInstance(this);
         RealmResults<Place> places = realm.where(Place.class).equalTo("status", "not_gone").findAll();
         places.sort("id", RealmResults.SORT_ORDER_DESCENDING);
         return places;
+    }
+
+    @Override
+    public void onClick(View v) {
+        Intent intent = new Intent(this, PlaceSearchActivity.class);
+        startActivity(intent);
     }
 }
