@@ -40,7 +40,7 @@ import xyz.yyagi.travelbase.model.Place;
 import xyz.yyagi.travelbase.model.SystemData;
 import xyz.yyagi.travelbase.model.Travel;
 import xyz.yyagi.travelbase.model.User;
-import xyz.yyagi.travelbase.service.ProgressDialogBuilder;
+import xyz.yyagi.travelbase.ui.widget.ProgressDialogBuilder;
 import xyz.yyagi.travelbase.service.RealmBuilder;
 import xyz.yyagi.travelbase.service.TravelBaseService;
 import xyz.yyagi.travelbase.service.TravelBaseServiceBuilder;

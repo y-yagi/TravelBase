@@ -1,4 +1,4 @@
-package xyz.yyagi.travelbase.service;
+package xyz.yyagi.travelbase.ui.widget;
 
 import android.app.ProgressDialog;
 import android.content.Context;
