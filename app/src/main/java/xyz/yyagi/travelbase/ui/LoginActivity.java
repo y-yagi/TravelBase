@@ -2,13 +2,13 @@ package xyz.yyagi.travelbase.ui;
 
 import android.accounts.AccountManager;
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.gc.materialdesign.widgets.ProgressDialog;
 import com.google.android.gms.common.AccountPicker;
 import com.google.android.gms.common.SignInButton;
 import com.orhanobut.wasp.CallBack;
@@ -92,7 +92,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         mGoogleSignInButton = (SignInButton) findViewById(R.id.google_sign_in_button);
         mTwitterLoginButton = (TwitterLoginButton)findViewById(R.id.twitter_sign_in_button);
 
-        mProgressDialog = ProgressDialogBuilder.build(this, getString(R.string.loading));
+        mProgressDialog = ProgressDialogBuilder.build(this, getString(R.string.loading), getResources().getColor(R.color.primary));
         if (isLogined()) {
             mProgressDialog.show();
             fetchTravelList();
