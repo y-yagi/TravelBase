@@ -1,13 +1,8 @@
 package xyz.yyagi.travelbase.ui;
 
 import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v13.app.FragmentStatePagerAdapter;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -17,12 +12,8 @@ import com.melnykov.fab.FloatingActionButton;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
-import it.neokree.materialtabs.MaterialTab;
-import it.neokree.materialtabs.MaterialTabHost;
-import it.neokree.materialtabs.MaterialTabListener;
 import xyz.yyagi.travelbase.R;
 import xyz.yyagi.travelbase.model.Place;
-import xyz.yyagi.travelbase.model.User;
 import xyz.yyagi.travelbase.service.RealmBuilder;
 import xyz.yyagi.travelbase.util.LogUtil;
 

@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import io.realm.Realm;
 import xyz.yyagi.travelbase.R;
-import xyz.yyagi.travelbase.model.Place;
 import xyz.yyagi.travelbase.model.Schedule;
 import xyz.yyagi.travelbase.model.TravelDate;
 import xyz.yyagi.travelbase.service.RealmBuilder;

@@ -1,12 +1,9 @@
 package xyz.yyagi.travelbase.ui;
 
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
 import android.view.View;
-import android.widget.TextView;
 
 import java.util.Calendar;
-import java.util.Date;
 
 import io.realm.RealmResults;
 import xyz.yyagi.travelbase.R;
