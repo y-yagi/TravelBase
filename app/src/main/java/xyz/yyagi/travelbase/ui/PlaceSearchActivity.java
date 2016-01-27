@@ -1,21 +1,14 @@
 package xyz.yyagi.travelbase.ui;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.net.Uri;
 import android.os.Bundle;
-import android.app.Activity;
-import android.text.Html;
-import android.text.Spanned;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gc.materialdesign.views.ButtonRectangle;
+import com.gc.materialdesign.widgets.ProgressDialog;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
@@ -28,7 +21,7 @@ import java.util.HashMap;
 
 import io.realm.Realm;
 import xyz.yyagi.travelbase.R;
-import xyz.yyagi.travelbase.service.ProgressDialogBuilder;
+import xyz.yyagi.travelbase.ui.widget.ProgressDialogBuilder;
 import xyz.yyagi.travelbase.service.TravelBaseService;
 import xyz.yyagi.travelbase.service.TravelBaseServiceBuilder;
 import xyz.yyagi.travelbase.util.LogUtil;
@@ -56,7 +49,7 @@ public class PlaceSearchActivity extends BaseActivity implements PlaceSelectionL
         autocompleteFragment.setOnPlaceSelectedListener(this);
 
         mContext = this;
-        mProgressDialog = ProgressDialogBuilder.build(this, getString(R.string.loading));
+        mProgressDialog = ProgressDialogBuilder.build(this, getString(R.string.loading), getResources().getColor(R.color.primary));
 
         mRegistrationButton = (ButtonRectangle) findViewById(R.id.registration_place_button);
         mRegistrationButton.setOnClickListener(this);
