@@ -8,9 +8,8 @@ import com.gc.materialdesign.widgets.ProgressDialog;
  * Created by yaginuma on 15/05/14.
  */
 public class ProgressDialogBuilder {
-
-    public static ProgressDialog build(Context context, String message, int color) {
-        ProgressDialog dialog = new ProgressDialog(context, message, color);
+    public static TravelBaseProgressDialog build(Context context, String message, int color) {
+        TravelBaseProgressDialog dialog = new TravelBaseProgressDialog(context, message, color);
         dialog.setCancelable(false);
         return dialog;
     }

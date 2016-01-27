@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.gc.materialdesign.views.ButtonRectangle;
-import com.gc.materialdesign.widgets.ProgressDialog;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
@@ -24,6 +23,7 @@ import xyz.yyagi.travelbase.R;
 import xyz.yyagi.travelbase.ui.widget.ProgressDialogBuilder;
 import xyz.yyagi.travelbase.service.TravelBaseService;
 import xyz.yyagi.travelbase.service.TravelBaseServiceBuilder;
+import xyz.yyagi.travelbase.ui.widget.TravelBaseProgressDialog;
 import xyz.yyagi.travelbase.util.LogUtil;
 
 public class PlaceSearchActivity extends BaseActivity implements PlaceSelectionListener, View.OnClickListener {
@@ -31,7 +31,7 @@ public class PlaceSearchActivity extends BaseActivity implements PlaceSelectionL
 
     private Place mPlace;
     private Context mContext;
-    private ProgressDialog mProgressDialog;
+    private TravelBaseProgressDialog mProgressDialog;
     private ButtonRectangle mRegistrationButton;
 
     @Override
