@@ -1,5 +1,7 @@
 package xyz.yyagi.travelbase.ui;
 
+import android.databinding.DataBindingUtil;
+import android.databinding.tool.Binding;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.annotation.Nullable;
@@ -11,6 +13,7 @@ import android.widget.TextView;
 
 import io.realm.Realm;
 import xyz.yyagi.travelbase.R;
+import xyz.yyagi.travelbase.databinding.FragmentPlaceDetailBinding;
 import xyz.yyagi.travelbase.model.Place;
 import xyz.yyagi.travelbase.service.RealmBuilder;
 
@@ -23,6 +26,8 @@ import xyz.yyagi.travelbase.service.RealmBuilder;
  */
 public class PlaceDetailFragment extends Fragment {
     public static final String KEY_PLACE_ID = "place_id";
+    private FragmentPlaceDetailBinding mBinding;
+    private Place mPlace;
 
     public static PlaceDetailFragment newInstance(int placeId) {
         PlaceDetailFragment fragment = new PlaceDetailFragment();
@@ -34,7 +39,11 @@ public class PlaceDetailFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_place_detail, container, false);
+        setPlace();
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_place_detail, container, false);
+        mBinding.setPlace(mPlace);
+
+        return mBinding.getRoot();
     }
 
     @Override
@@ -47,29 +56,20 @@ public class PlaceDetailFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
     }
 
-    private void displayScheudle(View view) {
-        TextView textView;
+    private void setPlace() {
         int placeId = getArguments().getInt(KEY_PLACE_ID);
         Realm realm = RealmBuilder.getRealmInstance(getActivity());
-        Place place = realm.where(Place.class).equalTo("id", placeId).findFirst();
+        mPlace = realm.where(Place.class).equalTo("id", placeId).findFirst();
         realm.close();
+    }
 
-        textView = (TextView) view.findViewById(R.id.address);
-        textView.setText(place.getAddress());
-        if (!place.getStation_info().isEmpty()) {
-            textView = (TextView) view.findViewById(R.id.station);
-            textView.setText(place.getStation_info());
-        }
+    private void displayScheudle(View view) {
+        TextView textView;
 
-        if (!place.getUrl().isEmpty()) {
+        if (!mPlace.getUrl().isEmpty()) {
             textView = (TextView) view.findViewById(R.id.url);
-            textView.setText(place.getUrl().replace(",", "\n"));
+            textView.setText(mPlace.getUrl().replace(",", "\n"));
             Linkify.addLinks(textView, Linkify.ALL);
-        }
-
-        if (!place.getName().isEmpty()) {
-            textView = (TextView) view.findViewById(R.id.memo);
-            textView.setText(place.getMemo());
         }
     }
 }

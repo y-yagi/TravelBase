@@ -53,6 +53,10 @@ android {
         }
     }
 
+    dataBinding {
+        enabled = true
+    }
+
     packagingOptions {
         exclude 'META-INF/LICENSE.txt'
         exclude 'LICENSE.txt'
