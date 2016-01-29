@@ -1,7 +1,6 @@
 package xyz.yyagi.travelbase.service;
 
 import android.content.Context;
-import android.util.Base64;
 
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
@@ -13,11 +12,9 @@ import com.orhanobut.wasp.utils.LogLevel;
 
 import java.net.CookiePolicy;
 import java.util.HashMap;
-import java.util.Map;
 
 import io.realm.RealmObject;
 import xyz.yyagi.travelbase.BuildConfig;
-import xyz.yyagi.travelbase.model.Authorization;
 import xyz.yyagi.travelbase.model.User;
 
 /**

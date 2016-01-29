@@ -98,8 +98,6 @@ public class BaseActivity extends AppCompatActivity {
 
         realm.beginTransaction();
         realm.clear(User.class);
-        // FIXME:remained other tables
-        realm.clear(Travel.class);
         realm.commitTransaction();
         realm.close();
 

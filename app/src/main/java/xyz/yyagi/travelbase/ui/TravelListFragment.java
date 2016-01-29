@@ -4,25 +4,17 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.orhanobut.wasp.CallBack;
-import com.orhanobut.wasp.WaspError;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
 import xyz.yyagi.travelbase.R;
-import xyz.yyagi.travelbase.model.DropboxFile;
 import xyz.yyagi.travelbase.model.Travel;
 import xyz.yyagi.travelbase.service.RealmBuilder;
-import xyz.yyagi.travelbase.service.TravelBaseService;
-import xyz.yyagi.travelbase.service.TravelBaseServiceBuilder;
 import xyz.yyagi.travelbase.util.LogUtil;
 
 /**

@@ -44,6 +44,7 @@ import xyz.yyagi.travelbase.ui.widget.ProgressDialogBuilder;
 import xyz.yyagi.travelbase.service.RealmBuilder;
 import xyz.yyagi.travelbase.service.TravelBaseService;
 import xyz.yyagi.travelbase.service.TravelBaseServiceBuilder;
+import xyz.yyagi.travelbase.ui.widget.TravelBaseProgressDialog;
 import xyz.yyagi.travelbase.util.CryptoUtil;
 import xyz.yyagi.travelbase.util.DateUtil;
 import xyz.yyagi.travelbase.util.LogUtil;
@@ -60,7 +61,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private SignInButton mGoogleSignInButton;
     private TwitterLoginButton mTwitterLoginButton;
     private LoginActivity mActivity;
-    private ProgressDialog mProgressDialog;
+    private TravelBaseProgressDialog mProgressDialog;
     private static final String TAG = LogUtil.makeLogTag(LoginActivity.class);
     private Realm mRealm;
     private User mUser;
