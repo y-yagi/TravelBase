@@ -2,6 +2,8 @@ package xyz.yyagi.travelbase.ui;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
+import android.databinding.tool.Binding;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.view.View;
@@ -16,6 +18,8 @@ import xyz.yyagi.travelbase.R;
 import xyz.yyagi.travelbase.model.Place;
 import xyz.yyagi.travelbase.service.RealmBuilder;
 import xyz.yyagi.travelbase.util.LogUtil;
+import xyz.yyagi.travelbase.databinding.CardPlaceBinding;
+
 
 public class PlaceListActivity extends BaseActivity implements View.OnClickListener {
     private Activity mActivity;
@@ -40,14 +44,9 @@ public class PlaceListActivity extends BaseActivity implements View.OnClickListe
         LinearLayout layout = (LinearLayout) findViewById(R.id.placeList);
         for (Place place: places) {
             CardView cardView;
-            TextView textView;
-            cardView = (CardView) getLayoutInflater().inflate(R.layout.card_place, layout, false);
-
-            textView = (TextView) cardView.findViewById(R.id.name);
-            textView.setText(place.getName());
-            textView.setTag(place.getId());
-            textView = (TextView) cardView.findViewById(R.id.address);
-            textView.setText(place.getAddress());
+            CardPlaceBinding binding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.card_place, layout, false);
+            binding.setPlace(place);
+            cardView = (CardView) binding.getRoot();
 
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
