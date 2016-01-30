@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.databinding.DataBindingUtil;
+import android.databinding.tool.Binding;
 
 import io.realm.Realm;
 import xyz.yyagi.travelbase.R;
@@ -17,6 +19,7 @@ import xyz.yyagi.travelbase.model.Schedule;
 import xyz.yyagi.travelbase.model.TravelDate;
 import xyz.yyagi.travelbase.service.RealmBuilder;
 import xyz.yyagi.travelbase.util.LogUtil;
+import xyz.yyagi.travelbase.databinding.CardRouteBinding;
 
 public class TravelDetailFragment extends Fragment {
     private Realm mRealm;
@@ -70,14 +73,14 @@ public class TravelDetailFragment extends Fragment {
         TextView textView;
         for (final Schedule schedule : travelDate.getSchedules()) {
             if (schedule.getRoute() != null) {
-                routeView = (CardView) mInflater.inflate(R.layout.card_route, mTravelDetailLayout, false);
+                CardRouteBinding binding = DataBindingUtil.inflate(mInflater, R.layout.card_route, mTravelDetailLayout, false);
+                binding.setRoute(schedule.getRoute());
+                routeView = (CardView) binding.getRoot();
 
                 textView = (TextView) routeView.findViewById(R.id.title);
                 String routeTitle = getString(R.string.route_title, schedule.getPlace().getName());
                 textView.setText(routeTitle);
-                textView.setTag(schedule.getRoute().getId());
-                textView = (TextView) routeView.findViewById(R.id.detail);
-                textView.setText(schedule.getRoute().getDetail());
+
                 routeView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
