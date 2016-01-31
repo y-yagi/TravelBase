@@ -20,6 +20,7 @@ import xyz.yyagi.travelbase.model.TravelDate;
 import xyz.yyagi.travelbase.service.RealmBuilder;
 import xyz.yyagi.travelbase.util.LogUtil;
 import xyz.yyagi.travelbase.databinding.CardRouteBinding;
+import xyz.yyagi.travelbase.databinding.CardScheduleBinding;
 
 public class TravelDetailFragment extends Fragment {
     private Realm mRealm;
@@ -91,17 +92,15 @@ public class TravelDetailFragment extends Fragment {
                 mTravelDetailLayout.addView(routeView);
             }
 
-            scheduleView = (CardView) mInflater.inflate(R.layout.card_schedule, mTravelDetailLayout, false);
-            textView = (TextView) scheduleView.findViewById(R.id.name);
-            textView.setText(schedule.getPlace().getName());
-            textView.setTag(schedule.getPlace().getId());
+            CardScheduleBinding binding = DataBindingUtil.inflate(mInflater, R.layout.card_schedule, mTravelDetailLayout, false);
+            binding.setSchedule(schedule);
+            scheduleView= (CardView) binding.getRoot();
+
             textView = (TextView) scheduleView.findViewById(R.id.date);
             if (!schedule.getFormatted_start_time().isEmpty() || !schedule.getFormatted_end_time().isEmpty()) {
-                String text = String.format("%s~%s\n", schedule.getFormatted_start_time(), schedule.getFormatted_end_time());
+                String text = String.format("%s〜%s\n", schedule.getFormatted_start_time(), schedule.getFormatted_end_time());
                 textView.setText(text);
             }
-            textView = (TextView) scheduleView.findViewById(R.id.memo);
-            textView.setText(schedule.getMemo());
 
             scheduleView.setOnClickListener(new View.OnClickListener() {
                 @Override
