@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.databinding.DataBindingUtil;
+import android.databinding.tool.Binding;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -16,6 +18,7 @@ import xyz.yyagi.travelbase.R;
 import xyz.yyagi.travelbase.model.Travel;
 import xyz.yyagi.travelbase.service.RealmBuilder;
 import xyz.yyagi.travelbase.util.LogUtil;
+import xyz.yyagi.travelbase.databinding.CardTravelBinding;
 
 /**
  * Created by yaginuma on 15/05/08.
@@ -44,10 +47,11 @@ public class TravelListFragment extends Fragment {
         for (Travel travel : travels) {
             CardView cardView;
             TextView textView;
-            cardView = (CardView) mInflater.inflate(R.layout.card_travel, mTravelListLayout, false);
-            textView = (TextView) cardView.findViewById(R.id.name);
-            textView.setText(travel.getName());
-            textView.setTag(travel.getId());
+
+            CardTravelBinding binding = DataBindingUtil.inflate(mInflater, R.layout.card_travel, mTravelListLayout, false);
+            binding.setTravel(travel);
+            cardView = (CardView) binding.getRoot();
+
             textView = (TextView) cardView.findViewById(R.id.date);
             String text = "";
             if (travel.getFormatted_start_date().equals(travel.getFormatted_end_date())) {
@@ -56,8 +60,6 @@ public class TravelListFragment extends Fragment {
                 text = String.format("%s〜%s\n", travel.getFormatted_start_date(), travel.getFormatted_end_date());
             }
             textView.setText(text);
-            textView = (TextView) cardView.findViewById(R.id.memo);
-            textView.setText(travel.getMemo());
 
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
