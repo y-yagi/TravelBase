@@ -2,8 +2,6 @@ package xyz.yyagi.travelbase.ui.widget;
 
 import android.content.Context;
 
-import com.gc.materialdesign.widgets.ProgressDialog;
-
 /**
  * Created by yaginuma on 15/05/14.
  */

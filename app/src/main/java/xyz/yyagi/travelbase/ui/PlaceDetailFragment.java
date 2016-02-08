@@ -1,7 +1,6 @@
 package xyz.yyagi.travelbase.ui;
 
 import android.databinding.DataBindingUtil;
-import android.databinding.tool.Binding;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.annotation.Nullable;
