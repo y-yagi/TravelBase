@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.gc.materialdesign.widgets.ProgressDialog;
 import com.google.android.gms.common.AccountPicker;
 import com.google.android.gms.common.SignInButton;
 import com.orhanobut.wasp.CallBack;

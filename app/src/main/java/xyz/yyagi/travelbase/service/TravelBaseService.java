@@ -4,7 +4,6 @@ import com.orhanobut.wasp.CallBack;
 import com.orhanobut.wasp.http.BodyMap;
 import com.orhanobut.wasp.http.GET;
 import com.orhanobut.wasp.http.Header;
-import com.orhanobut.wasp.http.Mock;
 import com.orhanobut.wasp.http.POST;
 import com.orhanobut.wasp.http.Path;
 import com.orhanobut.wasp.http.QueryMap;

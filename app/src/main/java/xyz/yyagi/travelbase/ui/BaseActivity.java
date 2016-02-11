@@ -21,7 +21,6 @@ import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
 import io.realm.Realm;
 import xyz.yyagi.travelbase.R;
-import xyz.yyagi.travelbase.model.Travel;
 import xyz.yyagi.travelbase.model.User;
 import xyz.yyagi.travelbase.service.RealmBuilder;
 import xyz.yyagi.travelbase.util.HelpUtils;

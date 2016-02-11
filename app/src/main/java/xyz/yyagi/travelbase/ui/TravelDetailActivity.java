@@ -98,8 +98,7 @@ public class TravelDetailActivity extends BaseActivity implements MaterialTabLis
 
         @Override
         public Fragment getItem(int num) {
-            TravelDetailFragment fragment = TravelDetailFragment.newInstance(mTravelDates.get(num).getId());
-            return fragment;
+            return TravelDetailFragment.newInstance(mTravelDates.get(num).getId());
         }
 
         @Override

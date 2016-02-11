@@ -8,7 +8,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.orhanobut.wasp.Wasp;
 import com.orhanobut.wasp.parsers.GsonParser;
-import com.orhanobut.wasp.utils.LogLevel;
 
 import java.net.CookiePolicy;
 import java.util.HashMap;

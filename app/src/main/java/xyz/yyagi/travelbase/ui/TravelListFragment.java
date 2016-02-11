@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.databinding.DataBindingUtil;
-import android.databinding.tool.Binding;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
