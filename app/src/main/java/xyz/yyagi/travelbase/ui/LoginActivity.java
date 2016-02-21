@@ -10,9 +10,9 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.AccountPicker;
 import com.google.android.gms.common.SignInButton;
-import com.orhanobut.wasp.CallBack;
+import com.orhanobut.wasp.Response;
 import com.orhanobut.wasp.WaspError;
-
+import com.orhanobut.wasp.WaspRequest;
 import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.Result;
@@ -146,9 +146,9 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         mUser.setUid(userId);
         mUser.setProvider(provider);
 
-        service.authenticate(credentials, new CallBack<Authorization>() {
+        service.authenticate(credentials, new com.orhanobut.wasp.Callback<Authorization>() {
             @Override
-            public void onSuccess(Authorization authorization) {
+            public void onSuccess(Response response, Authorization authorization) {
                 mUser.setAccessToken(authorization.access_token);
                 mUser.setEncryptedAccessToken(CryptoUtil.encrypt(mActivity, authorization.access_token));
 
@@ -180,9 +180,9 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             }
         }
 
-        service.travels(authHeader, "v1", query, new CallBack<ArrayList<Travel>>() {
+        service.travels(authHeader, "v1", query, new com.orhanobut.wasp.Callback<ArrayList<Travel>>() {
             @Override
-            public void onSuccess(ArrayList<Travel> travelList) {
+            public void onSuccess(Response response, ArrayList<Travel> travelList) {
                 saveTravelList(travelList);
                 fetchPlaceList();
             }
@@ -209,9 +209,9 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             }
         }
 
-        service.places(authHeader, "v1", query, new CallBack<ArrayList<Place>>() {
+        service.places(authHeader, "v1", query, new com.orhanobut.wasp.Callback<ArrayList<Place>>() {
             @Override
-            public void onSuccess(ArrayList<Place> placeList) {
+            public void onSuccess(Response response, ArrayList<Place> placeList) {
                 savePlaceList(placeList);
                 mProgressDialog.dismiss();
                 startStartPointActivity();

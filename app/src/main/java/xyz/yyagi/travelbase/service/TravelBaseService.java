@@ -1,6 +1,6 @@
 package xyz.yyagi.travelbase.service;
 
-import com.orhanobut.wasp.CallBack;
+import com.orhanobut.wasp.Callback;
 import com.orhanobut.wasp.http.BodyMap;
 import com.orhanobut.wasp.http.GET;
 import com.orhanobut.wasp.http.Header;
@@ -29,7 +29,7 @@ public interface TravelBaseService {
     @POST("/oauth/token")
     void authenticate(
             @BodyMap Map body,
-            CallBack<Authorization> callBack
+            Callback<Authorization> callBack
     );
 
     @RetryPolicy(timeout = TIME_OUT)
@@ -38,7 +38,7 @@ public interface TravelBaseService {
             @Header("Authorization") String authToken,
             @Path("version") String version,
             @QueryMap Map query,
-            CallBack<ArrayList<Travel>> callBack
+            Callback<ArrayList<Travel>> callBack
     );
 
     @RetryPolicy(timeout = TIME_OUT)
@@ -48,7 +48,7 @@ public interface TravelBaseService {
             @Path("version") String version,
             @Path("id") int id,
             @QueryMap Map query,
-            CallBack<Travel> callBack
+            Callback<Travel> callBack
     );
 
     @RetryPolicy(timeout = TIME_OUT)
@@ -57,7 +57,7 @@ public interface TravelBaseService {
             @Header("Authorization") String authToken,
             @Path("version") String version,
             @QueryMap Map query,
-            CallBack<ArrayList<Place>> callBack
+            Callback<ArrayList<Place>> callBack
     );
 
     @RetryPolicy(timeout = TIME_OUT)
@@ -66,7 +66,7 @@ public interface TravelBaseService {
             @Header("Authorization") String authToken,
             @Path("version") String version,
             @QueryMap Map query,
-            CallBack<Place> callBack
+            Callback<Place> callBack
     );
 }
 
