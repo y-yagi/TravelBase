@@ -12,7 +12,8 @@ import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
-import com.orhanobut.wasp.CallBack;
+import com.orhanobut.wasp.Callback;
+import com.orhanobut.wasp.Response;
 import com.orhanobut.wasp.WaspError;
 
 
@@ -92,9 +93,9 @@ public class PlaceSearchActivity extends BaseActivity implements PlaceSelectionL
             query.put("longitude", String.valueOf(mPlace.getLatLng().longitude));
         }
 
-        service.addPlace(authHeader, "v1", query, new CallBack<xyz.yyagi.travelbase.model.Place>() {
+        service.addPlace(authHeader, "v1", query, new Callback<xyz.yyagi.travelbase.model.Place>() {
             @Override
-            public void onSuccess(xyz.yyagi.travelbase.model.Place place) {
+            public void onSuccess(Response respose, xyz.yyagi.travelbase.model.Place place) {
                 savePlace(place);
                 mProgressDialog.dismiss();
                 Toast.makeText(mContext, getString(R.string.registration_place_success), Toast.LENGTH_LONG).show();

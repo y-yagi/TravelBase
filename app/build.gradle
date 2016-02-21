@@ -12,6 +12,7 @@ apply plugin: 'io.fabric'
 
 repositories {
     maven { url 'https://maven.fabric.io/public' }
+    maven { url "https://jitpack.io" }
 }
 
 
@@ -70,7 +71,7 @@ dependencies {
     compile 'com.android.support:support-v13:23.1.1'
     compile 'com.google.android.gms:play-services-maps:8.4.0'
     compile 'com.google.android.gms:play-services-location:8.4.0'
-    compile 'com.orhanobut:wasp:1.9'
+    compile 'com.github.orhanobut:wasp:1.15'
     compile 'com.android.support:cardview-v7:23.1.1'
     compile 'it.neokree:MaterialTabs:0.11'
     compile 'io.realm:realm-android:0.81.1'
