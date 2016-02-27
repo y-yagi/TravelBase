@@ -35,6 +35,7 @@ import io.realm.RealmResults;
 import xyz.yyagi.travelbase.BuildConfig;
 import xyz.yyagi.travelbase.R;
 import xyz.yyagi.travelbase.model.Authorization;
+import xyz.yyagi.travelbase.model.Login;
 import xyz.yyagi.travelbase.model.Place;
 import xyz.yyagi.travelbase.model.SystemData;
 import xyz.yyagi.travelbase.model.Travel;
@@ -62,11 +63,8 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private LoginActivity mActivity;
     private TravelBaseProgressDialog mProgressDialog;
     private static final String TAG = LogUtil.makeLogTag(LoginActivity.class);
-    private Realm mRealm;
     private User mUser;
-    private SystemData mPlaceSystemData;
-    private SystemData mTravelSystemData;
-    private Calendar mCalendar;
+    private Login mLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,23 +75,20 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 .deleteRealmIfMigrationNeeded()
                 .build();
 
-        mRealm = RealmBuilder.getRealmInstance(realmConfiguration);
-        mPlaceSystemData = mRealm.where(SystemData.class).equalTo("table", Place.class.toString()).findFirst();
-        mTravelSystemData = mRealm.where(SystemData.class).equalTo("table", Travel.class.toString()).findFirst();
         mActivity = this;
-        mCalendar = GregorianCalendar.getInstance(TimeZone.getTimeZone("UTC"));
-        // FIXME: timezoneにUTCを指定しているが、実際取得出来る値がJSTになってしまっている為9マイナス
-        mCalendar.add(Calendar.HOUR, -9);
-
+        mLogin = new Login(this);
+        mLogin.init();
 
         setContentView(R.layout.activity_login);
 
         // To use when an error occurs, it is necessary to set previously
         mGoogleSignInButton = (SignInButton) findViewById(R.id.google_sign_in_button);
-        mTwitterLoginButton = (TwitterLoginButton)findViewById(R.id.twitter_sign_in_button);
+        mTwitterLoginButton = (TwitterLoginButton) findViewById(R.id.twitter_sign_in_button);
 
         mProgressDialog = ProgressDialogBuilder.build(this, getString(R.string.loading), getResources().getColor(R.color.primary));
-        if (isLogined()) {
+        if (mLogin.isLogined()) {
+            mLogin.user.setAccessToken(CryptoUtil.decrypt(this, mLogin.user.getEncryptedAccessToken()));
+            TravelBaseServiceBuilder.user = mLogin.user;
             mProgressDialog.show();
             fetchTravelList();
             return;
@@ -105,10 +100,8 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
     @Override
     public void onDestroy() {
-       super.onDestroy();
-        if (mRealm != null) {
-            mRealm.close();
-        }
+        super.onDestroy();
+        mLogin.term();
     }
 
     @Override
@@ -152,10 +145,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 mUser.setAccessToken(authorization.access_token);
                 mUser.setEncryptedAccessToken(CryptoUtil.encrypt(mActivity, authorization.access_token));
 
-                mRealm.beginTransaction();
-                mRealm.copyToRealm(mUser);
-                mRealm.commitTransaction();
-
+                mLogin.saveUser(mUser);
                 TravelBaseServiceBuilder.user = mUser;
                 fetchTravelList();
             }
@@ -175,15 +165,15 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         HashMap<String, String> query = TravelBaseServiceBuilder.makeResourceOwnerInfo();
         if (query != null) {
             query.put("fields", "*");
-            if (mTravelSystemData != null) {
-                query.put("updated_at", DateUtil.formatWithTime(mTravelSystemData.getApi_last_acquisition_time()));
+            if (mLogin.travelSystemData != null) {
+                query.put("updated_at", DateUtil.formatWithTime(mLogin.travelSystemData.getApi_last_acquisition_time()));
             }
         }
 
         service.travels(authHeader, "v1", query, new com.orhanobut.wasp.Callback<ArrayList<Travel>>() {
             @Override
             public void onSuccess(Response response, ArrayList<Travel> travelList) {
-                saveTravelList(travelList);
+                mLogin.saveTravelList(travelList);
                 fetchPlaceList();
             }
 
@@ -204,15 +194,15 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         if (query != null) {
             query.put("fields", "*");
 
-            if (mPlaceSystemData != null) {
-                query.put("updated_at", DateUtil.formatWithTime(mPlaceSystemData.getApi_last_acquisition_time()));
+            if (mLogin.placeSystemData != null) {
+                query.put("updated_at", DateUtil.formatWithTime(mLogin.placeSystemData.getApi_last_acquisition_time()));
             }
         }
 
         service.places(authHeader, "v1", query, new com.orhanobut.wasp.Callback<ArrayList<Place>>() {
             @Override
             public void onSuccess(Response response, ArrayList<Place> placeList) {
-                savePlaceList(placeList);
+                mLogin.savePlaceList(placeList);
                 mProgressDialog.dismiss();
                 startStartPointActivity();
             }
@@ -227,44 +217,12 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         });
     }
 
-    private void saveTravelList(ArrayList<Travel> travelList) {
-        User user = mRealm.where(User.class).findFirst();
-        mRealm.beginTransaction();
-        for (Travel travel : travelList) {
-            travel.setUser_id(user.getUid());
-            mRealm.copyToRealmOrUpdate(travel);
-        }
-        updateApiLastAcquisitionTime(mTravelSystemData, Travel.class.toString());
-        mRealm.commitTransaction();
-    }
-
-    private void savePlaceList(ArrayList<Place> placeList) {
-        User user = mRealm.where(User.class).findFirst();
-        mRealm.beginTransaction();
-        for (Place place : placeList) {
-            place.setUser_id(user.getUid());
-            mRealm.copyToRealmOrUpdate(place);
-        }
-        updateApiLastAcquisitionTime(mPlaceSystemData, Place.class.toString());
-        mRealm.commitTransaction();
-    }
 
     private void startStartPointActivity() {
         Intent intent = new Intent(mActivity, TravelListActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         finish();
         startActivity(intent);
-    }
-
-    private boolean isLogined() {
-        RealmResults<User> results = mRealm.where(User.class).findAll();
-        if (results.size() == 0) {
-            return  false;
-        }
-        User user = results.first();
-        user.setAccessToken(CryptoUtil.decrypt(this, user.getEncryptedAccessToken()));
-        TravelBaseServiceBuilder.user = user;
-        return true;
     }
 
     private void setTwitterLoginButton() {
@@ -287,14 +245,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private void setGoogleLoginButton() {
         mGoogleSignInButton.setOnClickListener(this);
         mGoogleSignInButton.setVisibility(View.VISIBLE);
-    }
-
-    private void updateApiLastAcquisitionTime(SystemData systemData, String table) {
-        if (systemData == null) {
-            systemData = mRealm.createObject(SystemData.class);
-            systemData.setTable(table);
-        }
-        systemData.setApi_last_acquisition_time(mCalendar.getTime());
     }
 }
 
