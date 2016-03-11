@@ -13,6 +13,7 @@ import com.melnykov.fab.FloatingActionButton;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
+import io.realm.Sort;
 import xyz.yyagi.travelbase.R;
 import xyz.yyagi.travelbase.model.Place;
 import xyz.yyagi.travelbase.service.RealmBuilder;
@@ -60,8 +61,9 @@ public class PlaceListActivity extends BaseActivity implements View.OnClickListe
 
     private RealmResults<Place> getPlaces() {
         Realm realm = RealmBuilder.getRealmInstance(this);
-        RealmResults<Place> places = realm.where(Place.class).equalTo("status", "not_gone").findAll();
-        places.sort("id", RealmResults.SORT_ORDER_DESCENDING);
+        RealmResults<Place> places = realm.where(Place.class)
+                .equalTo("status", "not_gone")
+                .findAllSorted("id", Sort.DESCENDING);
         return places;
     }
 

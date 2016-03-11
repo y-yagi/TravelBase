@@ -6,6 +6,7 @@ import android.view.View;
 import java.util.Calendar;
 
 import io.realm.RealmResults;
+import io.realm.Sort;
 import xyz.yyagi.travelbase.R;
 import xyz.yyagi.travelbase.model.Travel;
 import xyz.yyagi.travelbase.model.User;
@@ -30,8 +31,7 @@ public class PastTravelListFragment extends TravelListFragment {
         RealmResults<Travel> travels = mRealm.where(Travel.class)
                         .lessThan("end_date", calendar.getTime())
                         .equalTo("user_id", user.getUid())
-                        .findAll();
-        travels.sort("start_date", RealmResults.SORT_ORDER_DESCENDING);
+                        .findAllSorted("start_date", Sort.DESCENDING);
 
         if (travels.size() == 0) {
             mNoticeTextView.setText(getString(R.string.no_past_travel));
