@@ -96,7 +96,7 @@ public class TravelDetailFragment extends Fragment {
             scheduleView= (CardView) binding.getRoot();
 
             textView = (TextView) scheduleView.findViewById(R.id.date);
-            if (!schedule.getFormatted_start_time().isEmpty() || !schedule.getFormatted_end_time().isEmpty()) {
+            if (schedule.getFormatted_start_time() != null || schedule.getFormatted_end_time() != null) {
                 String text = String.format("%s〜%s\n", schedule.getFormatted_start_time(), schedule.getFormatted_end_time());
                 textView.setText(text);
             }

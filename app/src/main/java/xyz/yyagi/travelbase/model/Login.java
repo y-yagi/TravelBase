@@ -37,7 +37,7 @@ public class Login {
                 .build();
 
         Realm.setDefaultConfiguration(realmConfiguration);
-        mRealm = RealmBuilder.getRealmInstance(realmConfiguration);
+        mRealm = Realm.getDefaultInstance();
 
         mCalendar = GregorianCalendar.getInstance(TimeZone.getTimeZone("UTC"));
         // FIXME: timezoneにUTCを指定しているが、実際取得出来る値がJSTになってしまっている為9マイナス
