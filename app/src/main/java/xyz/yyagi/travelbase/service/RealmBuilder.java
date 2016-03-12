@@ -9,12 +9,9 @@ import io.realm.RealmConfiguration;
  * Created by yaginuma on 15/07/04.
  */
 public class RealmBuilder {
-    public static RealmConfiguration getRealmConfiguration(Context context) {
-        return new RealmConfiguration.Builder(context).build();
-    }
-
     public static Realm getRealmInstance(Context context) {
-        return Realm.getInstance(RealmBuilder.getRealmConfiguration(context));
+        // TODO: remove context
+        return Realm.getDefaultInstance();
     }
 
     public static Realm getRealmInstance(RealmConfiguration realmConfiguration) {

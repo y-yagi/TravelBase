@@ -38,7 +38,7 @@ public class BaseActivity extends AppCompatActivity {
         toolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
 
-        Realm realm = Realm.getInstance(this);
+        Realm realm = Realm.getDefaultInstance();
         User user = realm.where(User.class).findFirst();
         final IProfile profile = new ProfileDrawerItem().withName(user.getUid());
         AccountHeader headerResult = new AccountHeaderBuilder()

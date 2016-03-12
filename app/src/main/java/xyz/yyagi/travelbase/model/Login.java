@@ -36,6 +36,7 @@ public class Login {
                 .deleteRealmIfMigrationNeeded()
                 .build();
 
+        Realm.setDefaultConfiguration(realmConfiguration);
         mRealm = RealmBuilder.getRealmInstance(realmConfiguration);
 
         mCalendar = GregorianCalendar.getInstance(TimeZone.getTimeZone("UTC"));
