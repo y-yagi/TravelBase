@@ -9,6 +9,7 @@ import java.util.TimeZone;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
+import io.realm.RealmObject;
 import io.realm.RealmResults;
 import xyz.yyagi.travelbase.service.RealmBuilder;
 import xyz.yyagi.travelbase.service.TravelBaseServiceBuilder;
@@ -35,15 +36,15 @@ public class Login {
                 .deleteRealmIfMigrationNeeded()
                 .build();
 
-        mRealm = RealmBuilder.getRealmInstance(realmConfiguration);
+        Realm.setDefaultConfiguration(realmConfiguration);
+        mRealm = Realm.getDefaultInstance();
 
         mCalendar = GregorianCalendar.getInstance(TimeZone.getTimeZone("UTC"));
         // FIXME: timezoneにUTCを指定しているが、実際取得出来る値がJSTになってしまっている為9マイナス
         mCalendar.add(Calendar.HOUR, -9);
-        placeSystemData = mRealm.where(SystemData.class).equalTo("table", Place.class.toString()).findFirst();
-        travelSystemData = mRealm.where(SystemData.class).equalTo("table", Travel.class.toString()).findFirst();
-        RealmResults<User> results = mRealm.where(User.class).findAll();
-        user = results.first();
+        placeSystemData = mRealm.where(SystemData.class).equalTo("table_name", Place.class.toString()).findFirst();
+        travelSystemData = mRealm.where(SystemData.class).equalTo("table_name", Travel.class.toString()).findFirst();
+        user = mRealm.where(User.class).findFirst();
     }
 
     public void saveTravelList(ArrayList<Travel> travelList) {
@@ -85,7 +86,7 @@ public class Login {
     private void updateApiLastAcquisitionTime(SystemData systemData, String table) {
         if (systemData == null) {
             systemData = mRealm.createObject(SystemData.class);
-            systemData.setTable(table);
+            systemData.setTable_name(table);
         }
         systemData.setApi_last_acquisition_time(mCalendar.getTime());
     }
