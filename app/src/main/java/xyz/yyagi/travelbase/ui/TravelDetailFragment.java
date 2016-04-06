@@ -20,6 +20,7 @@ import xyz.yyagi.travelbase.service.RealmBuilder;
 import xyz.yyagi.travelbase.util.LogUtil;
 import xyz.yyagi.travelbase.databinding.CardRouteBinding;
 import xyz.yyagi.travelbase.databinding.CardScheduleBinding;
+import xyz.yyagi.travelbase.util.StringUtil;
 
 public class TravelDetailFragment extends Fragment {
     private Realm mRealm;
@@ -97,7 +98,10 @@ public class TravelDetailFragment extends Fragment {
 
             textView = (TextView) scheduleView.findViewById(R.id.date);
             if (schedule.getFormatted_start_time() != null || schedule.getFormatted_end_time() != null) {
-                String text = String.format("%s〜%s\n", schedule.getFormatted_start_time(), schedule.getFormatted_end_time());
+                String text = String.format("%s〜%s\n",
+                        StringUtil.emptyStringOrValue(schedule.getFormatted_start_time()),
+                        StringUtil.emptyStringOrValue(schedule.getFormatted_end_time())
+                );
                 textView.setText(text);
             }
 
