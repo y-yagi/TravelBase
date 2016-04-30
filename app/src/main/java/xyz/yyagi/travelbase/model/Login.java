@@ -1,6 +1,7 @@
 package xyz.yyagi.travelbase.model;
 
 import android.content.Context;
+import android.content.Intent;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -89,6 +90,19 @@ public class Login {
             systemData.setTable_name(table);
         }
         systemData.setApi_last_acquisition_time(mCalendar.getTime());
+    }
+
+    public void removeDeletedData(ArrayList<DeletedData> deletedDataList) {
+        mRealm.beginTransaction();
+        for (DeletedData deletedData : deletedDataList)  {
+            if (deletedData.table_name.equals("places")) {
+                mRealm.where(Place.class).equalTo("id", Integer.valueOf(deletedData.datum_id)).findAll().clear();
+            } else if (deletedData.table_name.equals("travesl")) {
+                mRealm.where(Travel.class).equalTo("id", Integer.valueOf(deletedData.datum_id)).findAll().clear();
+            }
+        }
+        mRealm.commitTransaction();
+
     }
 
     public void term() {

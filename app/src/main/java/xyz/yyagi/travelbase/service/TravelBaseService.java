@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import xyz.yyagi.travelbase.model.Authorization;
+import xyz.yyagi.travelbase.model.DeletedData;
 import xyz.yyagi.travelbase.model.Place;
 import xyz.yyagi.travelbase.model.Travel;
 
@@ -67,6 +68,15 @@ public interface TravelBaseService {
             @Path("version") String version,
             @QueryMap Map query,
             Callback<Place> callBack
+    );
+
+    @RetryPolicy(timeout = TIME_OUT)
+    @GET("/api/{version}/deleted_data")
+    void deletedData(
+            @Header("Authorization") String authToken,
+            @Path("version") String version,
+            @QueryMap Map query,
+            Callback<ArrayList<DeletedData>> callBack
     );
 }
 
