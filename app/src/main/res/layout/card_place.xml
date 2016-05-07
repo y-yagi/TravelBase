@@ -1,43 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable name="place" type="xyz.yyagi.travelbase.model.Place"/>
     </data>
 
     <android.support.v7.widget.CardView
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/card_view"
-        android:layout_gravity="center"
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        card_view:cardCornerRadius="4dp">
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/spacing_small"
+        android:layout_marginStart="@dimen/spacing_small"
+        android:clickable="true"
+        android:clipChildren="false"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardBackgroundColor="@color/white"
+        app:cardUseCompatPadding="true">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:padding="@dimen/spacing_small">
 
             <TextView
                 android:id="@+id/name"
-                android:textSize="14sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/primary_dark"
-                android:layout_marginLeft="5dp"
+                android:lineSpacingExtra="@dimen/line_spacing_small"
+                android:textColor="@color/primary"
+                android:textSize="@dimen/text_large"
                 android:text="@{place.name}"
-                android:tag="@{place.id}"
-                />
+                android:tag="@{place.id}" />
+
             <TextView
                 android:id="@+id/address"
-                android:textSize="12sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
+                android:layout_below="@id/name"
+                android:layout_marginTop="@dimen/spacing_small"
+                android:drawablePadding="@dimen/line_spacing_small"
+                android:textColor="@color/black"
                 android:text="@{place.address}"
-            />
-        </LinearLayout>
-
+                android:textSize="@dimen/text_small" />
+        </RelativeLayout>
     </android.support.v7.widget.CardView>
 </layout>
