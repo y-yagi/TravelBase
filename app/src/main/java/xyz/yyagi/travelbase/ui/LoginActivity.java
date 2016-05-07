@@ -36,6 +36,7 @@ import io.realm.RealmResults;
 import xyz.yyagi.travelbase.BuildConfig;
 import xyz.yyagi.travelbase.R;
 import xyz.yyagi.travelbase.model.Authorization;
+import xyz.yyagi.travelbase.model.DeletedData;
 import xyz.yyagi.travelbase.model.Login;
 import xyz.yyagi.travelbase.model.Place;
 import xyz.yyagi.travelbase.model.SystemData;
@@ -201,6 +202,32 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             @Override
             public void onSuccess(Response response, ArrayList<Place> placeList) {
                 mLogin.savePlaceList(placeList);
+                fetchDeletedData();
+            }
+
+            @Override
+            public void onError(WaspError waspError) {
+                mProgressDialog.dismiss();
+                Log.d(TAG, waspError.getErrorMessage());
+                // failure to get the latest data, the process continues with past data
+                startStartPointActivity();
+            }
+        });
+    }
+
+    private void fetchDeletedData() {
+        TravelBaseService service = TravelBaseServiceBuilder.build(this);
+        String authHeader = TravelBaseServiceBuilder.makeBearerAuthHeader();
+        HashMap<String, String> query = TravelBaseServiceBuilder.makeResourceOwnerInfo();
+        if (query != null) {
+            query.put("fields", "*");
+            // TODO: add updated_at parameter
+        }
+
+        service.deletedData(authHeader, "v1", query, new com.orhanobut.wasp.Callback<ArrayList<DeletedData>>() {
+            @Override
+            public void onSuccess(Response response, ArrayList<DeletedData> deletedDataList) {
+                mLogin.removeDeletedData(deletedDataList);
                 mProgressDialog.dismiss();
                 startStartPointActivity();
             }
@@ -214,7 +241,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             }
         });
     }
-
 
     private void startStartPointActivity() {
         Intent intent = new Intent(mActivity, TravelListActivity.class);
