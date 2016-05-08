@@ -1,43 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable name="route" type="xyz.yyagi.travelbase.model.Route"/>
     </data>
 
     <android.support.v7.widget.CardView
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/card_view"
-        android:layout_gravity="center"
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        card_view:cardCornerRadius="4dp">
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/spacing_small"
+        android:layout_marginStart="@dimen/spacing_small"
+        android:clickable="true"
+        android:clipChildren="false"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardBackgroundColor="@color/white"
+        app:cardUseCompatPadding="true">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:padding="@dimen/spacing_small">
 
             <TextView
                 android:id="@+id/title"
-                android:textSize="18sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/primary_dark"
-                android:layout_marginLeft="5dp"
-                android:tag="@{route.id}"
-                />
+                android:lineSpacingExtra="@dimen/line_spacing_small"
+                android:textColor="@color/primary"
+                android:textSize="@dimen/text_large"
+                android:tag="@{route.id}" />
+
             <TextView
                 android:id="@+id/detail"
-                android:textSize="12sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
+                android:layout_below="@id/title"
+                android:layout_marginTop="@dimen/spacing_small"
+                android:drawablePadding="@dimen/line_spacing_small"
+                android:ellipsize="end"
+                android:textColor="@color/black"
                 android:text="@{route.detail}"
-            />
-        </LinearLayout>
+                android:textSize="@dimen/text_small" />
+        </RelativeLayout>
     </android.support.v7.widget.CardView>
-
 </layout>
+
