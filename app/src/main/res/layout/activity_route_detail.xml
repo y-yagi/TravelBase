@@ -4,6 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context="xyz.yyagi.travelbase.ui.RouteDetailActivity">
 
     <include layout="@layout/my_tool_bar" android:id="@+id/toolbar"/>
@@ -12,6 +13,7 @@
         android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:id="@+id/route_detail"
+        android:textColor="@color/primary_text"
         android:layout_height="match_parent" />
 
 </LinearLayout>
