@@ -28,4 +28,4 @@ before_script:
 
 script:
   - ./gradlew clean connectedAndroidTest --stacktrace
-  - ./gradlew dependencyUpdates
+  - ./gradlew dependencyUpdates -Drevision=release -DoutputFormatter=json
