@@ -2,13 +2,7 @@ dependencies:
   pre:
     - echo y | android update sdk --no-ui --all --filter "tools"
 test:
-  pre:
-    - emulator -avd circleci-android22 -no-audio -no-window:
-        background: true
-        parallel: true
-    - circle-android wait-for-boot
   override:
-    - ./gradlew clean connectedAndroidTest --stacktrace
     - ./gradlew dependencyUpdates -Drevision=release -DoutputFormatter=json
 
 general:
