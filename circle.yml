@@ -10,3 +10,7 @@ test:
   override:
     - ./gradlew clean connectedAndroidTest --stacktrace
     - ./gradlew dependencyUpdates -Drevision=release -DoutputFormatter=json
+
+general:
+  artifacts:
+    - "build/dependencyUpdates"
