@@ -79,6 +79,7 @@ dependencies {
     compile "com.android.support:cardview-v7:${support_lib_version}"
     compile "com.google.android.gms:play-services-maps:${play_services_lib_version}"
     compile "com.google.android.gms:play-services-location:${play_services_lib_version}"
+    compile "com.google.firebase:firebase-messaging:${play_services_lib_version}"
     compile 'com.github.orhanobut:wasp:1.15'
     compile 'it.neokree:MaterialTabs:0.11'
     compile 'com.facebook.conceal:conceal:1.0.0@aar'
@@ -101,3 +102,4 @@ dependencies {
     androidTestCompile "com.android.support:support-annotations:${support_lib_version}"
 }
 
+apply plugin: 'com.google.gms.google-services'
