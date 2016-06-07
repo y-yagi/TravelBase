@@ -20,6 +20,7 @@ cache:
     - $HOME/.gradle/wrapper/
 
 before_script:
+  - cp app/google-services.json.dummy app/google-services.json
   - echo no | android create avd --force -n test -t android-18 --abi armeabi-v7a
   - emulator -avd test -no-audio -no-window &
   - android-wait-for-emulator
