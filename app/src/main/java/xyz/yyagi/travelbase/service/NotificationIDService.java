@@ -1,13 +1,15 @@
 package xyz.yyagi.travelbase.service;
 
-import android.app.Service;
-import android.content.Intent;
-import android.os.IBinder;
 import android.util.Log;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
+import com.orhanobut.wasp.Response;
+import com.orhanobut.wasp.WaspError;
 
+import java.util.HashMap;
+
+import xyz.yyagi.travelbase.model.User;
 import xyz.yyagi.travelbase.util.LogUtil;
 
 public class NotificationIDService extends FirebaseInstanceIdService {
@@ -20,11 +22,9 @@ public class NotificationIDService extends FirebaseInstanceIdService {
     // [START refresh_token]
     @Override
     public void onTokenRefresh() {
-        // Get updated InstanceID token.
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
         Log.e(TAG, "Refreshed token: " + refreshedToken);
 
-        // TODO: Implement this method to send any registration to your app's servers.
         sendRegistrationToServer(refreshedToken);
     }
     // [END refresh_token]
@@ -38,7 +38,27 @@ public class NotificationIDService extends FirebaseInstanceIdService {
      * @param token The new token.
      */
     private void sendRegistrationToServer(String token) {
-        // Add custom implementation, as needed.
+        TravelBaseService service = TravelBaseServiceBuilder.build(this);
+        String authHeader = TravelBaseServiceBuilder.makeBearerAuthHeader();
+        if (authHeader.isEmpty()) {
+            // NOTE: まだログインが行われていない状態
+            return;
+        }
+        HashMap<String, String> query = TravelBaseServiceBuilder.makeResourceOwnerInfo();
+        HashMap<String, String> body = new HashMap<String, String>();
+        body.put("token", token);
+
+        service.registrateToken(authHeader, "v1", query, body, new com.orhanobut.wasp.Callback<User>() {
+            @Override
+            public void onSuccess(Response response, User user) {
+                // Do nothing
+            }
+
+            @Override
+            public void onError(WaspError waspError) {
+                Log.d(TAG, waspError.getErrorMessage());
+            }
+        });
     }
 }
 
