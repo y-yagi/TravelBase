@@ -4,6 +4,7 @@ import com.orhanobut.wasp.Callback;
 import com.orhanobut.wasp.http.BodyMap;
 import com.orhanobut.wasp.http.GET;
 import com.orhanobut.wasp.http.Header;
+import com.orhanobut.wasp.http.PATCH;
 import com.orhanobut.wasp.http.POST;
 import com.orhanobut.wasp.http.Path;
 import com.orhanobut.wasp.http.QueryMap;
@@ -17,6 +18,7 @@ import xyz.yyagi.travelbase.model.DeletedData;
 import xyz.yyagi.travelbase.model.Event;
 import xyz.yyagi.travelbase.model.Place;
 import xyz.yyagi.travelbase.model.Travel;
+import xyz.yyagi.travelbase.model.User;
 
 /**
  * Created by yaginuma on 15/05/06.
@@ -87,6 +89,15 @@ public interface TravelBaseService {
             @Path("version") String version,
             @QueryMap Map query,
             Callback<ArrayList<Event>> callBack
+    );
+
+    @PATCH("/api/{version}/user/registrate_token")
+    void registrateToken(
+            @Header("Authorization") String authToken,
+            @Path("version") String version,
+            @QueryMap Map query,
+            @BodyMap Map body,
+            Callback<User> callBack
     );
 }
 
