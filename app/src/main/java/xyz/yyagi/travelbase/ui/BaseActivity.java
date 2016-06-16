@@ -96,7 +96,7 @@ public class BaseActivity extends AppCompatActivity {
         Realm realm = RealmBuilder.getRealmInstance(this);
 
         realm.beginTransaction();
-        realm.clear(User.class);
+        realm.delete(User.class);
         realm.commitTransaction();
         realm.close();
 
