@@ -5,7 +5,7 @@
 
   <style name="TravelBase" parent="@style/_TravelBase"/>
 
-  <style name="_TravelBase" parent="MaterialDrawerBaseBaseTheme.Light">
+  <style name="_TravelBase" parent="MaterialBaseBaseTheme.Light">
       <item name="android:actionBarStyle">@style/ActionBarTraelBase</item>
       <item name="drawerArrowStyle">@style/MaterialDrawer.DrawerArrowStyle</item>
       <item name="colorPrimary">@color/primary</item>

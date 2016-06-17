@@ -25,6 +25,7 @@ import xyz.yyagi.travelbase.util.StringUtil;
 public class TravelDetailFragment extends Fragment {
     private Realm mRealm;
     private LinearLayout mTravelDetailLayout;
+    private LinearLayout mMainLayout;
     private LayoutInflater mInflater;
     private TextView mMapTextLink;
     private TextView mNoticeTextView;
@@ -48,6 +49,7 @@ public class TravelDetailFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         mTravelDetailLayout = (LinearLayout) view.findViewById(R.id.travelDetail);
+        mMainLayout = (LinearLayout) view.findViewById(R.id.fragmentTravelDetail);
         mRealm = RealmBuilder.getRealmInstance(getActivity());
         mMapTextLink = (TextView) view.findViewById(R.id.mapLinkText);
         mNoticeTextView = (TextView)view.findViewById(R.id.noticeText);
@@ -124,9 +126,11 @@ public class TravelDetailFragment extends Fragment {
         mMapTextLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //mTravelDetailLayout.removeAllViews();
+                mMainLayout.removeAllViews();
                 PlaceMapFragment fragment = PlaceMapFragment.newInstance(travelDateId,
                         PlaceMapFragment.ID_TYPE_TRAVEL_DATE, PlaceMapFragment.LIST_ZOOM);
-                fragmentManager.beginTransaction().replace(R.id.content_layout, fragment).commit();
+                fragmentManager.beginTransaction().replace(R.id.fragmentTravelDetail, fragment).commit();
             }
         });
     }

@@ -2,9 +2,12 @@ package xyz.yyagi.travelbase.util;
 
 import android.content.Context;
 
+import com.facebook.android.crypto.keychain.AndroidConceal;
+import com.facebook.android.crypto.keychain.SharedPrefsBackedKeyChain;
 import com.facebook.crypto.Crypto;
+import com.facebook.crypto.CryptoConfig;
 import com.facebook.crypto.Entity;
-import com.facebook.crypto.keychain.SharedPrefsBackedKeyChain;
+import com.facebook.crypto.keychain.KeyChain;
 import com.facebook.crypto.util.SystemNativeCryptoLibrary;
 
 import xyz.yyagi.travelbase.BuildConfig;
@@ -14,25 +17,27 @@ import xyz.yyagi.travelbase.BuildConfig;
  */
 public class CryptoUtil {
     public static byte[] encrypt(Context context, String value) {
-        Crypto crypto = new Crypto(new SharedPrefsBackedKeyChain(context), new SystemNativeCryptoLibrary());
-        String key = BuildConfig.ENCRYPT_KEY;
+        KeyChain keyChain = new SharedPrefsBackedKeyChain(context, CryptoConfig.KEY_256);
+        Crypto crypto = AndroidConceal.get().createDefaultCrypto(keyChain);
+        Entity entity = Entity.create(BuildConfig.ENCRYPT_KEY);
         byte[] encryptedValue = null;
-
         try {
-            encryptedValue = crypto.encrypt(value.getBytes("utf-8"), new Entity(key));
+            encryptedValue = crypto.encrypt(value.getBytes("UTF-8"), entity);
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return encryptedValue;
     }
 
     public static String decrypt(Context context, byte[] value) {
-        Crypto crypto = new Crypto(new SharedPrefsBackedKeyChain(context), new SystemNativeCryptoLibrary());
-        String key = BuildConfig.ENCRYPT_KEY;
+        KeyChain keyChain = new SharedPrefsBackedKeyChain(context, CryptoConfig.KEY_256);
+        Crypto crypto = AndroidConceal.get().createDefaultCrypto(keyChain);
+        Entity entity = Entity.create(BuildConfig.ENCRYPT_KEY);
         String result = "";
 
         try {
-            byte [] decryptedValue = crypto.decrypt(value, new Entity(key));
+            byte [] decryptedValue = crypto.decrypt(value, entity);
             result = new String(decryptedValue, "UTF-8");
         } catch (Exception e) {
             e.printStackTrace();

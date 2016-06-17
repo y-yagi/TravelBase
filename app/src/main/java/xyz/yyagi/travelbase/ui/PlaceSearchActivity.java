@@ -110,7 +110,7 @@ public class PlaceSearchActivity extends BaseActivity implements PlaceSelectionL
             }
 
             public void savePlace(xyz.yyagi.travelbase.model.Place place) {
-                Realm realm = Realm.getInstance(mContext);
+                Realm realm = Realm.getDefaultInstance();
 
                 realm.beginTransaction();
                 realm.copyToRealm(place);

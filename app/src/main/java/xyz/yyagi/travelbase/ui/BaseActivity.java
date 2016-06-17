@@ -8,11 +8,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 
-import com.mikepenz.iconics.typeface.FontAwesome;
+import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
-import com.mikepenz.materialdrawer.accountswitcher.AccountHeader;
-import com.mikepenz.materialdrawer.accountswitcher.AccountHeaderBuilder;
+import com.mikepenz.materialdrawer.AccountHeader;
+import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
@@ -67,8 +67,8 @@ public class BaseActivity extends AppCompatActivity {
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
-                    public boolean onItemClick(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem) {
-                        int identifier = drawerItem.getIdentifier();
+                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                        int identifier = (int)drawerItem.getIdentifier();
                         Intent intent;
                         switch (identifier) {
                             case DRAWER_TRAVEL_LIST:
@@ -96,7 +96,7 @@ public class BaseActivity extends AppCompatActivity {
         Realm realm = RealmBuilder.getRealmInstance(this);
 
         realm.beginTransaction();
-        realm.clear(User.class);
+        realm.delete(User.class);
         realm.commitTransaction();
         realm.close();
 
