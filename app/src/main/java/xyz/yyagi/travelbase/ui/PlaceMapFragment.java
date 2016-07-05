@@ -7,7 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
@@ -23,7 +25,7 @@ import xyz.yyagi.travelbase.model.Schedule;
 import xyz.yyagi.travelbase.model.TravelDate;
 import xyz.yyagi.travelbase.service.RealmBuilder;
 
-public class PlaceMapFragment extends MapFragment {
+public class PlaceMapFragment extends MapFragment implements OnMapReadyCallback {
 
     public static final String KEY_ID = "id";
     public static final String KEY_ID_TYPE = "id_type";
@@ -46,14 +48,15 @@ public class PlaceMapFragment extends MapFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = super.onCreateView(inflater, container, savedInstanceState);
-        initMap();
+        getMapAsync(this);
         return v;
     }
 
-    private void initMap() {
+    @Override
+    public void onMapReady(GoogleMap map) {
         LatLng latLng;
         int zoom = getArguments().getInt(KEY_ZOOM);
-        UiSettings settings = getMap().getUiSettings();
+        UiSettings settings = map.getUiSettings();
         settings.setCompassEnabled(true);
 
         ArrayList<Place> places = getPlaces();
@@ -61,12 +64,12 @@ public class PlaceMapFragment extends MapFragment {
         if(!places.isEmpty()) {
             Place firstPlace = places.get(0);
             latLng = new LatLng(firstPlace.getLatitude(), firstPlace.getLongitude());
-            getMap().moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
         }
 
         for(Place place : places) {
             latLng = new LatLng(place.getLatitude(), place.getLongitude());
-            getMap().addMarker(
+            map.addMarker(
                     new MarkerOptions()
                             .position(latLng)
                             .icon(BitmapDescriptorFactory.defaultMarker())
