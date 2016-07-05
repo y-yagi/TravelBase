@@ -96,9 +96,9 @@ public class Login {
         mRealm.beginTransaction();
         for (DeletedData deletedData : deletedDataList)  {
             if (deletedData.table_name.equals("places")) {
-                mRealm.where(Place.class).equalTo("id", Integer.valueOf(deletedData.datum_id)).findAll().clear();
+                mRealm.where(Place.class).equalTo("id", Integer.valueOf(deletedData.datum_id)).findAll().deleteAllFromRealm();
             } else if (deletedData.table_name.equals("travesl")) {
-                mRealm.where(Travel.class).equalTo("id", Integer.valueOf(deletedData.datum_id)).findAll().clear();
+                mRealm.where(Travel.class).equalTo("id", Integer.valueOf(deletedData.datum_id)).findAll().deleteAllFromRealm();
             }
         }
         mRealm.commitTransaction();
