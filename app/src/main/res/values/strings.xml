@@ -35,6 +35,9 @@
     <string name="label_station">Station: </string>
     <string name="label_url">URL: </string>
     <string name="label_memo">Memo: </string>
+    <string name="label_period">Period: </string>
+    <string name="label_detail">Detail: </string>
+    <string name="label_event_place">Place Name: </string>
 
     <string name="about_body"><![CDATA[
         <b>TravelBase</b><br>
@@ -52,4 +55,7 @@
     <string name="title_activity_place_search">PlaceSearch</string>
     <string name="registration_place">Registration</string>
     <string name="registration_place_success">Registered the selected location</string>
+
+    <string name="title_activity_event_detail">Event Detail</string>
+    <string name="title_activity_event_list">Event List</string>
 </resources>

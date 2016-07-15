@@ -67,6 +67,13 @@
         <activity
             android:name=".ui.PlaceSearchActivity"
             android:label="@string/title_activity_place_search" />
+
+        <activity
+            android:name=".ui.EventListActivity"
+            android:label="@string/title_activity_event_list" />
+        <activity
+            android:name=".ui.EventDetailActivity"
+            android:label="@string/title_activity_event_detail" />
     </application>
 
 </manifest>

@@ -32,9 +32,15 @@
     <string name="label_station">最寄り駅: </string>
     <string name="label_url">URL: </string>
     <string name="label_memo">メモ: </string>
+    <string name="label_period">期間: </string>
+    <string name="label_detail">詳細: </string>
+    <string name="label_event_place">場所名: </string>
     <string name="linkt_to_places_map"><u>場所の一覧を地図で見る</u></string>
     <string name="twitter_login">ログイン</string>
     <string name="title_activity_place_search">場所検索</string>
     <string name="registration_place">選択した場所を登録する</string>
     <string name="registration_place_success">場所を登録しました</string>
+
+    <string name="title_activity_event_detail">イベント詳細</string>
+    <string name="title_activity_event_list">イベント一覧</string>
 </resources>
