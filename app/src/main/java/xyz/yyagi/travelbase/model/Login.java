@@ -27,6 +27,7 @@ public class Login {
     public User user;
     public SystemData placeSystemData;
     public SystemData travelSystemData;
+    public SystemData eventSystemData;
 
     public Login(Context context) {
         this.mContext = context;
@@ -45,6 +46,7 @@ public class Login {
         mCalendar.add(Calendar.HOUR, -9);
         placeSystemData = mRealm.where(SystemData.class).equalTo("table_name", Place.class.toString()).findFirst();
         travelSystemData = mRealm.where(SystemData.class).equalTo("table_name", Travel.class.toString()).findFirst();
+        travelSystemData = mRealm.where(SystemData.class).equalTo("table_name", Event.class.toString()).findFirst();
         user = mRealm.where(User.class).findFirst();
     }
 
@@ -67,6 +69,17 @@ public class Login {
             mRealm.copyToRealmOrUpdate(place);
         }
         updateApiLastAcquisitionTime(placeSystemData, Place.class.toString());
+        mRealm.commitTransaction();
+    }
+
+    public void saveEventList(ArrayList<Event> eventList) {
+        User user = mRealm.where(User.class).findFirst();
+        mRealm.beginTransaction();
+        for (Event event: eventList) {
+            event.setUser_id(user.getUid());
+            mRealm.copyToRealmOrUpdate(event);
+        }
+        updateApiLastAcquisitionTime(eventSystemData, Event.class.toString());
         mRealm.commitTransaction();
     }
 
@@ -99,6 +112,8 @@ public class Login {
                 mRealm.where(Place.class).equalTo("id", Integer.valueOf(deletedData.datum_id)).findAll().deleteAllFromRealm();
             } else if (deletedData.table_name.equals("travesl")) {
                 mRealm.where(Travel.class).equalTo("id", Integer.valueOf(deletedData.datum_id)).findAll().deleteAllFromRealm();
+            } else if (deletedData.table_name.equals("events")) {
+                mRealm.where(Event.class).equalTo("id", Integer.valueOf(deletedData.datum_id)).findAll().deleteAllFromRealm();
             }
         }
         mRealm.commitTransaction();

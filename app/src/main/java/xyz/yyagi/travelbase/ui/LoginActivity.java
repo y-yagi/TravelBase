@@ -37,6 +37,7 @@ import xyz.yyagi.travelbase.BuildConfig;
 import xyz.yyagi.travelbase.R;
 import xyz.yyagi.travelbase.model.Authorization;
 import xyz.yyagi.travelbase.model.DeletedData;
+import xyz.yyagi.travelbase.model.Event;
 import xyz.yyagi.travelbase.model.Login;
 import xyz.yyagi.travelbase.model.Place;
 import xyz.yyagi.travelbase.model.SystemData;
@@ -202,6 +203,35 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             @Override
             public void onSuccess(Response response, ArrayList<Place> placeList) {
                 mLogin.savePlaceList(placeList);
+                fetchEventList();
+            }
+
+            @Override
+            public void onError(WaspError waspError) {
+                mProgressDialog.dismiss();
+                Log.d(TAG, waspError.getErrorMessage());
+                // failure to get the latest data, the process continues with past data
+                startStartPointActivity();
+            }
+        });
+    }
+
+    private void fetchEventList() {
+        TravelBaseService service = TravelBaseServiceBuilder.build(this);
+        String authHeader = TravelBaseServiceBuilder.makeBearerAuthHeader();
+        HashMap<String, String> query = TravelBaseServiceBuilder.makeResourceOwnerInfo();
+        if (query != null) {
+            query.put("fields", "*");
+
+            if (mLogin.eventSystemData != null) {
+                query.put("updated_at", DateUtil.formatWithTime(mLogin.eventSystemData.getApi_last_acquisition_time()));
+            }
+        }
+
+        service.events(authHeader, "v1", query, new com.orhanobut.wasp.Callback<ArrayList<Event>>() {
+            @Override
+            public void onSuccess(Response response, ArrayList<Event> eventList) {
+                mLogin.saveEventList(eventList);
                 fetchDeletedData();
             }
 
