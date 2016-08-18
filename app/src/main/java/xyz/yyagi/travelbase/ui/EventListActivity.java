@@ -57,7 +57,7 @@ public class EventListActivity extends BaseActivity {
     private RealmResults<Event> getEvents() {
         Realm realm = RealmBuilder.getRealmInstance(this);
         RealmResults<Event> events = realm.where(Event.class)
-                .findAllSorted("id", Sort.DESCENDING);
+                .findAllSorted("start_date", Sort.DESCENDING);
         return events;
     }
 }
