@@ -32,6 +32,7 @@ public class EventListActivity extends BaseActivity {
 
         displayEvents();
         setupDrawer();
+        drawer.setSelection(BaseActivity.DRAWER_EVENT_LIST, false);
     }
 
     private void displayEvents() {

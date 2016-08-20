@@ -27,11 +27,13 @@ import xyz.yyagi.travelbase.util.HelpUtils;
 
 public class BaseActivity extends AppCompatActivity {
     private Activity mActivity;
-    private static final int DRAWER_TRAVEL_LIST = 1;
-    private static final int DRAWER_LOGOUT = 2;
-    private static final int DRAWER_DETAIL = 3;
-    private static final int DRAWER_PLACE_LIST = 4;
-    private static final int DRAWER_EVENT_LIST = 5;
+
+    protected static final int DRAWER_TRAVEL_LIST = 1;
+    protected static final int DRAWER_LOGOUT = 2;
+    protected static final int DRAWER_DETAIL = 3;
+    protected static final int DRAWER_PLACE_LIST = 4;
+    protected static final int DRAWER_EVENT_LIST = 5;
+    protected Drawer drawer;
 
     protected  void setupDrawer() {
         mActivity = this;
@@ -49,7 +51,7 @@ public class BaseActivity extends AppCompatActivity {
                 .build();
 
 
-        Drawer drawer = new DrawerBuilder()
+        drawer = new DrawerBuilder()
                 .withActivity(this)
                 .withToolbar(toolbar)
                 .withAccountHeader(headerResult)

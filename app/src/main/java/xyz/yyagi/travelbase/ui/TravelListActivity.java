@@ -46,6 +46,7 @@ public class TravelListActivity extends BaseActivity implements MaterialTabListe
             mTabHost.addTab(mTabHost.newTab().setText(mPageTitles[i]).setTabListener(this));
         }
         setupDrawer();
+        drawer.setSelection(BaseActivity.DRAWER_TRAVEL_LIST, false);
     }
 
     @Override
