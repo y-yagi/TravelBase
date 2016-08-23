@@ -37,6 +37,7 @@ public class PlaceListActivity extends BaseActivity implements View.OnClickListe
 
         displayPlaces();
         setupDrawer();
+        drawer.setSelection(BaseActivity.DRAWER_PLACE_LIST, false);
     }
 
     private void displayPlaces() {
