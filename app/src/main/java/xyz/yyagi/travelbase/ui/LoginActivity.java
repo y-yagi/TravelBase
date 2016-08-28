@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.common.AccountPicker;
 import com.google.android.gms.common.SignInButton;
+import com.google.firebase.crash.FirebaseCrash;
 import com.orhanobut.wasp.Response;
 import com.orhanobut.wasp.WaspError;
 import com.orhanobut.wasp.WaspRequest;
