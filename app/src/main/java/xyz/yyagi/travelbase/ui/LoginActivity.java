@@ -12,6 +12,7 @@ import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.common.AccountPicker;
 import com.google.android.gms.common.SignInButton;
 import com.google.firebase.crash.FirebaseCrash;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.orhanobut.wasp.Response;
 import com.orhanobut.wasp.WaspError;
 import com.orhanobut.wasp.WaspRequest;
@@ -148,7 +149,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
                 mLogin.saveUser(mUser);
                 TravelBaseServiceBuilder.user = mUser;
-                fetchTravelList();
+                registrateToken();
             }
 
             @Override
@@ -156,6 +157,27 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 mProgressDialog.dismiss();
                 Toast.makeText(mActivity, getString(R.string.login_faiure), Toast.LENGTH_LONG).show();
                 Log.d(TAG, waspError.getErrorMessage());
+            }
+        });
+    }
+    private void registrateToken() {
+        TravelBaseService service = TravelBaseServiceBuilder.build(this);
+        String authHeader = TravelBaseServiceBuilder.makeBearerAuthHeader();
+        HashMap<String, String> query = TravelBaseServiceBuilder.makeResourceOwnerInfo();
+        HashMap<String, String> body = new HashMap<String, String>();
+        body.put("token",  FirebaseInstanceId.getInstance().getToken());
+
+        service.registrateToken(authHeader, "v1", query, body, new com.orhanobut.wasp.Callback<User>() {
+            @Override
+            public void onSuccess(Response response, User user) {
+                fetchTravelList();
+            }
+
+            @Override
+            public void onError(WaspError waspError) {
+                mProgressDialog.dismiss();
+                Log.d(TAG, waspError.getErrorMessage());
+                fetchTravelList();
             }
         });
     }
