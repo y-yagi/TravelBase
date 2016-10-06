@@ -34,7 +34,9 @@ public class Login {
     }
 
     public void init() {
-        RealmConfiguration realmConfiguration = new RealmConfiguration.Builder(this.mContext)
+        Realm.init(mContext);
+        // TODO: remove this line
+        RealmConfiguration realmConfiguration = new RealmConfiguration.Builder()
                 .deleteRealmIfMigrationNeeded()
                 .build();
 
