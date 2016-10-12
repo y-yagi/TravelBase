@@ -86,10 +86,10 @@ dependencies {
         transitive = true
     }
     compile 'com.mikepenz:fontawesome-typeface:4.6.0.3@aar'
-    compile('com.twitter.sdk.android:twitter:2.0.1@aar') {
+    compile('com.twitter.sdk.android:twitter:2.1.1@aar') {
         transitive = true;
     }
-    compile('com.crashlytics.sdk.android:crashlytics:2.6.4@aar') {
+    compile('com.crashlytics.sdk.android:crashlytics:2.6.5@aar') {
         transitive = true;
     }
 
