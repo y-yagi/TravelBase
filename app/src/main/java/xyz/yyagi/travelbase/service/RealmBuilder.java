@@ -10,7 +10,7 @@ import io.realm.RealmConfiguration;
  */
 public class RealmBuilder {
     public static Realm getRealmInstance(Context context) {
-        // TODO: remove context
+        Realm.init(context);
         return Realm.getDefaultInstance();
     }
 
