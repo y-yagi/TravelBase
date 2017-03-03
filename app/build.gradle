@@ -64,6 +64,7 @@ android {
         exclude 'META-INF/LICENSE.txt'
         exclude 'LICENSE.txt'
     }
+    buildToolsVersion '25.0.0'
 }
 
 dependencies {
