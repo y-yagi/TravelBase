@@ -16,10 +16,13 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.orhanobut.wasp.Response;
 import com.orhanobut.wasp.WaspError;
 import com.orhanobut.wasp.WaspRequest;
-import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.Callback;
+import com.twitter.sdk.android.core.DefaultLogger;
 import com.twitter.sdk.android.core.Result;
+import com.twitter.sdk.android.core.Twitter;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
+import com.twitter.sdk.android.core.TwitterConfig;
+import com.twitter.sdk.android.core.TwitterCore;
 import com.twitter.sdk.android.core.TwitterException;
 import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.core.identity.TwitterLoginButton;
@@ -75,7 +78,12 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
-        Fabric.with(this, new Crashlytics(), new Twitter(authConfig));
+        TwitterConfig config = new TwitterConfig.Builder(this)
+                .logger(new DefaultLogger(Log.DEBUG))
+                .twitterAuthConfig(new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET))
+                .debug(true)
+                .build();
+        Twitter.initialize(config);
 
         mActivity = this;
         mLogin = new Login(this);
@@ -307,7 +315,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         mTwitterLoginButton.setCallback(new Callback<TwitterSession>() {
             @Override
             public void success(Result<TwitterSession> result) {
-                TwitterSession session = Twitter.getSessionManager().getActiveSession();
+                TwitterSession session = TwitterCore.getInstance().getSessionManager().getActiveSession();
                 authenticate(String.valueOf(session.getUserId()), TravelBaseService.PROVIDER_TWITTER);
             }
 
