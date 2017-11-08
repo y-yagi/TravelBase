@@ -5,7 +5,7 @@ jdk:
 
 android:
   components:
-    - android-25
+    - android-27
     - tools
     - build-tools-23.0.3
     - extra-google-google_play_services
