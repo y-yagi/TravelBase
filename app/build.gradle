@@ -25,7 +25,7 @@ android {
     defaultConfig {
         applicationId "xyz.yyagi.travelbase"
         minSdkVersion 16
-        targetSdkVersion 25
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
 
@@ -87,7 +87,7 @@ dependencies {
     compile 'com.github.orhanobut:wasp:1.15'
     compile 'it.neokree:MaterialTabs:0.11'
     compile 'com.facebook.conceal:conceal:2.0.1@aar'
-    compile('com.mikepenz:materialdrawer:6.0.0@aar') {
+    compile('com.mikepenz:materialdrawer:6.0.1@aar') {
         transitive = true
     }
     compile 'com.mikepenz:fontawesome-typeface:4.7.0.2@aar'
@@ -102,8 +102,8 @@ dependencies {
     compile 'com.github.vajro:MaterialDesignLibrary:1.6'
 
     // Testing-only dependencies
-    androidTestCompile 'com.android.support.test:runner:0.5'
-    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
+    androidTestCompile 'com.android.support.test:runner:1.0.1'
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:3.0.1'
     androidTestCompile "com.android.support:support-annotations:${support_lib_version}"
 }
 
